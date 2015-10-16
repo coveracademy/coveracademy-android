@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Cover Academy</string>
+    <string name="facebook_app_id">329761620528304</string>
+    <string name="title_activity_face_connect">FaceConnect</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
