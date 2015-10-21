@@ -5,26 +5,35 @@
     android:id="@+id/audition"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="-3dp"
+    android:layout_marginStart="-3dp"
+    android:layout_marginRight="-3dp"
+    android:layout_marginEnd="-3dp"
+    android:layout_marginBottom="@dimen/content_margin"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardUseCompatPadding="true"
-    app:cardPreventCornerOverlap="true"
-    app:cardElevation="2dp"
-    app:contentPadding="15dp">
+    app:cardPreventCornerOverlap="false"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/content_margin"
+        android:paddingBottom="@dimen/content_margin">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/content_margin"
+            android:paddingRight="@dimen/content_margin">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_avatar"
                 android:layout_width="@dimen/avatar_small"
-                android:layout_height="@dimen/avatar_micro"
+                android:layout_height="@dimen/avatar_small"
                 android:src="@drawable/no_avatar"/>
 
             <TextView
@@ -32,9 +41,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/content_margin"
-                android:layout_marginStart="@dimen/content_margin"/>
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/username"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="true"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/audition_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"/>
 
     </LinearLayout>
 

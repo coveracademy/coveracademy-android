@@ -2,10 +2,13 @@ package com.coveracademy;
 
 import android.support.multidex.MultiDexApplication;
 
-import com.coveracademy.api.model.Avatar;
+import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +18,8 @@ public class CoverAcademyApplication extends MultiDexApplication {
 
   private User user;
   private Map<Long, User> usersById;
-  private Map<Long, Avatar> avatarsByUserId;
+  private Map<Long, Contest> contestsById;
+  private List<Audition> auditions;
 
   @Override
   public void onCreate() {
@@ -25,31 +29,43 @@ public class CoverAcademyApplication extends MultiDexApplication {
 
   private void setup() {
     usersById = new HashMap<>();
-    avatarsByUserId = new HashMap<>();
+    contestsById = new HashMap<>();
+    auditions = new ArrayList<>();
   }
 
   public User getUser() {
     return user;
   }
 
-  public User getUser(Long id) {
-    return usersById.get(id);
-  }
-
   public void setUser(User user) {
     this.user = user;
   }
 
-  public void addUser(User user) {
-    usersById.put(user.getId(), user);
+  public void addUsers(List<User> users) {
+    for(User user : users) {
+      usersById.put(user.getId(), user);
+    }
   }
 
-  public Avatar getAvatar(User user) {
-    return avatarsByUserId.get(user.getId());
+  public User getUser(Long id) {
+    return usersById.get(id);
   }
 
-  public void setAvatar(User user, Avatar avatar) {
-    avatarsByUserId.put(user.getId(), avatar);
+  public void addContests(List<Contest> contests) {
+    for(Contest contest : contests) {
+      contestsById.put(contest.getId(), contest);
+    }
   }
 
+  public Contest getContest(Long id) {
+    return contestsById.get(id);
+  }
+
+  public void setAuditions(List<Audition> auditions) {
+    this.auditions = auditions;
+  }
+
+  public List<Audition> listAuditions() {
+    return auditions;
+  }
 }

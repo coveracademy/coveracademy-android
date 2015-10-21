@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.coveracademy.CoverAcademyApplication;
 import com.coveracademy.R;
 import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.util.ApplicationUtils;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by sandro on 15/10/15.
@@ -26,8 +29,13 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
   private CoverAcademyApplication application;
 
   public AuditionsAdapter(Context context) {
-    super(context, new ArrayList<Audition>());
+    super(context, listAuditions(context));
     application = ApplicationUtils.getApplication(context);
+  }
+
+  private static List<Audition> listAuditions(Context context) {
+    CoverAcademyApplication application = ApplicationUtils.getApplication(context);
+    return application.listAuditions();
   }
 
   @Override
@@ -39,23 +47,22 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
   @Override
   public void onBindViewHolder(AuditionViewHolder holder, int position) {
     Audition audition = getItem(position);
+    Contest contest = application.getContest(audition.getContestId());
     User user = application.getUser(audition.getUserId());
     holder.userNameView.setText(user.getName());
     holder.userAvatarView.setImageResource(R.drawable.no_avatar);
-  }
-
-  @Override
-  public int getItemCount() {
-    return 0;
+    Picasso.with(getContext()).load(audition.getLargeThumbnail()).into(holder.auditionThumbnailView);
   }
 
   public class AuditionViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.user_avatar) ImageView userAvatarView;
     @Bind(R.id.user_name) TextView userNameView;
+    @Bind(R.id.audition_thumbnail) ImageView auditionThumbnailView;
 
     public AuditionViewHolder(View itemView) {
       super(itemView);
+      ButterKnife.bind(this, itemView);
     }
   }
 }
