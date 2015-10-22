@@ -34,13 +34,13 @@ android {
   }
   buildTypes {
     release {
-      resValue "string", "GOOGLE_API_KEY", System.properties['GOOGLE_API_RELEASE_KEY']
+      resValue "string", "google_api_key", System.properties['GOOGLE_API_RELEASE_KEY']
       minifyEnabled false
       shrinkResources false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
     debug {
-      resValue "string", "GOOGLE_API_KEY", System.properties['GOOGLE_API_DEBUG_KEY']
+      resValue "string", "google_api_key", System.properties['GOOGLE_API_DEBUG_KEY']
       minifyEnabled false
       shrinkResources false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
