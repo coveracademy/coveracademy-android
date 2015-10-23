@@ -1,61 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/audition"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="-3dp"
-    android:layout_marginStart="-3dp"
-    android:layout_marginRight="-3dp"
-    android:layout_marginEnd="-3dp"
-    android:layout_marginBottom="@dimen/content_margin"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardUseCompatPadding="true"
-    app:cardPreventCornerOverlap="false"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="2dp">
+    android:paddingBottom="40dp">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/content_margin"
-        android:paddingBottom="@dimen/content_margin">
+        android:padding="@dimen/content_margin"
+        android:background="@color/username_background">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/content_margin"
-            android:paddingRight="@dimen/content_margin">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="@dimen/avatar_small"
+            android:layout_height="@dimen/avatar_small"
+            android:src="@drawable/no_avatar"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_avatar"
-                android:layout_width="@dimen/avatar_small"
-                android:layout_height="@dimen/avatar_small"
-                android:src="@drawable/no_avatar"/>
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginStart="@dimen/content_margin"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/username"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_small"
+            android:textAllCaps="true"/>
 
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/content_margin"
-                android:layout_marginStart="@dimen/content_margin"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/username"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_medium"
-                android:textAllCaps="true"/>
+    </LinearLayout>
 
-        </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/audition_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"/>
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/player_overlay"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/content_margin"
+        android:paddingLeft="@dimen/content_margin"
+        android:paddingRight="@dimen/content_margin"
+        android:gravity="center_vertical">
+
+        <com.rey.material.widget.Button
+            style="@style/FlatSmallButton"
+            android:id="@+id/vote"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/vote"
+            android:textAllCaps="true"/>
+
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginStart="@dimen/content_margin"
+            android:src="@drawable/comment"/>
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

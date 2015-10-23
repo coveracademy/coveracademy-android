@@ -12,13 +12,35 @@ android {
     versionName '1.0'
     multiDexEnabled true
   }
+  signingConfigs {
+    release {
+      String keyDirectory = "${System.env.KEYSTORES_DIR}"
+      File secureProperties = file(keyDirectory.concat("secure.properties"))
+      if(secureProperties.exists()) {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(secureProperties))
+        storeFile file(keyDirectory.concat(properties.getProperty('signing.storeFilePath')))
+        storePassword properties.getProperty('signing.storePassword')
+        keyAlias properties.getProperty('signing.keyAlias')
+        keyPassword properties.getProperty('signing.keyPassword')
+      }
+    }
+    debug {
+      storeFile rootProject.file('keystores/debug.keystore')
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+      storePassword 'android'
+    }
+  }
   buildTypes {
     release {
+      resValue "string", "google_api_key", System.properties['GOOGLE_API_RELEASE_KEY']
       minifyEnabled false
       shrinkResources false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
     debug {
+      resValue "string", "google_api_key", System.properties['GOOGLE_API_DEBUG_KEY']
       minifyEnabled false
       shrinkResources false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -61,6 +83,7 @@ dependencies {
   compile 'com.jakewharton:butterknife:7.0.1'
   compile 'com.squareup.picasso:picasso:2.5.2'
   compile 'de.hdodenhof:circleimageview:2.0.0'
+  compile 'com.github.rey5137:material:1.2.1'
   compile 'com.facebook.android:facebook-android-sdk:4.7.0'
   compile 'com.google.apis:google-api-services-youtube:v3-rev150-1.20.0'
   compile files('libs/YouTubeAndroidPlayerApi.jar')

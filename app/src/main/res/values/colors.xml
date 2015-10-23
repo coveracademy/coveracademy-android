@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="primary">#03a9f4</color>
+    <color name="primary_dark">#0288d1</color>
+    <color name="accent">#FF4081</color>
 
-    <color name="username">#0b76cc</color>
+    <color name="window_background">#f1f1f1</color>
+    <color name="cab_background">#727272</color>
+
+    <color name="username">#2a82a7</color>
+    <color name="username_background">#f9f9f9</color>
+
+    <color name="divider">#d1d1d1</color>
+    <color name="divider_light">#f1f1f1</color>
+
+    <color name="button_flat">#2a82a7</color>
+    <color name="button_flat_pressed">#992a82a7</color>
+    <color name="button_flat_disabled">#552a82a7</color>
 </resources>

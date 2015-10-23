@@ -34,13 +34,11 @@ public class FaceConnect extends AppCompatActivity {
   TextView textView1;
 
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     FacebookSdk.sdkInitialize(getApplicationContext());
     setContentView(R.layout.activity_face_connect);
-
 
     callbackManager = CallbackManager.Factory.create();
     btFaceConnect = (LoginButton) findViewById(R.id.btFaceConnect);
