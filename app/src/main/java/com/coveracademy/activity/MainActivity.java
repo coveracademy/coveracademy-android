@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.coveracademy.CoverAcademyApplication;
@@ -13,9 +14,12 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.view.AuditionsView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.util.ApplicationUtils;
+import com.coveracademy.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
+import org.jdeferred.ProgressCallback;
+import org.jdeferred.Promise;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
   private CoverAcademyApplication application;
   private AuditionsAdapter auditionsAdapter;
 
+  @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.auditions) RecyclerView auditionsView;
 
   @Override
@@ -41,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
     remoteService = RemoteService.getInstance(this);
     application = ApplicationUtils.getApplication(this);
 
+    setupToolbar();
     setupContestView();
+    setTitle(getString(R.string.auditions));
+  }
+
+  private void setupToolbar() {
+    setSupportActionBar(toolbar);
   }
 
   private void setupAuditions() {
@@ -63,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onFail(APIException e) {
         Log.e(TAG, "Error loading contest view", e);
+      }
+    }).progress(new ProgressCallback<Promise.State>() {
+      @Override
+      public void onProgress(Promise.State progress) {
+        if(progress.equals(Promise.State.PENDING))  {
+          UIUtils.showProgressBar(instance);
+        } else {
+          UIUtils.hideProgressBar(instance);
+        }
       }
     });
   }

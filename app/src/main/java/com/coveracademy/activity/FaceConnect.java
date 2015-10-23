@@ -5,12 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -22,13 +19,12 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 public class FaceConnect extends AppCompatActivity {
 
   private CallbackManager callbackManager;
-  LoginButton btFaceConnect;
-  @Bind(R.id.textView1) TextView textView1;
+  private LoginButton facebookLoginButton;
+  @Bind(R.id.title) TextView titleView;
 
 
   @Override
@@ -38,14 +34,14 @@ public class FaceConnect extends AppCompatActivity {
     setContentView(R.layout.activity_face_connect);
 
       callbackManager = CallbackManager.Factory.create();
-      btFaceConnect = (LoginButton) findViewById(R.id.btFaceConnect);
-      btFaceConnect.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+      facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login);
+      facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
           Profile profile = Profile.getCurrentProfile();
           Toast.makeText(getBaseContext(), "Connected!", Toast.LENGTH_LONG);
-          textView1.append(profile.getName());
-          textView1.append("-" + profile.getFirstName());
+          titleView.append(profile.getName());
+          titleView.append("-" + profile.getFirstName());
 
         }
 
