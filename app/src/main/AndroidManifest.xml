@@ -44,7 +44,7 @@
             android:name=".activity.VideoViewAct"
             android:label="@string/title_activity_video_view"/>
         <activity
-            android:name=".activity.CamCaptureAct"
+            android:name=".activity.JoinContestActivity"
             android:label="@string/title_activity_cam_capture"/>
     </application>
 

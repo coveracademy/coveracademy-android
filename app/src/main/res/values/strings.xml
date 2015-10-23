@@ -1,15 +1,27 @@
 <resources>
+
     <string name="app_name">Cover Academy</string>
     <string name="facebook_client_id">329761620528304</string>
 
     <string name="title_activity_face_connect">FaceConnect</string>
     <string name="title_activity_youtube_player">Youtube Player Activity</string>
     <string name="title_activity_video_view">Video View</string>
+    <string name="title_activity_cam_capture">CamCaptureAct</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="vote">Vote</string>
-    <string name="auditions">Auditions</string>
-    <string name="title_activity_cam_capture">CamCaptureAct</string>
+    <string name="activity_main_title">Auditions</string>
+    <string name="activity_main_bubble_separator">•</string>
+    <string name="activity_main_vote">Vote</string>
+    <string name="activity_main_total_votes">%1$s votes</string>
+    <string name="activity_main_total_comments">%1$s comments</string>
+    <string name="activity_main_alert_error_loading_auditions">Couldn\'t load auditions, please try again later!</string>
+
+    <!-- Alerts -->
+    <string name="message_no_internet_connection">Your internet connection was lost</string>
+    <string name="message_no_internet_access">Ops! It seems that you have no internet access. Can you check this?</string>
+    <string name="message_connection_timeout">The connection to our servers took too long, is your internet connection OK?</string>
+    <string name="message_authentication_error">Couldn\'t authenticate your account, please try again later!</string>
+
 </resources>

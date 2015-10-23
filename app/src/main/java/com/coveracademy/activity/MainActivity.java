@@ -1,11 +1,14 @@
 package com.coveracademy.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.coveracademy.CoverAcademyApplication;
 import com.coveracademy.R;
@@ -23,6 +26,7 @@ import org.jdeferred.Promise;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
   private CoverAcademyApplication application;
   private AuditionsAdapter auditionsAdapter;
 
+  @Bind(R.id.coordinator_layout) View coordinatorLayout;
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.auditions) RecyclerView auditionsView;
+  @Bind(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,43 +53,65 @@ public class MainActivity extends AppCompatActivity {
     application = ApplicationUtils.getApplication(this);
 
     setupToolbar();
-    setupContestView();
-    setTitle(getString(R.string.auditions));
+    setupAuditionsAdapter();
+    setupAuditionsView();
+    setupRefreshLayout();
+    setTitle(getString(R.string.activity_main_title));
   }
 
   private void setupToolbar() {
     setSupportActionBar(toolbar);
   }
 
-  private void setupAuditions() {
+  private void setupRefreshLayout() {
+    UIUtils.defaultSwipeRefreshLayout(refreshLayout);
+    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        setupAuditionsView();
+      }
+    });
+  }
+
+  private void setupAuditionsAdapter() {
     auditionsAdapter = new AuditionsAdapter(this);
     auditionsView.setLayoutManager(new LinearLayoutManager(this));
     auditionsView.setAdapter(auditionsAdapter);
   }
 
-  private void setupContestView() {
+  private void setupAuditionsView() {
     remoteService.getViewService().auditionsView().then(new DoneCallback<AuditionsView>() {
       @Override
       public void onDone(AuditionsView auditionsView) {
         application.addContests(auditionsView.getContests());
         application.addUsers(auditionsView.getUsers());
         application.setAuditions(auditionsView.getAuditions());
-        setupAuditions();
+        application.setTotalVotes(auditionsView.getTotalVotes());
+        application.setTotalComments(auditionsView.getTotalComments());
+        auditionsAdapter.reloadItems();
       }
     }).fail(new FailCallback<APIException>() {
       @Override
       public void onFail(APIException e) {
-        Log.e(TAG, "Error loading contest view", e);
+        Log.e(TAG, "Error loading auditions view", e);
+        UIUtils.alert(coordinatorLayout, e, getString(R.string.activity_main_alert_error_loading_auditions));
       }
     }).progress(new ProgressCallback<Promise.State>() {
       @Override
       public void onProgress(Promise.State progress) {
-        if(progress.equals(Promise.State.PENDING))  {
+        if(progress.equals(Promise.State.PENDING)) {
           UIUtils.showProgressBar(instance);
         } else {
           UIUtils.hideProgressBar(instance);
+          refreshLayout.setRefreshing(false);
         }
       }
     });
+  }
+
+  @OnClick(R.id.join_contest)
+  void onJoinContestClick() {
+    Intent joinContestIntent = new Intent(this, JoinContestActivity.class);
+    startActivity(joinContestIntent);
   }
 }

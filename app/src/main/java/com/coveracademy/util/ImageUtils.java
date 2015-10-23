@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
  */
 public class ImageUtils {
 
-  private static final String FACEBOOK_PICTURE_URL = "http://graph.facebook.com/v2.2/%s/picture?type=large";
+  private static final String FACEBOOK_PICTURE_URL = "https://graph.facebook.com/v2.2/%s/picture?type=large";
 
   private ImageUtils() {
 

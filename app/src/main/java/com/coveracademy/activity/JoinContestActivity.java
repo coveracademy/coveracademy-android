@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 import java.io.File;
 
-public class CamCaptureAct extends AppCompatActivity {
+public class JoinContestActivity extends AppCompatActivity {
 
   @Bind(R.id.buttonRec) Button buttonRec;
   @Bind(R.id.videoView1)VideoView videoView;

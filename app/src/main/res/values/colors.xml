@@ -8,7 +8,6 @@
     <color name="cab_background">#727272</color>
 
     <color name="username">#2a82a7</color>
-    <color name="username_background">#f9f9f9</color>
 
     <color name="divider">#d1d1d1</color>
     <color name="divider_light">#f1f1f1</color>
@@ -16,4 +15,8 @@
     <color name="button_flat">#2a82a7</color>
     <color name="button_flat_pressed">#992a82a7</color>
     <color name="button_flat_disabled">#552a82a7</color>
+
+    <color name="swipe_refresh_first_color">#03a9f4</color>
+    <color name="swipe_refresh_second_color">#ac03f4</color>
+    <color name="swipe_refresh_third_color">#f49003</color>
 </resources>

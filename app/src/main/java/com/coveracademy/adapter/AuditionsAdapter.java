@@ -39,6 +39,12 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
   }
 
   @Override
+  public void reloadItems() {
+    setItems(listAuditions(getContext()));
+    super.reloadItems();
+  }
+
+  @Override
   public AuditionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(getContext()).inflate(R.layout.item_audition, parent, false);
     return new AuditionViewHolder(view);
@@ -50,6 +56,8 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
     Contest contest = application.getContest(audition.getContestId());
     User user = application.getUser(audition.getUserId());
     holder.userNameView.setText(user.getName());
+    holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, application.getTotalVotes(audition) != null ? application.getTotalVotes(audition) : 0));
+    holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, application.getTotalComments(audition) != null ? application.getTotalComments(audition) : 0));
     ImageUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
     ImageUtils.setPicture(getContext(), user, holder.userAvatarView);
   }
@@ -59,6 +67,8 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
     @Bind(R.id.user_avatar) ImageView userAvatarView;
     @Bind(R.id.user_name) TextView userNameView;
     @Bind(R.id.audition_thumbnail) ImageView auditionThumbnailView;
+    @Bind(R.id.total_votes) TextView totalVotesView;
+    @Bind(R.id.total_comments) TextView totalCommentsView;
 
     public AuditionViewHolder(View itemView) {
       super(itemView);

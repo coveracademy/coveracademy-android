@@ -20,6 +20,8 @@ public class CoverAcademyApplication extends MultiDexApplication {
   private Map<Long, User> usersById;
   private Map<Long, Contest> contestsById;
   private List<Audition> auditions;
+  private Map<Long, Long> totalVotes;
+  private Map<Long, Long> totalComments;
 
   @Override
   public void onCreate() {
@@ -30,6 +32,9 @@ public class CoverAcademyApplication extends MultiDexApplication {
   private void setup() {
     usersById = new HashMap<>();
     contestsById = new HashMap<>();
+    totalVotes = new HashMap<>();
+    totalComments = new HashMap<>();
+
     auditions = new ArrayList<>();
   }
 
@@ -67,5 +72,21 @@ public class CoverAcademyApplication extends MultiDexApplication {
 
   public List<Audition> listAuditions() {
     return auditions;
+  }
+
+  public void setTotalVotes(Map<Long, Long> totalVotes) {
+    this.totalVotes = totalVotes;
+  }
+
+  public Long getTotalVotes(Audition audition) {
+    return totalVotes.get(audition.getId());
+  }
+
+  public void setTotalComments(Map<Long, Long> totalComments) {
+    this.totalComments = totalComments;
+  }
+
+  public Long getTotalComments(Audition audition) {
+    return totalComments.get(audition.getId());
   }
 }

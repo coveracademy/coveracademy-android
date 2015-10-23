@@ -11,8 +11,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/content_margin"
-        android:background="@color/username_background">
+        android:padding="@dimen/content_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_avatar"
@@ -66,7 +65,7 @@
             android:id="@+id/vote"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="@string/vote"
+            android:text="@string/activity_main_vote"
             android:textAllCaps="true"/>
 
         <ImageView
@@ -76,6 +75,47 @@
             android:layout_marginLeft="@dimen/content_margin"
             android:layout_marginStart="@dimen/content_margin"
             android:src="@drawable/comment"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/content_margin"
+        android:paddingLeft="@dimen/content_margin"
+        android:paddingRight="@dimen/content_margin"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/total_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_main_total_votes"
+            android:textColor="@color/username"
+            android:textSize="@dimen/text_small"
+            android:textAllCaps="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/activity_main_bubble_separator"
+            android:textColor="@color/username"
+            android:textSize="@dimen/text_small"
+            android:textAllCaps="false"/>
+
+        <TextView
+            android:id="@+id/total_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_main_total_comments"
+            android:textColor="@color/username"
+            android:textSize="@dimen/text_small"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
