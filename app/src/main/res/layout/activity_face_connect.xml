@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Large T"
         android:id="@+id/textView1" android:layout_below="@+id/btFaceConnect" android:layout_alignParentLeft="true" android:layout_alignParentStart="true" android:layout_marginTop="59dp"/>
 
 </RelativeLayout>
