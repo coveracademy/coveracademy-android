@@ -22,7 +22,7 @@ public class User {
   private String googlePicture;
   private String youtubeAccount;
   private String soundcloudAccount;
-  private String profilePicture;
+  private PictureType profilePicture;
   private Date registrationDate;
 
   public Long getId() {
@@ -145,11 +145,11 @@ public class User {
     this.soundcloudAccount = soundcloudAccount;
   }
 
-  public String getProfilePicture() {
+  public PictureType getProfilePicture() {
     return profilePicture;
   }
 
-  public void setProfilePicture(String profilePicture) {
+  public void setProfilePicture(PictureType profilePicture) {
     this.profilePicture = profilePicture;
   }
 

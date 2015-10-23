@@ -44,7 +44,7 @@ public class CamCaptureAct extends AppCompatActivity {
     if (hasCamera()){
       Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
       File mediaFile =
-          new File(Environment.getDataDirectory().getAbsolutePath()+ "/myvideo.mp4");
+          new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/myvideo.mp4");
       Uri videoUri = Uri.fromFile(mediaFile);
       intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
       startActivityForResult(intent, VIDEO_CAPTURE);

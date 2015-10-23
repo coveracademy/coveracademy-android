@@ -14,7 +14,7 @@ import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.util.ApplicationUtils;
-import com.squareup.picasso.Picasso;
+import com.coveracademy.util.ImageUtils;
 
 import java.util.List;
 
@@ -50,8 +50,8 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
     Contest contest = application.getContest(audition.getContestId());
     User user = application.getUser(audition.getUserId());
     holder.userNameView.setText(user.getName());
-    holder.userAvatarView.setImageResource(R.drawable.no_avatar);
-    Picasso.with(getContext()).load(audition.getLargeThumbnail()).into(holder.auditionThumbnailView);
+    ImageUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
+    ImageUtils.setPicture(getContext(), user, holder.userAvatarView);
   }
 
   public class AuditionViewHolder extends RecyclerView.ViewHolder {
