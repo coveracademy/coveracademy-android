@@ -11,4 +11,5 @@
 
     <string name="vote">Vote</string>
     <string name="auditions">Auditions</string>
+    <string name="title_activity_cam_capture">CamCaptureAct</string>
 </resources>

@@ -3,9 +3,10 @@
     package="com.coveracademy" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera"  android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".CoverAcademyApplication"
@@ -39,6 +40,10 @@
         <activity
             android:name=".activity.VideoViewAct"
             android:label="@string/title_activity_video_view" >
+        </activity>
+        <activity
+            android:name=".activity.CamCaptureAct"
+            android:label="@string/title_activity_cam_capture" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
