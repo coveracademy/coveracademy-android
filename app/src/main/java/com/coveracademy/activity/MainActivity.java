@@ -1,46 +1,27 @@
 package com.coveracademy.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 
-import com.coveracademy.CoverAcademyApplication;
 import com.coveracademy.R;
-import com.coveracademy.adapter.AuditionsAdapter;
-import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.view.AuditionsView;
-import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.ApplicationUtils;
-import com.coveracademy.util.UIUtils;
-
-import org.jdeferred.DoneCallback;
-import org.jdeferred.FailCallback;
-import org.jdeferred.ProgressCallback;
-import org.jdeferred.Promise;
+import com.coveracademy.fragment.AuditionsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final String TAG = MainActivity.class.getSimpleName();
+  private TabsAdapter tabsAdapter;
 
-  private MainActivity instance;
-  private RemoteService remoteService;
-  private CoverAcademyApplication application;
-  private AuditionsAdapter auditionsAdapter;
-
-  @Bind(R.id.coordinator_layout) View coordinatorLayout;
+  @Bind(R.id.pager) ViewPager tabsPager;
+  @Bind(R.id.tabs) TabLayout tabs;
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.auditions) RecyclerView auditionsView;
-  @Bind(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,70 +29,61 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
-    instance = this;
-    remoteService = RemoteService.getInstance(this);
-    application = ApplicationUtils.getApplication(this);
-
-    setupToolbar();
-    setupAuditionsAdapter();
-    setupAuditionsView();
-    setupRefreshLayout();
-    setTitle(getString(R.string.activity_main_title));
-  }
-
-  private void setupToolbar() {
+    setupTabs();
     setSupportActionBar(toolbar);
   }
 
-  private void setupRefreshLayout() {
-    UIUtils.defaultSwipeRefreshLayout(refreshLayout);
-    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override
-      public void onRefresh() {
-        setupAuditionsView();
-      }
-    });
-  }
-
-  private void setupAuditionsAdapter() {
-    auditionsAdapter = new AuditionsAdapter(this);
-    auditionsView.setLayoutManager(new LinearLayoutManager(this));
-    auditionsView.setAdapter(auditionsAdapter);
-  }
-
-  private void setupAuditionsView() {
-    remoteService.getViewService().auditionsView().then(new DoneCallback<AuditionsView>() {
-      @Override
-      public void onDone(AuditionsView auditionsView) {
-        application.addContests(auditionsView.getContests());
-        application.addUsers(auditionsView.getUsers());
-        application.setAuditions(auditionsView.getAuditions());
-        application.setTotalVotes(auditionsView.getTotalVotes());
-        application.setTotalComments(auditionsView.getTotalComments());
-        auditionsAdapter.reloadItems();
-      }
-    }).fail(new FailCallback<APIException>() {
-      @Override
-      public void onFail(APIException e) {
-        Log.e(TAG, "Error loading auditions view", e);
-        UIUtils.alert(coordinatorLayout, e, getString(R.string.activity_main_alert_error_loading_auditions));
-      }
-    }).progress(new ProgressCallback<Promise.State>() {
-      @Override
-      public void onProgress(Promise.State progress) {
-        if(progress.equals(Promise.State.PENDING)) {
-          UIUtils.showProgressBar(instance);
-        } else {
-          UIUtils.hideProgressBar(instance);
-          refreshLayout.setRefreshing(false);
+  private void setupTabs() {
+    if(tabsAdapter == null) {
+      tabsAdapter = new TabsAdapter(getSupportFragmentManager());
+      tabsPager.setAdapter(tabsAdapter);
+      tabs.setupWithViewPager(tabsPager);
+      tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+          tabsPager.setCurrentItem(tab.getPosition());
+          setTitle(tabsAdapter.getPageTitle(tab.getPosition()));
         }
-      }
-    });
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+      });
+    }
   }
 
-  @OnClick(R.id.join_contest)
-  void onJoinContestClick() {
-    Intent joinContestIntent = new Intent(this, JoinContestActivity.class);
-    startActivity(joinContestIntent);
+  private class TabsAdapter extends FragmentPagerAdapter {
+
+    private String[] titles;
+    private Fragment[] contents;
+
+    public TabsAdapter(FragmentManager fragmentManager) {
+      super(fragmentManager);
+      titles = new String[] {getString(R.string.activity_main_auditions_title)};
+      contents = new Fragment[] {new AuditionsFragment()};
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+      return contents[position];
+    }
+
+    @Override
+    public int getCount() {
+      return contents.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+      return titles[position];
+    }
   }
+
+
 }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by sandro on 15/10/15.
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.AuditionViewHolder> {
 
   private CoverAcademyApplication application;
+  private OnUserClickListener onUserClickListener;
 
   public AuditionsAdapter(Context context) {
     super(context, listAuditions(context));
@@ -62,6 +64,10 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
     ImageUtils.setPicture(getContext(), user, holder.userAvatarView);
   }
 
+  public void setOnUserClickListener(OnUserClickListener onUserClickListener) {
+    this.onUserClickListener = onUserClickListener;
+  }
+
   public class AuditionViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.user_avatar) ImageView userAvatarView;
@@ -74,5 +80,19 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
+
+    @OnClick(R.id.user_name)
+    void onUserClick(View view) {
+      if(onUserClickListener != null) {
+        Audition audition = getItem(getAdapterPosition());
+        onUserClickListener.onUserClick(audition.getUserId());
+      }
+    }
+  }
+
+  public interface OnUserClickListener {
+
+    void onUserClick(Long userId);
+
   }
 }

@@ -54,6 +54,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
+        <item name="android:background">@android:color/white</item>
+        <item name="tabIndicatorColor">@color/primary</item>
+        <item name="tabIndicatorHeight">6dp</item>
+    </style>
+
     <!-- Buttons -->
     <style name="Button" parent="Material.Drawable.Ripple.Touch.MatchView">
         <item name="android:textColor">@android:color/white</item>

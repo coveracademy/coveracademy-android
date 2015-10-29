@@ -30,6 +30,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.UserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
