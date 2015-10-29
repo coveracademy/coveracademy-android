@@ -34,28 +34,25 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setupTabs() {
-    if(tabsAdapter == null) {
-      tabsAdapter = new TabsAdapter(getSupportFragmentManager());
-      tabsPager.setAdapter(tabsAdapter);
-      tabs.setupWithViewPager(tabsPager);
-      tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-          tabsPager.setCurrentItem(tab.getPosition());
-          setTitle(tabsAdapter.getPageTitle(tab.getPosition()));
-        }
+    tabsAdapter = new TabsAdapter(getSupportFragmentManager());
+    tabsPager.setAdapter(tabsAdapter);
+    tabs.setupWithViewPager(tabsPager);
+    tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override
+      public void onTabSelected(TabLayout.Tab tab) {
+        tabsPager.setCurrentItem(tab.getPosition());
+      }
 
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
+      @Override
+      public void onTabUnselected(TabLayout.Tab tab) {
 
-        }
+      }
 
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
+      @Override
+      public void onTabReselected(TabLayout.Tab tab) {
 
-        }
-      });
-    }
+      }
+    });
   }
 
   private class TabsAdapter extends FragmentPagerAdapter {
