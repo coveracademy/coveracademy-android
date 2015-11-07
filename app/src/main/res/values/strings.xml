@@ -22,6 +22,8 @@
     <string name="activity_main_alert_error_loading_auditions">Couldn\'t load auditions, please try again later!</string>
     <string name="activity_main_alert_error_loading_contests">Couldn\'t load contests, please try again later!</string>
 
+    <string name="activity_user_alert_error_loading_user">Couldn\'t load user, please try again later!</string>
+
     <!-- Alerts -->
     <string name="message_no_internet_connection">Your internet connection was lost</string>
     <string name="message_no_internet_access">Ops! It seems that you have no internet access. Can you check this?</string>

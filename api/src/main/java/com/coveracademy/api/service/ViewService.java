@@ -2,6 +2,7 @@ package com.coveracademy.api.service;
 
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
+import com.coveracademy.api.model.view.UserView;
 import com.coveracademy.api.promise.DefaultPromise;
 import com.coveracademy.api.promise.RequestPromise;
 import com.coveracademy.api.service.rest.builder.GetBuilder;
@@ -30,4 +31,9 @@ public class ViewService extends RestService {
     return new RequestPromise<>(builder);
   }
 
+  public DefaultPromise<UserView> userView(long userId) {
+    GetBuilder builder = getRequestBuilderFactory().get(UserView.class);
+    builder.concatPath("/users/").concatPath(userId);
+    return new RequestPromise<>(builder);
+  }
 }
