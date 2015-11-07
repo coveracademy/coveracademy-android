@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.coveracademy.R;
 import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.squareup.picasso.Picasso;
 
@@ -35,5 +36,9 @@ public class ImageUtils {
 
   public static void setThumbnail(Context context, Audition audition, ImageView imageView) {
     Picasso.with(context).load(audition.getLargeThumbnail()).into(imageView);
+  }
+
+  public static void setImage(Context context, Contest contest, ImageView imageView) {
+    Picasso.with(context).load(contest.getImage()).into(imageView);
   }
 }

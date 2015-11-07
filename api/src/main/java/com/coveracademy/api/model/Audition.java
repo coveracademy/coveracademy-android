@@ -23,6 +23,8 @@ public class Audition {
   private boolean approved;
   private Date registrationDate;
 
+  private User user;
+
   public Long getId() {
     return Id;
   }
@@ -141,5 +143,13 @@ public class Audition {
 
   public void setRegistrationDate(Date registrationDate) {
     this.registrationDate = registrationDate;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

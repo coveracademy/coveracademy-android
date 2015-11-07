@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.coveracademy.R;
 import com.coveracademy.fragment.AuditionsFragment;
+import com.coveracademy.fragment.ContestsFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
     public TabsAdapter(FragmentManager fragmentManager) {
       super(fragmentManager);
-      titles = new String[] {getString(R.string.activity_main_auditions_title)};
-      contents = new Fragment[] {new AuditionsFragment()};
+      titles = new String[] {getString(R.string.activity_main_auditions_title), getString(R.string.activity_main_contests_title)};
+      contents = new Fragment[] {new AuditionsFragment(), new ContestsFragment()};
     }
 
     @Override

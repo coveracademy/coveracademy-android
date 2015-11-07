@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.CoverAcademyApplication;
 import com.coveracademy.R;
 import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
-import com.coveracademy.util.ApplicationUtils;
+import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.util.ImageUtils;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,25 +24,12 @@ import butterknife.OnClick;
 /**
  * Created by sandro on 15/10/15.
  */
-public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.AuditionViewHolder> {
+public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter.AuditionViewHolder> {
 
-  private CoverAcademyApplication application;
   private OnUserClickListener onUserClickListener;
 
   public AuditionsAdapter(Context context) {
-    super(context, listAuditions(context));
-    application = ApplicationUtils.getApplication(context);
-  }
-
-  private static List<Audition> listAuditions(Context context) {
-    CoverAcademyApplication application = ApplicationUtils.getApplication(context);
-    return application.listAuditions();
-  }
-
-  @Override
-  public void reloadItems() {
-    setItems(listAuditions(getContext()));
-    super.reloadItems();
+    super(context, new ArrayList<AuditionView>());
   }
 
   @Override
@@ -54,12 +40,16 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
 
   @Override
   public void onBindViewHolder(AuditionViewHolder holder, int position) {
-    Audition audition = getItem(position);
-    Contest contest = application.getContest(audition.getContestId());
-    User user = application.getUser(audition.getUserId());
+    AuditionView auditionView = getItem(position);
+    Audition audition = auditionView.getAudition();
+    Contest contest = auditionView.getContest();
+    User user = auditionView.getUser();
+    int totalVotes = auditionView.getTotalVotes();
+    int totalComments = auditionView.getTotalComments();
+
     holder.userNameView.setText(user.getName());
-    holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, application.getTotalVotes(audition) != null ? application.getTotalVotes(audition) : 0));
-    holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, application.getTotalComments(audition) != null ? application.getTotalComments(audition) : 0));
+    holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, totalVotes));
+    holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
     ImageUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
     ImageUtils.setPicture(getContext(), user, holder.userAvatarView);
   }
@@ -84,15 +74,15 @@ public class AuditionsAdapter extends BaseAdapter<Audition, AuditionsAdapter.Aud
     @OnClick(R.id.user_name)
     void onUserClick(View view) {
       if(onUserClickListener != null) {
-        Audition audition = getItem(getAdapterPosition());
-        onUserClickListener.onUserClick(audition.getUserId());
+        User user = getItem(getAdapterPosition()).getUser();
+        onUserClickListener.onUserClick(user);
       }
     }
   }
 
   public interface OnUserClickListener {
 
-    void onUserClick(Long userId);
+    void onUserClick(User user);
 
   }
 }

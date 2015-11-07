@@ -10,21 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.CoverAcademyApplication;
 import com.coveracademy.R;
 import com.coveracademy.activity.JoinContestActivity;
 import com.coveracademy.activity.UserActivity;
 import com.coveracademy.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.view.AuditionsView;
+import com.coveracademy.api.model.User;
+import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.ApplicationUtils;
 import com.coveracademy.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
 import org.jdeferred.Promise;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,7 +39,6 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   private static final String TAG = AuditionsFragment.class.getSimpleName();
 
   private RemoteService remoteService;
-  private CoverAcademyApplication application;
   private AuditionsAdapter auditionsAdapter;
 
   @Bind(R.id.coordinator_layout) View coordinatorLayout;
@@ -50,7 +50,6 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
     View view = inflater.inflate(R.layout.fragment_auditions, container, false);
     ButterKnife.bind(this, view);
 
-    application = ApplicationUtils.getApplication(this);
     remoteService = RemoteService.getInstance(getContext());
 
     setupAuditionsAdapter();
@@ -78,15 +77,10 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   }
 
   private void setupAuditionsView() {
-    remoteService.getViewService().auditionsView().then(new DoneCallback<AuditionsView>() {
+    remoteService.getViewService().auditionsView().then(new DoneCallback<List<AuditionView>>() {
       @Override
-      public void onDone(AuditionsView auditionsView) {
-        application.addContests(auditionsView.getContests());
-        application.addUsers(auditionsView.getUsers());
-        application.setAuditions(auditionsView.getAuditions());
-        application.setTotalVotes(auditionsView.getTotalVotes());
-        application.setTotalComments(auditionsView.getTotalComments());
-        auditionsAdapter.reloadItems();
+      public void onDone(List<AuditionView> auditionsView) {
+        auditionsAdapter.setItems(auditionsView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override
@@ -114,9 +108,9 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   }
 
   @Override
-  public void onUserClick(Long userId) {
+  public void onUserClick(User user) {
     Intent intent = new Intent(getContext(), UserActivity.class);
-    intent.putExtra(UserActivity.USER_ID, userId);
+    intent.putExtra(UserActivity.USER_ID, user.getId());
     startActivity(intent);
   }
 }

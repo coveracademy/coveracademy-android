@@ -5,7 +5,6 @@ package com.coveracademy.api.config;
  */
 public class Configuration {
 
-  public static final String API_URL = "http://172.22.9.57:3000";
-  public static final String IO_URL = "http://172.22.9.57:3101";
+  public static final String API_URL = "http://172.22.10.58:3000";
 
 }
