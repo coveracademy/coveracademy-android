@@ -36,4 +36,10 @@ public class ViewService extends RestService {
     builder.concatPath("/users/").concatPath(userId);
     return new RequestPromise<>(builder);
   }
+
+  public DefaultPromise<ContestView> contestView(long contestId) {
+    GetBuilder builder = getRequestBuilderFactory().get(ContestView.class);
+    builder.concatPath("/contests/").concatPath(contestId);
+    return new RequestPromise<>(builder);
+  }
 }

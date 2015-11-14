@@ -1,5 +1,6 @@
 package com.coveracademy.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.coveracademy.R;
+import com.coveracademy.activity.ContestActivity;
+import com.coveracademy.activity.UserActivity;
 import com.coveracademy.adapter.ContestsAdapter;
 import com.coveracademy.api.exception.APIException;
+import com.coveracademy.api.model.Contest;
+import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.util.UIUtils;
@@ -29,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * Created by sandro on 06/11/15.
  */
-public class ContestsFragment extends StatefulFragment {
+public class ContestsFragment extends StatefulFragment implements ContestsAdapter.OnContestClickListener {
 
   private static final String TAG = ContestsFragment.class.getSimpleName();
 
@@ -66,6 +71,7 @@ public class ContestsFragment extends StatefulFragment {
 
   private void setupContestsAdapter() {
     contestsAdapter = new ContestsAdapter(getContext());
+    contestsAdapter.setOnContestClickListener(this);
     contestsView.setLayoutManager(new LinearLayoutManager(getContext()));
     contestsView.setAdapter(contestsAdapter);
   }
@@ -93,5 +99,17 @@ public class ContestsFragment extends StatefulFragment {
         }
       }
     });
+  }
+
+  @Override
+  public void onContestClick(Contest contest) {
+    Intent intent = new Intent(getContext(), ContestActivity.class);
+    intent.putExtra(ContestActivity.CONTEST_ID, contest.getId());
+    startActivity(intent);
+  }
+
+  @Override
+  public void onWinnerClick(User user) {
+
   }
 }

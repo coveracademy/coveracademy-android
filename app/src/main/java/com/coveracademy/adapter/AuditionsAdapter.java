@@ -51,7 +51,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, totalVotes));
     holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
     ImageUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
-    ImageUtils.setPicture(getContext(), user, holder.userAvatarView);
+    ImageUtils.setPhoto(getContext(), user, holder.userAvatarView);
   }
 
   public void setOnUserClickListener(OnUserClickListener onUserClickListener) {

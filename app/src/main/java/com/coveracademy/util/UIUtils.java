@@ -89,8 +89,8 @@ public class UIUtils {
     alert(context, message != null ? message : alternativeTitle);
   }
 
-  public static void alert(View parentLayout, String title, String actionTitle, View.OnClickListener onActionClickListener) {
-    final Snackbar snackbar = Snackbar.make(parentLayout, title, Snackbar.LENGTH_INDEFINITE);
+  public static void alert(View view, String title, String actionTitle, View.OnClickListener onActionClickListener) {
+    final Snackbar snackbar = Snackbar.make(view, title, Snackbar.LENGTH_INDEFINITE);
     if(actionTitle != null && onActionClickListener != null) {
       snackbar.setAction(actionTitle, onActionClickListener);
     } else {
@@ -106,8 +106,8 @@ public class UIUtils {
     snackbar.show();
   }
 
-  public static void alert(View parentLayout, String title) {
-    alert(parentLayout, title, null, null);
+  public static void alert(View view, String title) {
+    alert(view, title, null, null);
   }
 
   public static void alert(View view, APIException apiException) {

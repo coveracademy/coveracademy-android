@@ -65,7 +65,7 @@
             android:id="@+id/vote"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="@string/activity_main_vote"
+            android:text="@string/vote"
             android:textAllCaps="true"/>
 
         <ImageView

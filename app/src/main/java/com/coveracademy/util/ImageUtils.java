@@ -20,7 +20,7 @@ public class ImageUtils {
 
   }
 
-  public static void setPicture(Context context, User user, ImageView imageView) {
+  public static void setPhoto(Context context, User user, ImageView imageView) {
     switch(user.getProfilePicture()) {
       case facebook:
         Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);

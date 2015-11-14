@@ -12,6 +12,7 @@ public class ContestView {
 
   private Contest contest;
   private List<Audition> winnerAuditions;
+  private List<Audition> auditions;
   private int totalAuditions;
   private int totalVotes;
 
@@ -29,6 +30,14 @@ public class ContestView {
 
   public void setWinnerAuditions(List<Audition> winnerAuditions) {
     this.winnerAuditions = winnerAuditions;
+  }
+
+  public List<Audition> getAuditions() {
+    return auditions;
+  }
+
+  public void setAuditions(List<Audition> auditions) {
+    this.auditions = auditions;
   }
 
   public int getTotalAuditions() {

@@ -15,8 +15,16 @@
     <color name="button_flat">#2a82a7</color>
     <color name="button_flat_pressed">#992a82a7</color>
     <color name="button_flat_disabled">#552a82a7</color>
+    <color name="button_primary">#2196f3</color>
+    <color name="button_primary_disabled">#6f2196f3</color>
 
     <color name="swipe_refresh_first_color">#03a9f4</color>
     <color name="swipe_refresh_second_color">#ac03f4</color>
     <color name="swipe_refresh_third_color">#f49003</color>
+
+    <color name="days_remaining">#18967e</color>
+    <color name="hours_remaining">#efc94c</color>
+    <color name="minutes_remaining">#e27a3f</color>
+    <color name="seconds_remaining">#df5a49</color>
+
 </resources>

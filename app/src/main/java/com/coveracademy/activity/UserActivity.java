@@ -70,7 +70,7 @@ public class UserActivity extends AppCompatActivity {
       @Override
       public void onDone(UserView userView) {
         userNameView.setText(userView.getUser().getName());
-        ImageUtils.setPicture(instance, userView.getUser(), userAvatarView);
+        ImageUtils.setPhoto(instance, userView.getUser(), userAvatarView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override
