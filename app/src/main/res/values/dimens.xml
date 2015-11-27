@@ -13,6 +13,9 @@
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">20sp</dimen>
     <dimen name="text_mega_large">22sp</dimen>
+    <dimen name="text_extra_large">24sp</dimen>
+
+    <dimen name="text_contest_countdown">26sp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 

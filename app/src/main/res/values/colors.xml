@@ -27,4 +27,6 @@
     <color name="minutes_remaining">#e27a3f</color>
     <color name="seconds_remaining">#df5a49</color>
 
+    <color name="contest_finished">#18967e</color>
+
 </resources>

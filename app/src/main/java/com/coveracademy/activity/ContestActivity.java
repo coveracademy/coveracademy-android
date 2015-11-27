@@ -1,15 +1,24 @@
 package com.coveracademy.activity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.coveracademy.R;
+import com.coveracademy.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
+import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Contest;
+import com.coveracademy.api.model.User;
+import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.util.ImageUtils;
@@ -18,24 +27,36 @@ import com.coveracademy.util.UIUtils;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by sandro on 11/13/15.
  */
-public class ContestActivity extends AppCompatActivity {
+public class ContestActivity extends AppCompatActivity implements AuditionsAdapter.OnUserClickListener {
 
   private static final String TAG = ContestActivity.class.getSimpleName();
   public static final String CONTEST_ID = "CONTEST_ID";
 
   private ContestActivity instance;
   private RemoteService remoteService;
+  private AuditionsAdapter auditionsAdapter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.contest_name) TextView contestNameView;
   @Bind(R.id.contest_image) ImageView contestImageView;
-  @Bind(R.id.total_auditions) TextView totalAuditionsView;
+  @Bind(R.id.contest_countdown) View countdownView;
+  @Bind(R.id.contest_finished) View contestFinishedView;
+  @Bind(R.id.days_remaining) TextView daysRemainingView;
+  @Bind(R.id.hours_remaining) TextView hoursRemainingView;
+  @Bind(R.id.minutes_remaining) TextView minutesRemainingView;
+  @Bind(R.id.seconds_remaining) TextView secondsRemainingView;
+
+  //  @Bind(R.id.total_auditions) TextView totalAuditionsView;
+  @Bind(R.id.auditions) RecyclerView auditionsView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +67,19 @@ public class ContestActivity extends AppCompatActivity {
     instance = this;
     remoteService = RemoteService.getInstance(this);
 
+    setupAuditionsAdapter();
     setupContestView();
 
     UIUtils.defaultToolbar(this);
     toolbar.setTitle("");
     toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));
+  }
+
+  private void setupAuditionsAdapter() {
+    auditionsAdapter = new AuditionsAdapter(this);
+    auditionsAdapter.setOnUserClickListener(this);
+    auditionsView.setLayoutManager(new LinearLayoutManager(this));
+    auditionsView.setAdapter(auditionsAdapter);
   }
 
   private void setupContestView() {
@@ -62,9 +91,8 @@ public class ContestActivity extends AppCompatActivity {
     remoteService.getViewService().contestView(contestId).then(new DoneCallback<ContestView>() {
       @Override
       public void onDone(ContestView contestView) {
-        contestNameView.setText(contestView.getContest().getName());
-        totalAuditionsView.setText(getString(R.string.total_auditions, contestView.getTotalAuditions()));
-        ImageUtils.setImage(instance, contestView.getContest(), contestImageView);
+        setupContestInfos(contestView);
+        setupAuditions(contestView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override
@@ -74,5 +102,58 @@ public class ContestActivity extends AppCompatActivity {
         finish();
       }
     });
+  }
+
+  private void setupContestInfos(ContestView contestView) {
+    Contest contest = contestView.getContest();
+    contestNameView.setText(contestView.getContest().getName());
+    //        totalAuditionsView.setText(getString(R.string.total_auditions, contestView.getTotalAuditions()));
+    ImageUtils.setImage(instance, contestView.getContest(), contestImageView);
+    long millisInFuture = contest.getEndDate().getTime() - System.currentTimeMillis();
+    if(millisInFuture > 0 && contest.getProgress().equals(Contest.Progress.running)) {
+      countdownView.setVisibility(View.VISIBLE);
+      new CountDownTimer(millisInFuture, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+          int days = (int) ((millisUntilFinished / 1000) / 86400);
+          int hours = (int) (((millisUntilFinished / 1000) - (days * 86400)) / 3600);
+          int minutes = (int) (((millisUntilFinished / 1000) - (days * 86400) - (hours * 3600)) / 60);
+          int seconds = (int) ((millisUntilFinished / 1000) % 60);
+          daysRemainingView.setText(getString(R.string.activity_contest_days_remaining, days));
+          hoursRemainingView.setText(getString(R.string.activity_contest_hours_remaining, hours));
+          minutesRemainingView.setText(getString(R.string.activity_contest_minutes_remaining, minutes));
+          secondsRemainingView.setText(getString(R.string.activity_contest_seconds_remaining, seconds));
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+      }.start();
+    } else {
+      contestFinishedView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void setupAuditions(ContestView contestView) {
+    List<AuditionView> auditionsViews = new ArrayList<>();
+    for(Audition audition : contestView.getAuditions()) {
+      AuditionView auditionView = new AuditionView();
+      auditionView.setAudition(audition);
+      auditionView.setUser(audition.getUser());
+      if(contestView.getVotesByAudition().containsKey(audition.getId())) {
+        auditionView.setTotalVotes(contestView.getVotesByAudition().get(audition.getId()));
+      } else {
+        auditionView.setTotalVotes(0);
+      }
+      auditionsViews.add(auditionView);
+    }
+    auditionsAdapter.setItems(auditionsViews);
+  }
+
+  @Override
+  public void onUserClick(User user) {
+
   }
 }

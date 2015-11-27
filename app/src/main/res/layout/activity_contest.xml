@@ -41,6 +41,8 @@
                     app:layout_collapseMode="parallax">
 
                     <LinearLayout
+                        android:id="@+id/contest_countdown"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -49,42 +51,70 @@
                         <TextView
                             style="@style/CollapsingToolbarExpandedTitleTheme"
                             android:id="@+id/days_remaining"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="55dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/content_margin"
+                            android:layout_marginStart="@dimen/content_margin"
+                            android:gravity="center"
                             android:background="@color/days_remaining"
-                            android:textColor="@android:color/white"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_mega_large"/>
 
                         <TextView
                             style="@style/CollapsingToolbarExpandedTitleTheme"
                             android:id="@+id/hours_remaining"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_width="55dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/content_margin"
+                            android:layout_marginStart="@dimen/content_margin"
+                            android:gravity="center"
                             android:background="@color/hours_remaining"
-                            android:textColor="@android:color/white"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_mega_large"/>
 
                         <TextView
                             style="@style/CollapsingToolbarExpandedTitleTheme"
                             android:id="@+id/minutes_remaining"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_width="55dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/content_margin"
+                            android:layout_marginStart="@dimen/content_margin"
+                            android:gravity="center"
                             android:background="@color/minutes_remaining"
-                            android:textColor="@android:color/white"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_mega_large"/>
 
                         <TextView
                             style="@style/CollapsingToolbarExpandedTitleTheme"
                             android:id="@+id/seconds_remaining"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_width="55dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/content_margin"
+                            android:layout_marginStart="@dimen/content_margin"
+                            android:gravity="center"
                             android:background="@color/seconds_remaining"
-                            android:textColor="@android:color/white"/>
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_mega_large"/>
 
                     </LinearLayout>
+
+                    <TextView
+                        style="@style/CollapsingToolbarExpandedTitleTheme"
+                        android:id="@+id/contest_finished"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingLeft="@dimen/content_margin"
+                        android:paddingStart="@dimen/content_margin"
+                        android:paddingRight="@dimen/content_margin"
+                        android:paddingEnd="@dimen/content_margin"
+                        android:paddingTop="@dimen/content_margin"
+                        android:paddingBottom="@dimen/content_margin"
+                        android:background="@color/contest_finished"
+                        android:text="@string/activity_contest_contest_finished"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_mega_large"/>
 
                     <TextView
                         style="@style/CollapsingToolbarExpandedTitleTheme"
@@ -112,18 +142,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/auditions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:id="@+id/total_auditions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_medium"
-            android:textColor="@android:color/white"/>
-
-    </android.support.v4.widget.NestedScrollView>
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

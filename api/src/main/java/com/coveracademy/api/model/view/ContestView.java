@@ -4,6 +4,7 @@ import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sandro on 06/11/15.
@@ -14,7 +15,7 @@ public class ContestView {
   private List<Audition> winnerAuditions;
   private List<Audition> auditions;
   private int totalAuditions;
-  private int totalVotes;
+  private Map<Long, Integer> votesByAudition;
 
   public Contest getContest() {
     return contest;
@@ -48,11 +49,11 @@ public class ContestView {
     this.totalAuditions = totalAuditions;
   }
 
-  public int getTotalVotes() {
-    return totalVotes;
+  public Map<Long, Integer> getVotesByAudition() {
+    return votesByAudition;
   }
 
-  public void setTotalVotes(int totalVotes) {
-    this.totalVotes = totalVotes;
+  public void setVotesByAudition(Map<Long, Integer> votesByAudition) {
+    this.votesByAudition = votesByAudition;
   }
 }
