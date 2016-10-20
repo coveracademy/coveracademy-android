@@ -1,17 +1,79 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /home/sandro/Android/Sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+#########################
+### Project resources ###
+#########################
 
-# Add any project specific keep options here:
+-keep class com.coveracademy.api.model.** { *; }
+-keep class com.coveracademy.api.enumeration.** { *; }
+-keep class com.coveracademy.api.exception.APIException { *; }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keepclassmembers class com.coveracademy.api.model.** implements android.os.Parcelable {
+  static ** CREATOR;
+}
+-keepclassmembers class com.coveracademy.api.model.** implements java.io.Serializable {
+  static final long serialVersionUID;
+  private static final java.io.ObjectStreamField[] serialPersistentFields;
+  !static !transient <fields>;
+  !private <fields>;
+  !private <methods>;
+  private void writeObject(java.io.ObjectOutputStream);
+  private void readObject(java.io.ObjectInputStream);
+  java.lang.Object writeReplace();
+  java.lang.Object readResolve();
+}
+
+################################
+### Improve reverse engineer ###
+################################
+
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+###########################
+### Direct dependencies ###
+###########################
+
+# Butter Knife
+-dontwarn butterknife.internal.**
+-keep class butterknife.** { *; }
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+  @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+  @butterknife.* <methods>;
+}
+
+# Google services
+-dontwarn com.google.android.gms.**
+-keep class com.google.android.gms.** { *; }
+
+# Gson
+-keep class sun.misc.Unsafe { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+
+# New Relic
+-keep class com.newrelic.** { *; }
+-dontwarn com.newrelic.**
+-keepattributes Exceptions, Signature, InnerClasses, LineNumberTable
+
+# PrettyTime
+-keep class org.ocpsoft.prettytime.i18n.** { *; }
+
+# Volley
+-dontwarn com.android.volley.**
+
+#############################
+### Indirect dependencies ###
+#############################
+
+# Okio
+-dontwarn okio.**
+
+# OkHttp
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
+
+# Slf4j
+-dontwarn org.slf4j.**
