@@ -22,10 +22,10 @@
 
     <string name="activity_user_alert_error_loading_user">Couldn\'t load user, please try again later!</string>
 
-    <string name="activity_contest_days_remaining">%1$dd</string>
-    <string name="activity_contest_hours_remaining">%1$dh</string>
-    <string name="activity_contest_minutes_remaining">%1$dm</string>
-    <string name="activity_contest_seconds_remaining">%1$ds</string>
+    <string name="activity_contest_days_remaining">%1$sd</string>
+    <string name="activity_contest_hours_remaining">%1$sh</string>
+    <string name="activity_contest_minutes_remaining">%1$sm</string>
+    <string name="activity_contest_seconds_remaining">%1$ss</string>
     <string name="activity_contest_contest_finished">Contest finished</string>
     <string name="activity_contest_alert_error_loading_contest">Couldn\'t load contest, please try again later!</string>
 

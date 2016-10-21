@@ -8,6 +8,7 @@ android {
     targetSdkVersion 25
     versionCode 1
     versionName '1.0.0'
+    multiDexEnabled true
   }
   buildTypes {
     release {
@@ -35,6 +36,7 @@ android {
   }
 }
 dependencies {
+  compile 'com.android.support:multidex:1.0.1'
   compile 'org.jdeferred:jdeferred-android-aar:1.2.4'
   compile 'com.google.code.gson:gson:2.5'
   compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'

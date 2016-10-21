@@ -57,6 +57,9 @@
 -dontwarn com.newrelic.**
 -keepattributes Exceptions, Signature, InnerClasses, LineNumberTable
 
+# PrettyTime
+-keep class org.ocpsoft.prettytime.i18n.** { *; }
+
 # Volley
 -dontwarn com.android.volley.**
 
