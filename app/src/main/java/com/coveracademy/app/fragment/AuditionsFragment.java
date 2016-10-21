@@ -1,4 +1,4 @@
-package com.coveracademy.fragment;
+package com.coveracademy.app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.R;
-import com.coveracademy.activity.JoinContestActivity;
-import com.coveracademy.activity.UserActivity;
-import com.coveracademy.adapter.AuditionsAdapter;
+import com.coveracademy.app.R;
+import com.coveracademy.app.activity.JoinContestActivity;
+import com.coveracademy.app.activity.UserActivity;
+import com.coveracademy.app.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.UIUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -27,13 +27,10 @@ import org.jdeferred.Promise;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by sandro on 29/10/15.
- */
 public class AuditionsFragment extends StatefulFragment implements AuditionsAdapter.OnUserClickListener {
 
   private static final String TAG = AuditionsFragment.class.getSimpleName();
@@ -41,9 +38,9 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   private RemoteService remoteService;
   private AuditionsAdapter auditionsAdapter;
 
-  @Bind(R.id.coordinator_layout) View coordinatorLayout;
-  @Bind(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
-  @Bind(R.id.auditions) RecyclerView auditionsView;
+  @BindView(R.id.coordinator_layout) View coordinatorLayout;
+  @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
+  @BindView(R.id.auditions) RecyclerView auditionsView;
 
   @Override
   public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

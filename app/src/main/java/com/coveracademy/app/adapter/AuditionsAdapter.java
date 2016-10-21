@@ -1,4 +1,4 @@
-package com.coveracademy.adapter;
+package com.coveracademy.app.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,22 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.R;
+import com.coveracademy.app.R;
 import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
-import com.coveracademy.util.ImageUtils;
+import com.coveracademy.app.util.ImageUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by sandro on 15/10/15.
- */
 public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter.AuditionViewHolder> {
 
   private OnUserClickListener onUserClickListener;
@@ -60,19 +57,19 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
 
   public class AuditionViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.user_avatar) ImageView userAvatarView;
-    @Bind(R.id.user_name) TextView userNameView;
-    @Bind(R.id.audition_thumbnail) ImageView auditionThumbnailView;
-    @Bind(R.id.total_votes) TextView totalVotesView;
-    @Bind(R.id.total_comments) TextView totalCommentsView;
+    @BindView(R.id.user_avatar) ImageView userAvatarView;
+    @BindView(R.id.user_name) TextView userNameView;
+    @BindView(R.id.audition_thumbnail) ImageView auditionThumbnailView;
+    @BindView(R.id.total_votes) TextView totalVotesView;
+    @BindView(R.id.total_comments) TextView totalCommentsView;
 
     public AuditionViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick(R.id.user_name)
-    void onUserClick(View view) {
+    @OnClick(R.id.user)
+    void onUserClick() {
       if(onUserClickListener != null) {
         User user = getItem(getAdapterPosition()).getUser();
         onUserClickListener.onUserClick(user);

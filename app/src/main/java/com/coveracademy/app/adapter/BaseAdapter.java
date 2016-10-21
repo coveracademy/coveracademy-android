@@ -1,4 +1,4 @@
-package com.coveracademy.adapter;
+package com.coveracademy.app.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sandro on 8/13/15.
- */
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
   private Context context;

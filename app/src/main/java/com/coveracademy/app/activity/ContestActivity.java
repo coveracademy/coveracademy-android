@@ -1,4 +1,4 @@
-package com.coveracademy.activity;
+package com.coveracademy.app.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.R;
-import com.coveracademy.adapter.AuditionsAdapter;
+import com.coveracademy.app.R;
+import com.coveracademy.app.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
@@ -21,8 +21,8 @@ import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.ImageUtils;
-import com.coveracademy.util.UIUtils;
+import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -30,12 +30,9 @@ import org.jdeferred.FailCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by sandro on 11/13/15.
- */
 public class ContestActivity extends AppCompatActivity implements AuditionsAdapter.OnUserClickListener {
 
   private static final String TAG = ContestActivity.class.getSimpleName();
@@ -45,18 +42,18 @@ public class ContestActivity extends AppCompatActivity implements AuditionsAdapt
   private RemoteService remoteService;
   private AuditionsAdapter auditionsAdapter;
 
-  @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.contest_name) TextView contestNameView;
-  @Bind(R.id.contest_image) ImageView contestImageView;
-  @Bind(R.id.contest_countdown) View countdownView;
-  @Bind(R.id.contest_finished) View contestFinishedView;
-  @Bind(R.id.days_remaining) TextView daysRemainingView;
-  @Bind(R.id.hours_remaining) TextView hoursRemainingView;
-  @Bind(R.id.minutes_remaining) TextView minutesRemainingView;
-  @Bind(R.id.seconds_remaining) TextView secondsRemainingView;
+  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.contest_name) TextView contestNameView;
+  @BindView(R.id.contest_image) ImageView contestImageView;
+  @BindView(R.id.contest_countdown) View countdownView;
+  @BindView(R.id.contest_finished) View contestFinishedView;
+  @BindView(R.id.days_remaining) TextView daysRemainingView;
+  @BindView(R.id.hours_remaining) TextView hoursRemainingView;
+  @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
+  @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
 
-  //  @Bind(R.id.total_auditions) TextView totalAuditionsView;
-  @Bind(R.id.auditions) RecyclerView auditionsView;
+  //  @BindView(R.id.total_auditions) TextView totalAuditionsView;
+  @BindView(R.id.auditions) RecyclerView auditionsView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
-package com.coveracademy.activity;
+package com.coveracademy.app.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,23 +10,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.coveracademy.R;
-import com.coveracademy.fragment.AuditionsFragment;
-import com.coveracademy.fragment.ContestsFragment;
+import com.coveracademy.app.R;
+import com.coveracademy.app.fragment.AuditionsFragment;
+import com.coveracademy.app.fragment.ContestsFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
   private TabsAdapter tabsAdapter;
 
-  @Bind(R.id.pager) ViewPager tabsPager;
-  @Bind(R.id.tabs) TabLayout tabs;
-  @Bind(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.pager) ViewPager tabsPager;
+  @BindView(R.id.tabs) TabLayout tabs;
+  @BindView(R.id.toolbar) Toolbar toolbar;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
@@ -82,6 +83,4 @@ public class MainActivity extends AppCompatActivity {
       return titles[position];
     }
   }
-
-
 }

@@ -1,4 +1,4 @@
-package com.coveracademy.adapter;
+package com.coveracademy.app.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,22 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.R;
+import com.coveracademy.app.R;
 import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestView;
-import com.coveracademy.util.ImageUtils;
+import com.coveracademy.app.util.ImageUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by sandro on 06/11/15.
- */
 public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.ContestViewHolder> {
 
   private OnContestClickListener onContestClickListener;
@@ -73,14 +70,14 @@ public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.Co
 
   public class ContestViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.contest_name) TextView contestNameView;
-    @Bind(R.id.contest_image) ImageView contestImageView;
-    @Bind(R.id.total_auditions) TextView totalAuditionsView;
-    @Bind(R.id.winners) View winnersView;
-    @Bind(R.id.actions) View actionsView;
-    @Bind(R.id.first_winner_avatar) ImageView firstWinnerAvatarView;
-    @Bind(R.id.second_winner_avatar) ImageView secondWinnerAvatarView;
-    @Bind(R.id.third_winner_avatar) ImageView thirdWinnerAvatarView;
+    @BindView(R.id.contest_name) TextView contestNameView;
+    @BindView(R.id.contest_image) ImageView contestImageView;
+    @BindView(R.id.total_auditions) TextView totalAuditionsView;
+    @BindView(R.id.winners) View winnersView;
+    @BindView(R.id.actions) View actionsView;
+    @BindView(R.id.first_winner_avatar) ImageView firstWinnerAvatarView;
+    @BindView(R.id.second_winner_avatar) ImageView secondWinnerAvatarView;
+    @BindView(R.id.third_winner_avatar) ImageView thirdWinnerAvatarView;
 
     public ContestViewHolder(View itemView) {
       super(itemView);

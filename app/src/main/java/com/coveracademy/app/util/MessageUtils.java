@@ -1,16 +1,13 @@
-package com.coveracademy.util;
+package com.coveracademy.app.util;
 
 import android.content.Context;
 
-import com.coveracademy.R;
+import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by sandro on 8/4/15.
- */
 public class MessageUtils {
 
   private static final Map<String, Integer> messageResources = new HashMap<>();

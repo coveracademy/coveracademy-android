@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/audition"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="40dp">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/content_margin"
+    android:paddingBottom="@dimen/content_margin">
 
     <LinearLayout
+        android:id="@+id/user"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/content_margin">
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/content_margin"
+        android:paddingStart="@dimen/content_margin"
+        android:paddingRight="@dimen/content_margin"
+        android:paddingEnd="@dimen/content_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_avatar"
@@ -26,16 +30,17 @@
             android:layout_marginLeft="@dimen/content_margin"
             android:layout_marginStart="@dimen/content_margin"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/username"
+            android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="@dimen/text_small"
-            android:textAllCaps="true"/>
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/content_margin">
 
         <ImageView
             android:id="@+id/audition_thumbnail"
@@ -54,24 +59,27 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/content_margin"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/content_margin"
         android:paddingLeft="@dimen/content_margin"
+        android:paddingStart="@dimen/content_margin"
         android:paddingRight="@dimen/content_margin"
+        android:paddingEnd="@dimen/content_margin"
         android:gravity="center_vertical">
 
-        <com.rey.material.widget.Button
-            style="@style/FlatSmallButton"
+        <Button
+            style="@style/SmallButton"
+            android:theme="@style/FlatAccentButton"
             android:id="@+id/vote"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:text="@string/vote"
             android:textAllCaps="true"/>
 
         <ImageView
             android:id="@+id/comment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/content_margin"
             android:layout_marginStart="@dimen/content_margin"
             android:src="@drawable/comment"/>
@@ -82,9 +90,11 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/content_margin"
+        android:paddingTop="@dimen/content_margin"
         android:paddingLeft="@dimen/content_margin"
+        android:paddingStart="@dimen/content_margin"
         android:paddingRight="@dimen/content_margin"
+        android:paddingEnd="@dimen/content_margin"
         android:gravity="center_vertical">
 
         <TextView
@@ -92,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/activity_main_total_votes"
-            android:textColor="@color/username"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_small"
             android:textAllCaps="false"/>
 
@@ -104,7 +114,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:text="@string/activity_main_bubble_separator"
-            android:textColor="@color/username"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_small"
             android:textAllCaps="false"/>
 
@@ -113,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/activity_main_total_comments"
-            android:textColor="@color/username"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_small"
             android:textAllCaps="false"/>
 

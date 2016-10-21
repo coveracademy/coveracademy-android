@@ -1,11 +1,8 @@
-package com.coveracademy.util;
+package com.coveracademy.app.util;
 
 import android.content.Context;
 import android.util.TypedValue;
 
-/**
- * Created by sandro on 15/10/15.
- */
 public class ApplicationUtils {
 
   private ApplicationUtils() {

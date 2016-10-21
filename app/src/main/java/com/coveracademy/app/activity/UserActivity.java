@@ -1,4 +1,4 @@
-package com.coveracademy.activity;
+package com.coveracademy.app.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,23 +7,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.R;
+import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.UserView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.ImageUtils;
-import com.coveracademy.util.UIUtils;
+import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by sandro on 29/10/15.
- */
 public class UserActivity extends AppCompatActivity {
 
   private static final String TAG = UserActivity.class.getSimpleName();
@@ -34,12 +31,12 @@ public class UserActivity extends AppCompatActivity {
 
   private User user;
 
-  @Bind(R.id.root) View rootView;
-  @Bind(R.id.user_name) TextView userNameView;
-  @Bind(R.id.user_avatar) ImageView userAvatarView;
-  @Bind(R.id.total_auditions) TextView totalAuditionsView;
-  @Bind(R.id.total_fans) TextView totalFansView;
-  @Bind(R.id.total_idols) TextView totalIdolsView;
+  @BindView(R.id.root) View rootView;
+  @BindView(R.id.user_name) TextView userNameView;
+  @BindView(R.id.user_avatar) ImageView userAvatarView;
+  @BindView(R.id.total_auditions) TextView totalAuditionsView;
+  @BindView(R.id.total_fans) TextView totalFansView;
+  @BindView(R.id.total_idols) TextView totalIdolsView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

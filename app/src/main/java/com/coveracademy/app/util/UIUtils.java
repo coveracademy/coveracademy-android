@@ -1,4 +1,4 @@
-package com.coveracademy.util;
+package com.coveracademy.app.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.coveracademy.R;
+import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 import com.rey.material.widget.ProgressView;
 

@@ -1,4 +1,4 @@
-package com.coveracademy.fragment;
+package com.coveracademy.app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.R;
-import com.coveracademy.activity.ContestActivity;
-import com.coveracademy.activity.UserActivity;
-import com.coveracademy.adapter.ContestsAdapter;
+import com.coveracademy.app.R;
+import com.coveracademy.app.activity.ContestActivity;
+import com.coveracademy.app.adapter.ContestsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.util.UIUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -28,12 +27,9 @@ import org.jdeferred.Promise;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by sandro on 06/11/15.
- */
 public class ContestsFragment extends StatefulFragment implements ContestsAdapter.OnContestClickListener {
 
   private static final String TAG = ContestsFragment.class.getSimpleName();
@@ -41,9 +37,9 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
   private RemoteService remoteService;
   private ContestsAdapter contestsAdapter;
 
-  @Bind(R.id.root) View rootView;
-  @Bind(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
-  @Bind(R.id.contests) RecyclerView contestsView;
+  @BindView(R.id.root) View rootView;
+  @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
+  @BindView(R.id.contests) RecyclerView contestsView;
 
   @Override
   public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
