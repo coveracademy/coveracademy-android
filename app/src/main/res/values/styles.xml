@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
@@ -18,9 +18,8 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="colorButtonNormal">@color/accent</item>
     </style>
 
     <style name="ToolbarTheme" parent="Widget.AppCompat.Toolbar">
@@ -38,9 +37,8 @@
     </style>
 
     <style name="CollapsingToolbarExpandedTitleTheme">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">@android:color/black</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
@@ -60,24 +58,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
-        <item name="android:background">@android:color/white</item>
-        <item name="tabIndicatorColor">@color/primary</item>
-        <item name="tabIndicatorHeight">5dp</item>
-    </style>
-
     <style name="ActionMenuTextAppearance">
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="NavigationViewItemTextAppearance">
-        <item name="android:textSize">@dimen/text_medium</item>
-    </style>
-
-    <style name="WhiteProgress" parent="Material.Drawable.CircularProgress">
-        <item name="cpd_strokeColor">@android:color/white</item>
+    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">
+        <item name="android:background">@android:color/white</item>
+        <item name="tabIndicatorColor">@color/primary</item>
+        <item name="tabIndicatorHeight">6dp</item>
     </style>
 
     <style name="TextViewWithShadow">
@@ -87,72 +77,31 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
-    <!-- Button -->
-    <style name="SmallButton">
-        <item name="android:padding">@dimen/content_margin</item>
-        <item name="android:textSize">@dimen/text_small</item>
-    </style>
-
-    <style name="Button">
-        <item name="android:padding">@dimen/content_margin_double</item>
-        <item name="android:textSize">@dimen/text_medium</item>
-    </style>
-
-    <style name="LargeButton">
-        <item name="android:padding">40dp</item>
-        <item name="android:textSize">@dimen/text_extra_large</item>
-    </style>
-
-    <style name="DefaultButtonTheme" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
-    </style>
-
-    <style name="PrimaryButtonTheme" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/button_primary</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="AccentButtonTheme" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/button_accent</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="DanderButtonTheme" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/button_danger</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="FlatButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:padding">@dimen/content_margin_double</item>
-        <item name="android:textSize">@dimen/text_medium</item>
-    </style>
-
-    <style name="FlatSmallButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:padding">@dimen/content_margin</item>
-        <item name="android:textSize">@dimen/text_small</item>
-    </style>
-
-    <style name="FlatAccentButton" parent="FlatButton">
-        <item name="android:textColor">@color/button_accent</item>
-    </style>
-
-    <style name="FlatAccentSmallButton" parent="FlatSmallButton">
-        <item name="android:textColor">@color/button_accent</item>
-    </style>
-
-    <style name="FlatDangerButton" parent="FlatButton">
-        <item name="android:textColor">@color/button_danger</item>
-    </style>
-
-    <style name="FlatDangerSmallButton" parent="FlatSmallButton">
-        <item name="android:textColor">@color/button_danger</item>
-    </style>
-
-    <style name="FloatActionButtonLabel">
-        <item name="android:background">@drawable/fab_label</item>
+    <!-- Buttons -->
+    <style name="Button" parent="Material.Drawable.Ripple.Touch.MatchView">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:paddingLeft">@dimen/content_margin</item>
+        <item name="android:paddingRight">@dimen/content_margin</item>
+        <item name="rd_rippleColor">#33000000</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Button">
+        <item name="android:background">@drawable/button_primary</item>
+    </style>
+
+    <style name="SmallButton" parent="Button">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="FlatSmallButton" parent="SmallButton">
+        <item name="android:textColor">@color/button_flat</item>
+        <item name="android:background">@drawable/button_flat</item>
+        <item name="rd_backgroundColor">@android:color/transparent</item>
+        <item name="rd_rippleColor">@color/button_flat_pressed</item>
+        <item name="rd_cornerRadius">3dp</item>
     </style>
 
 </resources>
