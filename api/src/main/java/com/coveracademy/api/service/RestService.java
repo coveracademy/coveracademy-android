@@ -1,20 +1,18 @@
 package com.coveracademy.api.service;
 
+import android.content.Context;
+
 import com.coveracademy.api.service.rest.builder.RequestBuilderFactory;
 
-/**
- * Created by wesley on 23/04/15.
- */
-public class RestService {
+class RestService {
 
   private RequestBuilderFactory requestBuilderFactory;
 
-  public RestService(String path) {
-    requestBuilderFactory = new RequestBuilderFactory(path);
+  RestService(Context context, String path) {
+    requestBuilderFactory = new RequestBuilderFactory(context, path);
   }
 
-  public RequestBuilderFactory getRequestBuilderFactory() {
+  RequestBuilderFactory getRequestBuilderFactory() {
     return requestBuilderFactory;
   }
-
 }

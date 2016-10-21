@@ -7,9 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-/**
- * Created by sandro on 5/7/15.
- */
 public class Types {
 
   public static Type listOfAuditionView() {

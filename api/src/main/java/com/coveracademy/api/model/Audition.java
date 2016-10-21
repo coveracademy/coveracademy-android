@@ -2,9 +2,6 @@ package com.coveracademy.api.model;
 
 import java.util.Date;
 
-/**
- * Created by sandro on 15/10/15.
- */
 public class Audition {
 
   private Long Id;

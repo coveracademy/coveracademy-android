@@ -4,9 +4,6 @@ import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 
-/**
- * Created by sandro on 10/20/15.
- */
 public class AuditionView {
 
   private Audition audition;

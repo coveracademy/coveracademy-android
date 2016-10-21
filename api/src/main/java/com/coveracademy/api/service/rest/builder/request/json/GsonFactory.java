@@ -8,9 +8,6 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Date;
 
-/**
- * Created by wesley on 26/04/15.
- */
 public class GsonFactory {
 
   private static final Exclusions excusions = new Exclusions();

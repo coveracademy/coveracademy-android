@@ -1,23 +1,24 @@
 package com.coveracademy.api.service.rest.builder;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
 import com.coveracademy.api.config.Configuration;
 
 import java.lang.reflect.Type;
 
-
-/**
- * Created by wesley on 23/04/15.
- */
 public class RequestBuilderFactory {
 
   private String path;
+  private Context context;
 
-  public RequestBuilderFactory(String path) {
+  public RequestBuilderFactory(Context context, String path) {
+    this.context = context;
     this.path = path;
   }
 
   public GetBuilder get(Type responseType) {
-    GetBuilder builder = new GetBuilder(responseType);
+    GetBuilder builder = new GetBuilder(context, responseType);
     builder.withUrl(fullUrl());
     return builder;
   }
@@ -26,14 +27,8 @@ public class RequestBuilderFactory {
     return Configuration.API_URL + path;
   }
 
-  public DeleteBuilder delete() {
-    return delete(null);
-  }
-
-  public DeleteBuilder delete(Type responseType) {
-    DeleteBuilder builder = new DeleteBuilder(responseType);
-    builder.withUrl(fullUrl());
-    return builder;
+  public PostBuilder post() {
+    return post(null);
   }
 
   public PostBuilder post(Object body) {
@@ -41,7 +36,17 @@ public class RequestBuilderFactory {
   }
 
   public PostBuilder post(Object body, Type responseType) {
-    PostBuilder builder = new PostBuilder(body, responseType);
+    PostBuilder builder = new PostBuilder(context, body, responseType);
+    builder.withUrl(fullUrl());
+    return builder;
+  }
+
+  public UploadAvatarBuilder post(Bitmap image, Type responseType, Object requestTag) {
+    return post(null, image, responseType, requestTag);
+  }
+
+  public UploadAvatarBuilder post(Object fields, Bitmap image, Type responseType, Object requestTag) {
+    UploadAvatarBuilder builder = new UploadAvatarBuilder(context, fields, image, responseType, requestTag);
     builder.withUrl(fullUrl());
     return builder;
   }
@@ -54,19 +59,31 @@ public class RequestBuilderFactory {
     return put(null, responseType, null);
   }
 
-  public PutBuilder put(Object body, Type responseType) {
-    return put(body, responseType, null);
-  }
-
-
-  public PutBuilder put(Object body, Type responseType, Object requestTag) {
-    PutBuilder builder = new PutBuilder(body, responseType, requestTag);
-    builder.withUrl(fullUrl());
-    return builder;
-  }
-
   public PutBuilder put(Object body) {
     return put(body, null, null);
   }
 
+  public PutBuilder put(Object body, Type responseType) {
+    return put(body, responseType, null);
+  }
+
+  public PutBuilder put(Object body, Type responseType, Object requestTag) {
+    PutBuilder builder = new PutBuilder(context, body, responseType, requestTag);
+    builder.withUrl(fullUrl());
+    return builder;
+  }
+
+  public DeleteBuilder delete() {
+    return delete(null);
+  }
+
+  public DeleteBuilder delete(Type responseType) {
+    return delete(responseType, null);
+  }
+
+  public DeleteBuilder delete(Type responseType, Object requestTag) {
+    DeleteBuilder builder = new DeleteBuilder(context, responseType, requestTag);
+    builder.withUrl(fullUrl());
+    return builder;
+  }
 }

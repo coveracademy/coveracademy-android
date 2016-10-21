@@ -1,6 +1,9 @@
 package com.coveracademy.api.service.rest.builder;
 
+import android.content.Context;
+
 import com.android.volley.Response;
+import com.coveracademy.api.BuildConfig;
 import com.coveracademy.api.service.rest.AuthorizationManager;
 import com.coveracademy.api.service.rest.RequestQueue;
 import com.coveracademy.api.service.rest.builder.request.json.JsonRequest;
@@ -8,25 +11,30 @@ import com.coveracademy.api.service.rest.builder.request.json.JsonRequest;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-
-/**
- * Created by wesley on 23/04/15.
- */
 public abstract class RequestBuilder<T> {
 
-  protected StringBuilder url;
-  protected Integer method;
-  protected Type responseType;
-  protected Map<String, String> params;
-  protected Map<String, String> headers;
+  private static final String HEADER_VERSION = "X-Version";
+  private static final String HEADER_TOKEN = "X-Token";
 
+  protected Context context;
+  protected Integer method;
+  protected Integer timeout;
+  protected StringBuilder url;
+  protected Type responseType;
+  protected Map<String, Object> params;
+  protected Map<String, String> headers;
   protected Response.Listener<Object> listener;
   protected Response.ErrorListener errorListener;
 
-  public RequestBuilder(int method, Type responseType) {
+  public RequestBuilder(Context context, int method, Type responseType) {
+    this.context = context;
     this.method = method;
     this.responseType = responseType;
     this.url = new StringBuilder();
@@ -50,21 +58,25 @@ public abstract class RequestBuilder<T> {
     return getThis();
   }
 
-  public T addParam(String name, String value) {
+  public T addParam(String name, Object value) {
     params.put(name, value);
     return getThis();
   }
 
-  public T addHeader(String name, String value) {
-    headers.put(name, value);
+  public T addDateParam(String name, Date date) {
+    params.put(name, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date));
     return getThis();
   }
 
-  public <E> T withListener(final Response.Listener<E> listener) {
+  public void setTimeout(int timeout) {
+    this.timeout = timeout;
+  }
+
+  public T withListener(final Response.Listener<Object> listener) {
     this.listener = new Response.Listener<Object>() {
       @Override
       public void onResponse(Object response) {
-        listener.onResponse((E) response);
+        listener.onResponse(response);
       }
     };
     return getThis();
@@ -75,20 +87,32 @@ public abstract class RequestBuilder<T> {
     return getThis();
   }
 
+  private void encodeParameter(String key, String value) throws UnsupportedEncodingException {
+    url.append(URLEncoder.encode(key, "UTF-8"));
+    url.append('=');
+    url.append(URLEncoder.encode(value, "UTF-8"));
+    url.append('&');
+  }
+
   protected String getFullUrl() {
     if(!params.isEmpty()) {
       url.append("?");
-      try {
-        for(Map.Entry<String, String> entry : params.entrySet()) {
-          url.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-          url.append('=');
-          url.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-          url.append('&');
+      for(Map.Entry<String, Object> entry : params.entrySet()) {
+        try {
+          String key = entry.getKey();
+          Object value = entry.getValue();
+          if(value instanceof Collection) {
+            for(Object valueItem : (Collection) entry.getValue()) {
+              encodeParameter(key, valueItem.toString());
+            }
+          } else {
+            encodeParameter(key, value.toString());
+          }
+        } catch(UnsupportedEncodingException e) {
+          e.printStackTrace();
         }
-        url.setLength(url.length() - 1);
-      } catch(UnsupportedEncodingException e) {
-        e.printStackTrace();
       }
+      url.setLength(url.length() - 1);
     }
     return url.toString();
   }
@@ -96,6 +120,9 @@ public abstract class RequestBuilder<T> {
   protected JsonRequest createRequest(String url) {
     JsonRequest request = new JsonRequest(url, responseType, method, listener, errorListener);
     request.addAllHeaders(headers);
+    if(timeout != null) {
+      request.setTimeout(timeout);
+    }
     return request;
   }
 
@@ -107,12 +134,12 @@ public abstract class RequestBuilder<T> {
     String url = getFullUrl();
     JsonRequest request = createRequest(url);
     fillRequest(request);
-    AuthorizationManager authorizationManager = AuthorizationManager.getInstance();
+    AuthorizationManager authorizationManager = AuthorizationManager.getInstance(context);
     String token = authorizationManager.getToken();
     if(token != null) {
-      request.addHeader(authorizationManager.getAuthorizationHeaderKey(), token);
+      request.addHeader(HEADER_TOKEN, token);
     }
+    request.addHeader(HEADER_VERSION, BuildConfig.VERSION_CODE);
     RequestQueue.getInstance().push(request);
   }
-
 }

@@ -10,9 +10,6 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by wesley on 26/04/15.
- */
 public class BooleanSerializer implements JsonSerializer<Boolean>, JsonDeserializer<Boolean> {
 
   @Override
@@ -22,7 +19,13 @@ public class BooleanSerializer implements JsonSerializer<Boolean>, JsonDeseriali
 
   @Override
   public Boolean deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
-    return element.getAsInt() == 1;
+    String value = element.getAsString();
+    boolean deserialized = false;
+    if("1".equals(value) || "0".equals(value)) {
+      deserialized = "1".equals(value);
+    } else if("true".equals(value) || "false".equals(value)) {
+      deserialized = "true".equals(value);
+    }
+    return deserialized;
   }
-
 }

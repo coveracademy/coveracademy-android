@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.adapter.ContestsAdapter;
@@ -84,10 +85,10 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
         Log.e(TAG, "Error loading contests view", e);
         UIUtils.alert(rootView, e, getString(R.string.activity_main_alert_error_loading_contests));
       }
-    }).progress(new ProgressCallback<Promise.State>() {
+    }).progress(new ProgressCallback<Progress>() {
       @Override
-      public void onProgress(Promise.State progress) {
-        if(progress.equals(Promise.State.PENDING)) {
+      public void onProgress(Progress progress) {
+        if(progress.equals(Progress.PENDING)) {
           UIUtils.showProgressBar(getCreatedView());
         } else {
           UIUtils.hideProgressBar(getCreatedView());

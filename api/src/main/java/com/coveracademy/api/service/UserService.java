@@ -1,11 +1,10 @@
 package com.coveracademy.api.service;
 
-/**
- * Created by wesley on 23/04/15.
- */
+import android.content.Context;
+
 public class UserService extends RestService {
 
-  public UserService() {
-    super("/users");
+  UserService(Context context) {
+    super(context, "/users");
   }
 }

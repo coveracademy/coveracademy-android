@@ -1,5 +1,7 @@
 package com.coveracademy.api.service;
 
+import android.content.Context;
+
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.model.view.UserView;
@@ -10,13 +12,10 @@ import com.coveracademy.api.service.rest.builder.request.json.Types;
 
 import java.util.List;
 
-/**
- * Created by sandro on 5/28/15.
- */
 public class ViewService extends RestService {
 
-  public ViewService() {
-    super("/views");
+  ViewService(Context context) {
+    super(context, "/views");
   }
 
   public DefaultPromise<List<AuditionView>> auditionsView() {

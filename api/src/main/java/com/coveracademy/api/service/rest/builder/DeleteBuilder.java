@@ -1,16 +1,19 @@
 package com.coveracademy.api.service.rest.builder;
 
+import android.content.Context;
+
 import com.android.volley.Request;
+import com.coveracademy.api.service.rest.builder.request.json.JsonRequest;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by sandro on 5/3/15.
- */
 public class DeleteBuilder extends RequestBuilder<DeleteBuilder> {
 
-  public DeleteBuilder(Type responseType) {
-    super(Request.Method.DELETE, responseType);
+  private Object requestTag;
+
+  public DeleteBuilder(Context context, Type responseType, Object requestTag) {
+    super(context, Request.Method.DELETE, responseType);
+    this.requestTag = requestTag;
   }
 
   @Override
@@ -18,4 +21,8 @@ public class DeleteBuilder extends RequestBuilder<DeleteBuilder> {
     return this;
   }
 
+  @Override
+  protected void fillRequest(JsonRequest request) {
+    request.setRequestTag(requestTag);
+  }
 }

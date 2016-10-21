@@ -18,9 +18,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * Created by wesley on 26/04/15.
- */
 public class DateSerializer implements JsonSerializer<Date>, JsonDeserializer<Date> {
 
   private static final String TAG = DateSerializer.class.getSimpleName();

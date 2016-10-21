@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.JoinContestActivity;
 import com.coveracademy.app.activity.UserActivity;
@@ -85,10 +86,10 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
         Log.e(TAG, "Error loading auditions view", e);
         UIUtils.alert(coordinatorLayout, e, getString(R.string.activity_main_alert_error_loading_auditions));
       }
-    }).progress(new ProgressCallback<Promise.State>() {
+    }).progress(new ProgressCallback<Progress>() {
       @Override
-      public void onProgress(Promise.State progress) {
-        if(progress.equals(Promise.State.PENDING)) {
+      public void onProgress(Progress progress) {
+        if(progress.equals(Progress.PENDING)) {
           UIUtils.showProgressBar(getCreatedView());
         } else {
           UIUtils.hideProgressBar(getCreatedView());

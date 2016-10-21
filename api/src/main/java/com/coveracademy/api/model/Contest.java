@@ -2,9 +2,6 @@ package com.coveracademy.api.model;
 
 import java.util.Date;
 
-/**
- * Created by sandro on 10/20/15.
- */
 public class Contest {
 
   private Long id;

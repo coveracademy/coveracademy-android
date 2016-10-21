@@ -1,19 +1,18 @@
 package com.coveracademy.api.service.rest.builder;
 
+import android.content.Context;
+
 import com.android.volley.Request;
 import com.coveracademy.api.service.rest.builder.request.json.JsonRequest;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by wesley on 23/04/15.
- */
 public class PostBuilder extends RequestBuilder<PostBuilder> {
 
   private Object body;
 
-  public PostBuilder(Object body, Type responseType) {
-    super(Request.Method.POST, responseType);
+  public PostBuilder(Context context, Object body, Type responseType) {
+    super(context, Request.Method.POST, responseType);
     this.body = body;
   }
 
@@ -26,5 +25,4 @@ public class PostBuilder extends RequestBuilder<PostBuilder> {
   protected void fillRequest(JsonRequest request) {
     request.setBody(body);
   }
-
 }

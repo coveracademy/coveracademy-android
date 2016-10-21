@@ -5,9 +5,6 @@ import com.coveracademy.api.model.User;
 
 import java.util.List;
 
-/**
- * Created by leirson.b.silva on 06/11/2015.
- */
 public class UserView {
 
   private User user;

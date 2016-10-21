@@ -1,11 +1,10 @@
 package com.coveracademy.api.service;
 
-/**
- * Created by wesley on 23/04/15.
- */
+import android.content.Context;
+
 public class ContestService extends RestService {
 
-  public ContestService() {
-    super("/contests");
+  ContestService(Context context) {
+    super(context, "/contests");
   }
 }

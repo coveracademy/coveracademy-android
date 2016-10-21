@@ -2,9 +2,6 @@ package com.coveracademy.api.model;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by sandro on 15/10/15.
- */
 public class Avatar {
 
   private Bitmap image;

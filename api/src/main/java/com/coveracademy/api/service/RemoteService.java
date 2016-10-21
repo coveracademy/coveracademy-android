@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.coveracademy.api.service.rest.RequestQueue;
 
-/**
- * Created by wesley on 08/05/15.
- */
 public class RemoteService {
 
   private static RemoteService instance;
@@ -14,16 +11,16 @@ public class RemoteService {
   private ContestService contestService;
   private ViewService viewService;
 
-  private RemoteService() {
-    userService = new UserService();
-    contestService = new ContestService();
-    viewService = new ViewService();
+  private RemoteService(Context context) {
+    userService = new UserService(context);
+    contestService = new ContestService(context);
+    viewService = new ViewService(context);
   }
 
   public static RemoteService getInstance(Context context) {
     if(instance == null) {
       RequestQueue.useContext(context);
-      instance = new RemoteService();
+      instance = new RemoteService(context);
     }
     return instance;
   }

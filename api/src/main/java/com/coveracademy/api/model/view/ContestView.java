@@ -6,9 +6,6 @@ import com.coveracademy.api.model.Contest;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sandro on 06/11/15.
- */
 public class ContestView {
 
   private Contest contest;
