@@ -6,8 +6,9 @@
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
@@ -39,6 +40,10 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.JoinContestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.VideoTrimmerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 

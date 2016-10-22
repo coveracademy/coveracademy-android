@@ -13,7 +13,7 @@ import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
-import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.MediaUtils;
 
 import java.util.ArrayList;
 
@@ -47,8 +47,8 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     holder.userNameView.setText(user.getName());
     holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, totalVotes));
     holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
-    ImageUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
-    ImageUtils.setPhoto(getContext(), user, holder.userAvatarView);
+    MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
+    MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
   }
 
   public void setOnUserClickListener(OnUserClickListener onUserClickListener) {

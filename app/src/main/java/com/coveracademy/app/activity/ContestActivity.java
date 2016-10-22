@@ -21,7 +21,7 @@ import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
@@ -105,7 +105,7 @@ public class ContestActivity extends AppCompatActivity implements AuditionsAdapt
     Contest contest = contestView.getContest();
     contestNameView.setText(contestView.getContest().getName());
     //        totalAuditionsView.setText(getString(R.string.total_auditions, contestView.getTotalAuditions()));
-    ImageUtils.setImage(instance, contestView.getContest(), contestImageView);
+    MediaUtils.setImage(instance, contestView.getContest(), contestImageView);
     long millisInFuture = contest.getEndDate().getTime() - System.currentTimeMillis();
     if(millisInFuture > 0 && contest.getProgress().equals(Contest.Progress.running)) {
       countdownView.setVisibility(View.VISIBLE);

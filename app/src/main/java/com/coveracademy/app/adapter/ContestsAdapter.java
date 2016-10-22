@@ -13,7 +13,7 @@ import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestView;
-import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.MediaUtils;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.Co
 
     holder.contestNameView.setText(contest.getName());
     holder.totalAuditionsView.setText(getContext().getString(R.string.total_auditions, totalAuditions));
-    ImageUtils.setImage(getContext(), contest, holder.contestImageView);
+    MediaUtils.setImage(getContext(), contest, holder.contestImageView);
 
     if(contest.getProgress().equals(Contest.Progress.finished)) {
       holder.actionsView.setVisibility(View.GONE);
@@ -51,11 +51,11 @@ public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.Co
       for(int index = 0; index < contestView.getWinnerAuditions().size(); index++) {
         Audition audition = contestView.getWinnerAuditions().get(index);
         if(index == 0) {
-          ImageUtils.setPhoto(getContext(), audition.getUser(), holder.firstWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.firstWinnerAvatarView);
         } else if(index == 1) {
-          ImageUtils.setPhoto(getContext(), audition.getUser(), holder.secondWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.secondWinnerAvatarView);
         } else {
-          ImageUtils.setPhoto(getContext(), audition.getUser(), holder.thirdWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.thirdWinnerAvatarView);
         }
       }
     } else {

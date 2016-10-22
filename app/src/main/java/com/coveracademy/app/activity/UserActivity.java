@@ -12,7 +12,7 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.UserView;
 import com.coveracademy.api.service.RemoteService;
-import com.coveracademy.app.util.ImageUtils;
+import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
@@ -67,7 +67,7 @@ public class UserActivity extends AppCompatActivity {
       @Override
       public void onDone(UserView userView) {
         userNameView.setText(userView.getUser().getName());
-        ImageUtils.setPhoto(instance, userView.getUser(), userAvatarView);
+        MediaUtils.setPhoto(instance, userView.getUser(), userAvatarView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override
