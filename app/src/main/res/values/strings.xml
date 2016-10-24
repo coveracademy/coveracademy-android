@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_id">com.coveracademy</string>
     <string name="app_name">Cover Academy</string>
     <string name="facebook_client_id">329761620528304</string>
 
-    <!-- Activities titles -->
-    <string name="title_activity_face_connect">FaceConnect</string>
-    <string name="title_activity_youtube_player">Youtube Player Activity</string>
-    <string name="title_activity_video_view">Video View</string>
-    <string name="title_activity_cam_capture">CamCaptureAct</string>
+    <string name="drawer_opened">Drawer Opened</string>
+    <string name="drawer_closed">Drawer Closed</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- Activities titles -->
+    <string name="title_activity_main">Cover Academy</string>
 
     <!-- Main activity -->
     <string name="activity_main_auditions_title">Auditions</string>
@@ -38,6 +36,14 @@
     <string name="message_no_internet_access">Ops! It seems that you have no internet access. Can you check this?</string>
     <string name="message_connection_timeout">The connection to our servers took too long, is your internet connection OK?</string>
     <string name="message_authentication_error">Couldn\'t authenticate your account, please try again later!</string>
+
+    <!-- Menus -->
+    <string name="menu_edit_profile">Edit profile</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_rate_us">Rate us</string>
+    <string name="menu_contact_us">Contact us</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
 
     <!-- Commons -->
     <string name="join_contest">Join contest</string>

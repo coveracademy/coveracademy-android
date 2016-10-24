@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/items"
+        android:visible="false">
+
+        <item
+            android:id="@+id/edit_profile"
+            android:icon="@drawable/edit"
+            android:title="@string/menu_edit_profile"
+            android:checkable="false"/>
+
+    </group>
+    <group
+        android:id="@+id/extra"
+        android:visible="false">
+
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/share"
+            android:title="@string/menu_share"
+            android:checkable="false"/>
+
+        <item
+            android:id="@+id/rate_us"
+            android:icon="@drawable/star"
+            android:title="@string/menu_rate_us"
+            android:checkable="false"/>
+
+        <item
+            android:id="@+id/contact_us"
+            android:icon="@drawable/email"
+            android:title="@string/menu_contact_us"
+            android:checkable="false"/>
+
+    </group>
+
+    <group
+        android:id="@+id/others"
+        android:visible="false">
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/settings"
+            android:title="@string/menu_settings"
+            android:checkable="false"/>
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="@string/menu_logout"
+            android:checkable="false"/>
+
+    </group>
+
+</menu>

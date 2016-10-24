@@ -1,14 +1,21 @@
 package com.coveracademy.app.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.coveracademy.app.R;
 import com.coveracademy.app.fragment.AuditionsFragment;
@@ -17,13 +24,18 @@ import com.coveracademy.app.fragment.ContestsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+  private MainActivity instance;
+  private DrawerToggle drawerToggle;
+  private View drawerHeaderView;
   private TabsAdapter tabsAdapter;
 
+  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+  @BindView(R.id.navigation_view) NavigationView navigationView;
   @BindView(R.id.pager) ViewPager tabsPager;
   @BindView(R.id.tabs) TabLayout tabs;
-  @BindView(R.id.toolbar) Toolbar toolbar;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,15 +43,38 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
+    instance = this;
+
+    setupToolbar();
+    setupDrawer();
+    setupDrawerContent();
     setupTabs();
+  }
+
+  private void setupDrawer() {
+    drawerToggle = new DrawerToggle();
+    drawerLayout.addDrawerListener(drawerToggle);
+    drawerToggle.syncState();
+    drawerHeaderView = navigationView.inflateHeaderView(R.layout.drawer_header);
+    navigationView.setNavigationItemSelectedListener(this);
+  }
+
+  private void setupDrawerContent() {
+    navigationView.getMenu().setGroupVisible(R.id.items, true);
+    navigationView.getMenu().setGroupVisible(R.id.extra, true);
+    navigationView.getMenu().setGroupVisible(R.id.others, true);
+  }
+
+  private void setupToolbar() {
     setSupportActionBar(toolbar);
+    setTitle(getString(R.string.title_activity_main));
   }
 
   private void setupTabs() {
     tabsAdapter = new TabsAdapter(getSupportFragmentManager());
     tabsPager.setAdapter(tabsAdapter);
     tabs.setupWithViewPager(tabsPager);
-    tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
       public void onTabSelected(TabLayout.Tab tab) {
         tabsPager.setCurrentItem(tab.getPosition());
@@ -55,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
       }
     });
+  }
+
+  @Override
+  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    return false;
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration config) {
+    super.onConfigurationChanged(config);
+    drawerToggle.onConfigurationChanged(config);
   }
 
   private class TabsAdapter extends FragmentPagerAdapter {
@@ -81,6 +127,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public CharSequence getPageTitle(int position) {
       return titles[position];
+    }
+  }
+
+  private class DrawerToggle extends ActionBarDrawerToggle {
+
+    public DrawerToggle() {
+      super(instance, drawerLayout, toolbar, R.string.drawer_opened, R.string.drawer_closed);
+    }
+
+    @Override
+    public void onDrawerOpened(View view) {
+      super.onDrawerOpened(view);
+      invalidateOptionsMenu();
+      syncState();
+    }
+
+    @Override
+    public void onDrawerClosed(View view) {
+      super.onDrawerClosed(view);
+      invalidateOptionsMenu();
+      syncState();
     }
   }
 }
