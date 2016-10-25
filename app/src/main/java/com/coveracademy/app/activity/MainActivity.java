@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import com.coveracademy.app.fragment.ContestsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends CoverAcademyActivity implements NavigationView.OnNavigationItemSelectedListener {
 
   private MainActivity instance;
   private DrawerToggle drawerToggle;
@@ -47,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     setupToolbar();
     setupDrawer();
-    setupDrawerContent();
-    setupTabs();
+    loadContent();
   }
 
   private void setupDrawer() {
@@ -92,6 +90,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     });
   }
 
+  private void loadContent() {
+    setupDrawerContent();
+    setupTabs();
+  }
+
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     return false;
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String[] titles;
     private Fragment[] contents;
 
-    public TabsAdapter(FragmentManager fragmentManager) {
+    private TabsAdapter(FragmentManager fragmentManager) {
       super(fragmentManager);
       titles = new String[] {getString(R.string.activity_main_auditions_title), getString(R.string.activity_main_contests_title)};
       contents = new Fragment[] {new AuditionsFragment(), new ContestsFragment()};
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
   private class DrawerToggle extends ActionBarDrawerToggle {
 
-    public DrawerToggle() {
+    private DrawerToggle() {
       super(instance, drawerLayout, toolbar, R.string.drawer_opened, R.string.drawer_closed);
     }
 

@@ -1,7 +1,6 @@
 package com.coveracademy.app.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +20,7 @@ import org.jdeferred.FailCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends CoverAcademyActivity {
 
   private static final String TAG = UserActivity.class.getSimpleName();
   public static final String USER_ID = "USER_ID";

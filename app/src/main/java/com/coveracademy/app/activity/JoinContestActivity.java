@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.coveracademy.app.R;
@@ -18,13 +17,11 @@ import com.coveracademy.app.util.MediaUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import life.knowledge4.videotrimmer.K4LVideoTrimmer;
 import life.knowledge4.videotrimmer.utils.FileUtils;
 
-public class JoinContestActivity extends AppCompatActivity {
+public class JoinContestActivity extends CoverAcademyActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

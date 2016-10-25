@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_id">com.coveracademy</string>
+    <string name="app_id">com.coveracademy</string>[
     <string name="app_name">Cover Academy</string>
     <string name="facebook_client_id">329761620528304</string>
+    <string name="facebook_login_protocol_scheme">fb329761620528304</string>
 
     <string name="drawer_opened">Drawer Opened</string>
     <string name="drawer_closed">Drawer Closed</string>

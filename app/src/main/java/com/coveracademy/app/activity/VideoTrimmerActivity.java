@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.coveracademy.app.R;
 import com.coveracademy.app.util.MediaUtils;
@@ -16,8 +15,7 @@ import butterknife.ButterKnife;
 import life.knowledge4.videotrimmer.K4LVideoTrimmer;
 import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
 
-
-public class VideoTrimmerActivity extends AppCompatActivity implements OnTrimVideoListener {
+public class VideoTrimmerActivity extends CoverAcademyActivity implements OnTrimVideoListener {
 
   public static final String EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH";
   public static final String EXTRA_TRIM_VIDEO_PATH = "EXTRA_TRIM_VIDEO_PATH";

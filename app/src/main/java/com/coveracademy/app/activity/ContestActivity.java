@@ -3,7 +3,6 @@ package com.coveracademy.app.activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.app.R;
-import com.coveracademy.app.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
@@ -21,6 +18,8 @@ import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
+import com.coveracademy.app.R;
+import com.coveracademy.app.adapter.AuditionsAdapter;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 
@@ -33,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ContestActivity extends AppCompatActivity implements AuditionsAdapter.OnUserClickListener {
+public class ContestActivity extends CoverAcademyActivity implements AuditionsAdapter.OnUserClickListener {
 
   private static final String TAG = ContestActivity.class.getSimpleName();
   public static final String CONTEST_ID = "CONTEST_ID";
