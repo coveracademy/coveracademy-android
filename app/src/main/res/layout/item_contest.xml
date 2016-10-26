@@ -112,7 +112,7 @@
         <Button
             style="@style/Button"
             android:theme="@style/PrimaryButtonTheme"
-            android:id="@+id/vote"
+            android:id="@+id/like"
             android:text="@string/vote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

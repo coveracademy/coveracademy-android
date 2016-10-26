@@ -1,5 +1,6 @@
 package com.coveracademy.app.activity;
 
+import android.accounts.Account;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,16 +18,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.coveracademy.api.exception.APIException;
+import com.coveracademy.api.model.User;
 import com.coveracademy.app.R;
 import com.coveracademy.app.fragment.AuditionsFragment;
 import com.coveracademy.app.fragment.ContestsFragment;
+import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.component.ConfirmDialog;
 import com.facebook.login.LoginManager;
 
 import org.jdeferred.DoneCallback;
-import org.jdeferred.FailCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +40,8 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   private DrawerToggle drawerToggle;
   private View drawerHeaderView;
   private TabsAdapter tabsAdapter;
+
+  private User user;
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -66,6 +71,12 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   }
 
   private void setupDrawerContent() {
+    ImageView avatarView = ButterKnife.findById(drawerHeaderView, R.id.avatar);
+    MediaUtils.setPhoto(this, user, avatarView);
+
+    TextView nameView = ButterKnife.findById(drawerHeaderView, R.id.name);
+    nameView.setText(user.getName());
+
     navigationView.getMenu().setGroupVisible(R.id.items, true);
     navigationView.getMenu().setGroupVisible(R.id.extra, true);
     navigationView.getMenu().setGroupVisible(R.id.others, true);
@@ -98,9 +109,10 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
     });
   }
 
-  private void loadContent() {
-    setupDrawerContent();
-    setupTabs();
+  @Override
+  public void onConfigurationChanged(Configuration config) {
+    super.onConfigurationChanged(config);
+    drawerToggle.onConfigurationChanged(config);
   }
 
   @Override
@@ -126,12 +138,6 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
         break;
     }
     return true;
-  }
-
-  @Override
-  public void onConfigurationChanged(Configuration config) {
-    super.onConfigurationChanged(config);
-    drawerToggle.onConfigurationChanged(config);
   }
 
   private void onEditProfileClick() {
@@ -172,6 +178,17 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
     Intent intent = new Intent(this, SplashActivity.class);
     startActivity(intent);
     finish();
+  }
+
+  private void loadContent() {
+    remoteService.getUserService().getAuthenticatedUser().then(new DoneCallback<User>() {
+      @Override
+      public void onDone(User user) {
+        instance.user = user;
+        setupDrawerContent();
+        setupTabs();
+      }
+    });
   }
 
   private class TabsAdapter extends FragmentPagerAdapter {

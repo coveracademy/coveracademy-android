@@ -11,8 +11,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
-        android:layout_width="@dimen/avatar_medium"
-        android:layout_height="@dimen/avatar_medium"
+        android:layout_width="@dimen/avatar_large"
+        android:layout_height="@dimen/avatar_large"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="2dp"/>
 
@@ -24,12 +24,5 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_small"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@
 
     <dimen name="avatar_small">35dp</dimen>
     <dimen name="avatar_medium">70dp</dimen>
+    <dimen name="avatar_large">90dp</dimen>
 
     <dimen name="text_micro">12sp</dimen>
     <dimen name="text_small">14sp</dimen>

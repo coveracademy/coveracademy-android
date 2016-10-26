@@ -55,7 +55,6 @@ public class WelcomeActivity extends CoverAcademyActivity {
         remoteService.getUserService().authenticate(loginResult.getAccessToken().getToken()).then(new DoneCallback<User>() {
           @Override
           public void onDone(User user) {
-            application.setUser(user);
             Intent intent = new Intent(instance, MainActivity.class);
             startActivity(intent);
             finish();

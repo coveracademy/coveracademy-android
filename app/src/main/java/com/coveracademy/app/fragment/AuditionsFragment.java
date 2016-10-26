@@ -24,7 +24,6 @@ import com.coveracademy.app.util.UIUtils;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
-import org.jdeferred.Promise;
 
 import java.util.List;
 

@@ -45,7 +45,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     int totalComments = auditionView.getTotalComments();
 
     holder.userNameView.setText(user.getName());
-    holder.totalVotesView.setText(getContext().getString(R.string.activity_main_total_votes, totalVotes));
+    holder.totalLikesView.setText(getContext().getString(R.string.activity_main_total_likes, totalVotes));
     holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
     MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
     MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
@@ -60,7 +60,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     @BindView(R.id.user_avatar) ImageView userAvatarView;
     @BindView(R.id.user_name) TextView userNameView;
     @BindView(R.id.audition_thumbnail) ImageView auditionThumbnailView;
-    @BindView(R.id.total_votes) TextView totalVotesView;
+    @BindView(R.id.total_likes) TextView totalLikesView;
     @BindView(R.id.total_comments) TextView totalCommentsView;
 
     public AuditionViewHolder(View itemView) {

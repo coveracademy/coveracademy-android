@@ -16,7 +16,7 @@
     <string name="activity_main_auditions_title">Auditions</string>
     <string name="activity_main_contests_title">Contests</string>
     <string name="activity_main_bubble_separator">•</string>
-    <string name="activity_main_total_votes">%1$d votes</string>
+    <string name="activity_main_total_likes">%1$d likes</string>
     <string name="activity_main_total_comments">%1$d comments</string>
     <string name="activity_main_alert_error_loading_auditions">Couldn\'t load auditions, please try again later!</string>
     <string name="activity_main_alert_error_loading_contests">Couldn\'t load contests, please try again later!</string>
