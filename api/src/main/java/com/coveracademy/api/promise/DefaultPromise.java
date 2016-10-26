@@ -4,6 +4,8 @@ import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
 
 import org.jdeferred.Deferred;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
 import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
@@ -39,5 +41,23 @@ public class DefaultPromise<D> extends DeferredObject<D, APIException, Progress>
     } finally {
       triggerProgress(Progress.PROCESSED);
     }
+  }
+
+  public void resolve() {
+    resolve((D) null);
+  }
+
+  public void resolve(DefaultPromise<D> promise) {
+    promise.then(new DoneCallback<D>() {
+      @Override
+      public void onDone(D result) {
+        resolve(result);
+      }
+    }).fail(new FailCallback<APIException>() {
+      @Override
+      public void onFail(APIException result) {
+        reject(result);
+      }
+    });
   }
 }

@@ -1,5 +1,7 @@
 package com.coveracademy.app.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,9 +18,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.coveracademy.api.exception.APIException;
 import com.coveracademy.app.R;
 import com.coveracademy.app.fragment.AuditionsFragment;
 import com.coveracademy.app.fragment.ContestsFragment;
+import com.coveracademy.app.util.component.ConfirmDialog;
+import com.facebook.login.LoginManager;
+
+import org.jdeferred.DoneCallback;
+import org.jdeferred.FailCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,13 +105,73 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
 
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    return false;
+    switch(item.getItemId()) {
+      case R.id.edit_profile:
+        onEditProfileClick();
+        break;
+      case R.id.share:
+        onShareClick();
+        break;
+      case R.id.rate_us:
+        onRateUsClick();
+        break;
+      case R.id.contact_us:
+        onContactUsClick();
+        break;
+      case R.id.settings:
+        onSettingsClick();
+        break;
+      case R.id.logout:
+        onLogoutClick();
+        break;
+    }
+    return true;
   }
 
   @Override
   public void onConfigurationChanged(Configuration config) {
     super.onConfigurationChanged(config);
     drawerToggle.onConfigurationChanged(config);
+  }
+
+  private void onEditProfileClick() {
+
+  }
+
+  private void onShareClick() {
+
+  }
+
+  private void onRateUsClick() {
+
+  }
+
+  private void onContactUsClick() {
+
+  }
+
+  private void onSettingsClick() {
+
+  }
+
+  private void onLogoutClick() {
+    ConfirmDialog logoutConfirmation = new ConfirmDialog(this, getString(R.string.activity_main_dialog_logout_title), getString(R.string.activity_main_dialog_logout_message));
+    logoutConfirmation.setOnPositiveClickListener(new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        logout();
+      }
+    });
+    logoutConfirmation.show();
+  }
+
+  private void logout() {
+    remoteService.getUserService().logout();
+    LoginManager.getInstance().logOut();
+
+    Intent intent = new Intent(this, SplashActivity.class);
+    startActivity(intent);
+    finish();
   }
 
   private class TabsAdapter extends FragmentPagerAdapter {

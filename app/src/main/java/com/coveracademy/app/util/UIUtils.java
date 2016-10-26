@@ -16,9 +16,6 @@ import com.rey.material.widget.ProgressView;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by sandro on 22/10/15.
- */
 public class UIUtils {
 
   public static void defaultToolbar(final Activity activity) {
