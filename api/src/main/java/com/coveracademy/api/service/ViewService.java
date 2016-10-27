@@ -3,6 +3,7 @@ package com.coveracademy.api.service;
 import android.content.Context;
 
 import com.coveracademy.api.model.view.AuditionView;
+import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.model.view.UserView;
 import com.coveracademy.api.promise.DefaultPromise;
@@ -18,21 +19,21 @@ public class ViewService extends RestService {
     super(context, "/views");
   }
 
+  public DefaultPromise<UserView> userView(long userId) {
+    GetBuilder builder = getRequestBuilderFactory().get(UserView.class);
+    builder.concatPath("/users/").concatPath(userId);
+    return new RequestPromise<>(builder);
+  }
+
   public DefaultPromise<List<AuditionView>> auditionsView() {
     GetBuilder builder = getRequestBuilderFactory().get(Types.listOfAuditionView());
     builder.concatPath("/auditions");
     return new RequestPromise<>(builder);
   }
 
-  public DefaultPromise<List<ContestView>> contestsView() {
+  public DefaultPromise<List<ContestsItemView>> contestsView() {
     GetBuilder builder = getRequestBuilderFactory().get(Types.listOfContestView());
     builder.concatPath("/contests");
-    return new RequestPromise<>(builder);
-  }
-
-  public DefaultPromise<UserView> userView(long userId) {
-    GetBuilder builder = getRequestBuilderFactory().get(UserView.class);
-    builder.concatPath("/users/").concatPath(userId);
     return new RequestPromise<>(builder);
   }
 

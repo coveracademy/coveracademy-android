@@ -2,7 +2,6 @@ package com.coveracademy.api.service;
 
 import android.content.Context;
 
-import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.promise.DefaultPromise;
@@ -13,11 +12,8 @@ import com.coveracademy.api.service.rest.builder.PostBuilder;
 import com.coveracademy.api.service.rest.builder.request.json.Types;
 
 import org.jdeferred.DoneCallback;
-import org.jdeferred.DonePipe;
 import org.jdeferred.FailCallback;
-import org.jdeferred.Promise;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserService extends RestService {

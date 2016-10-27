@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coveracademy.api.model.Video;
 import com.coveracademy.app.R;
-import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
@@ -38,16 +38,16 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
   @Override
   public void onBindViewHolder(AuditionViewHolder holder, int position) {
     AuditionView auditionView = getItem(position);
-    Audition audition = auditionView.getAudition();
-    Contest contest = auditionView.getContest();
-    User user = auditionView.getUser();
-    int totalVotes = auditionView.getTotalVotes();
+    Video video = auditionView.getAudition();
+    Contest contest = auditionView.getAudition().getContest();
+    User user = auditionView.getAudition().getUser();
+    int totalVotes = auditionView.getTotalLikes();
     int totalComments = auditionView.getTotalComments();
 
     holder.userNameView.setText(user.getName());
     holder.totalLikesView.setText(getContext().getString(R.string.activity_main_total_likes, totalVotes));
     holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
-    MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
+    MediaUtils.setThumbnail(getContext(), video, holder.auditionThumbnailView);
     MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
   }
 
@@ -71,7 +71,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     @OnClick(R.id.user)
     void onUserClick() {
       if(onUserClickListener != null) {
-        User user = getItem(getAdapterPosition()).getUser();
+        User user = getItem(getAdapterPosition()).getAudition().getUser();
         onUserClickListener.onUserClick(user);
       }
     }

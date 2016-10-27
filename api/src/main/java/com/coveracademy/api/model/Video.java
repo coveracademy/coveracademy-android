@@ -2,40 +2,29 @@ package com.coveracademy.api.model;
 
 import java.util.Date;
 
-public class Audition {
+public class Video {
 
-  private Long Id;
-  private Long contestId;
+  private Long id;
   private Long userId;
-  private String slug;
-  private String url;
-  private String embedUrl;
-  private String videoId;
+  private Long contestId;
   private String title;
   private String description;
+  private String slug;
+  private String url;
   private String smallThumbnail;
   private String mediumThumbnail;
   private String largeThumbnail;
-  private Integer place;
-  private boolean approved;
   private Date registrationDate;
 
   private User user;
+  private Contest contest;
 
   public Long getId() {
-    return Id;
+    return id;
   }
 
   public void setId(Long id) {
-    Id = id;
-  }
-
-  public Long getContestId() {
-    return contestId;
-  }
-
-  public void setContestId(Long contestId) {
-    this.contestId = contestId;
+    this.id = id;
   }
 
   public Long getUserId() {
@@ -46,36 +35,12 @@ public class Audition {
     this.userId = userId;
   }
 
-  public String getSlug() {
-    return slug;
+  public Long getContestId() {
+    return contestId;
   }
 
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  public String getEmbedUrl() {
-    return embedUrl;
-  }
-
-  public void setEmbedUrl(String embedUrl) {
-    this.embedUrl = embedUrl;
-  }
-
-  public String getVideoId() {
-    return videoId;
-  }
-
-  public void setVideoId(String videoId) {
-    this.videoId = videoId;
+  public void setContestId(Long contestId) {
+    this.contestId = contestId;
   }
 
   public String getTitle() {
@@ -92,6 +57,22 @@ public class Audition {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getSlug() {
+    return slug;
+  }
+
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   public String getSmallThumbnail() {
@@ -118,22 +99,6 @@ public class Audition {
     this.largeThumbnail = largeThumbnail;
   }
 
-  public Integer getPlace() {
-    return place;
-  }
-
-  public void setPlace(Integer place) {
-    this.place = place;
-  }
-
-  public boolean isApproved() {
-    return approved;
-  }
-
-  public void setApproved(boolean approved) {
-    this.approved = approved;
-  }
-
   public Date getRegistrationDate() {
     return registrationDate;
   }
@@ -148,5 +113,13 @@ public class Audition {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public Contest getContest() {
+    return contest;
+  }
+
+  public void setContest(Contest contest) {
+    this.contest = contest;
   }
 }

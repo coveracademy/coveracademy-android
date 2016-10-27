@@ -1,6 +1,5 @@
 package com.coveracademy.api.promise;
 
-import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
 
 import org.jdeferred.Deferred;

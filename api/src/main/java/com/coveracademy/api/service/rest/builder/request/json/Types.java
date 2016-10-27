@@ -1,7 +1,7 @@
 package com.coveracademy.api.service.rest.builder.request.json;
 
 import com.coveracademy.api.model.view.AuditionView;
-import com.coveracademy.api.model.view.ContestView;
+import com.coveracademy.api.model.view.ContestsItemView;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -21,7 +21,7 @@ public class Types {
   }
 
   public static Type listOfContestView() {
-    return new TypeToken<List<ContestView>>() {
+    return new TypeToken<List<ContestsItemView>>() {
     }.getType();
   }
 

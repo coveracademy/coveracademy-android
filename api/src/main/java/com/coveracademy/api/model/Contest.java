@@ -1,15 +1,20 @@
 package com.coveracademy.api.model;
 
+import com.coveracademy.api.enumeration.Progress;
+
 import java.util.Date;
 
 public class Contest {
 
   private Long id;
   private String name;
+  private String description;
   private String image;
-  private Progress progress;
+  private String slug;
   private Date startDate;
   private Date endDate;
+  private Date registrationDate;
+  private Integer minimumContestants;
 
   public Long getId() {
     return id;
@@ -27,6 +32,14 @@ public class Contest {
     this.name = name;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public String getImage() {
     return image;
   }
@@ -35,12 +48,12 @@ public class Contest {
     this.image = image;
   }
 
-  public Progress getProgress() {
-    return progress;
+  public String getSlug() {
+    return slug;
   }
 
-  public void setProgress(Progress progress) {
-    this.progress = progress;
+  public void setSlug(String slug) {
+    this.slug = slug;
   }
 
   public Date getStartDate() {
@@ -59,7 +72,32 @@ public class Contest {
     this.endDate = endDate;
   }
 
-  public enum Progress {
-    waiting, running, finished;
+  public Date getRegistrationDate() {
+    return registrationDate;
+  }
+
+  public void setRegistrationDate(Date registrationDate) {
+    this.registrationDate = registrationDate;
+  }
+
+  public Integer getMinimumContestants() {
+    return minimumContestants;
+  }
+
+  public void setMinimumContestants(Integer minimumContestants) {
+    this.minimumContestants = minimumContestants;
+  }
+
+  public Progress getProgress() {
+    Date now = new Date();
+    Progress progress = Progress.WAITING;
+    if(startDate == null || endDate == null || now.before(endDate)) {
+      progress = Progress.WAITING;
+    } else if(now.after(startDate) && now.before(endDate)) {
+      progress = Progress.RUNNING;
+    } else if(now.after(endDate)) {
+      progress = Progress.FINISHED;
+    }
+    return progress;
   }
 }

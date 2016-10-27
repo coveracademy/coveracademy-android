@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.app.R;
-import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
-import com.coveracademy.api.model.view.ContestView;
+import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.app.util.MediaUtils;
 
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.ContestViewHolder> {
+public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapter.ContestViewHolder> {
 
   private OnContestClickListener onContestClickListener;
 
   public ContestsAdapter(Context context) {
-    super(context, new ArrayList<ContestView>());
+    super(context, new ArrayList<ContestsItemView>());
   }
 
   @Override
@@ -37,25 +37,23 @@ public class ContestsAdapter extends BaseAdapter<ContestView, ContestsAdapter.Co
 
   @Override
   public void onBindViewHolder(ContestViewHolder holder, int position) {
-    ContestView contestView = getItem(position);
-    Contest contest = contestView.getContest();
-    int totalAuditions = contestView.getTotalAuditions();
+    ContestsItemView contestsItemView = getItem(position);
+    Contest contest = contestsItemView.getContest();
 
     holder.contestNameView.setText(contest.getName());
-    holder.totalAuditionsView.setText(getContext().getString(R.string.total_auditions, totalAuditions));
     MediaUtils.setImage(getContext(), contest, holder.contestImageView);
 
-    if(contest.getProgress().equals(Contest.Progress.finished)) {
+    if(contest.getProgress().equals(Progress.FINISHED)) {
       holder.actionsView.setVisibility(View.GONE);
       holder.winnersView.setVisibility(View.VISIBLE);
-      for(int index = 0; index < contestView.getWinnerAuditions().size(); index++) {
-        Audition audition = contestView.getWinnerAuditions().get(index);
+      for(int index = 0; index < contestsItemView.getWinners().size(); index++) {
+        User user = contestsItemView.getWinners().get(index);
         if(index == 0) {
-          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.firstWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), user, holder.firstWinnerAvatarView);
         } else if(index == 1) {
-          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.secondWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), user, holder.secondWinnerAvatarView);
         } else {
-          MediaUtils.setPhoto(getContext(), audition.getUser(), holder.thirdWinnerAvatarView);
+          MediaUtils.setPhoto(getContext(), user, holder.thirdWinnerAvatarView);
         }
       }
     } else {

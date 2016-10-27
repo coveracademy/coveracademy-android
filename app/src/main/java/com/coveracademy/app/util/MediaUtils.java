@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Environment;
 import android.widget.ImageView;
 
+import com.coveracademy.api.model.Video;
 import com.coveracademy.app.R;
-import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.app.constant.Constants;
@@ -42,21 +42,11 @@ public class MediaUtils {
   }
 
   public static void setPhoto(Context context, User user, ImageView imageView) {
-    switch(user.getProfilePicture()) {
-      case facebook:
-        Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
-        break;
-      case twitter:
-        Picasso.with(context).load(user.getTwitterPicture()).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
-        break;
-      case google:
-        Picasso.with(context).load(user.getGooglePicture()).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
-        break;
-    }
+    Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
   }
 
-  public static void setThumbnail(Context context, Audition audition, ImageView imageView) {
-    Picasso.with(context).load(audition.getLargeThumbnail()).into(imageView);
+  public static void setThumbnail(Context context, Video video, ImageView imageView) {
+    Picasso.with(context).load(video.getLargeThumbnail()).into(imageView);
   }
 
   public static void setImage(Context context, Contest contest, ImageView imageView) {

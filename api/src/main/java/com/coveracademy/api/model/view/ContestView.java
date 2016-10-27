@@ -1,7 +1,8 @@
 package com.coveracademy.api.model.view;
 
-import com.coveracademy.api.model.Audition;
 import com.coveracademy.api.model.Contest;
+import com.coveracademy.api.model.User;
+import com.coveracademy.api.model.Video;
 
 import java.util.List;
 import java.util.Map;
@@ -9,10 +10,11 @@ import java.util.Map;
 public class ContestView {
 
   private Contest contest;
-  private List<Audition> winnerAuditions;
-  private List<Audition> auditions;
-  private int totalAuditions;
-  private Map<Long, Integer> votesByAudition;
+  private List<User> winners;
+  private List<Video> auditions;
+  private Integer totalAuditions;
+  private Map<Long, Integer> totalLikes;
+  private Map<Long, Integer> totalComments;
 
   public Contest getContest() {
     return contest;
@@ -22,35 +24,43 @@ public class ContestView {
     this.contest = contest;
   }
 
-  public List<Audition> getWinnerAuditions() {
-    return winnerAuditions;
+  public List<User> getWinners() {
+    return winners;
   }
 
-  public void setWinnerAuditions(List<Audition> winnerAuditions) {
-    this.winnerAuditions = winnerAuditions;
+  public void setWinners(List<User> winners) {
+    this.winners = winners;
   }
 
-  public List<Audition> getAuditions() {
+  public List<Video> getAuditions() {
     return auditions;
   }
 
-  public void setAuditions(List<Audition> auditions) {
+  public void setAuditions(List<Video> auditions) {
     this.auditions = auditions;
   }
 
-  public int getTotalAuditions() {
+  public Integer getTotalAuditions() {
     return totalAuditions;
   }
 
-  public void setTotalAuditions(int totalAuditions) {
+  public void setTotalAuditions(Integer totalAuditions) {
     this.totalAuditions = totalAuditions;
   }
 
-  public Map<Long, Integer> getVotesByAudition() {
-    return votesByAudition;
+  public Map<Long, Integer> getTotalLikes() {
+    return totalLikes;
   }
 
-  public void setVotesByAudition(Map<Long, Integer> votesByAudition) {
-    this.votesByAudition = votesByAudition;
+  public void setTotalLikes(Map<Long, Integer> totalLikes) {
+    this.totalLikes = totalLikes;
+  }
+
+  public Map<Long, Integer> getTotalComments() {
+    return totalComments;
+  }
+
+  public void setTotalComments(Map<Long, Integer> totalComments) {
+    this.totalComments = totalComments;
   }
 }

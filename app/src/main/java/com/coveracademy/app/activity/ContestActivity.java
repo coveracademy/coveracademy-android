@@ -11,8 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Video;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
@@ -50,9 +51,7 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
   @BindView(R.id.hours_remaining) TextView hoursRemainingView;
   @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
   @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
-
-  //  @BindView(R.id.total_auditions) TextView totalAuditionsView;
-  @BindView(R.id.auditions) RecyclerView auditionsView;
+  @BindView(R.id.videos) RecyclerView videosView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +73,8 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
   private void setupAuditionsAdapter() {
     auditionsAdapter = new AuditionsAdapter(this);
     auditionsAdapter.setOnUserClickListener(this);
-    auditionsView.setLayoutManager(new LinearLayoutManager(this));
-    auditionsView.setAdapter(auditionsAdapter);
+    videosView.setLayoutManager(new LinearLayoutManager(this));
+    videosView.setAdapter(auditionsAdapter);
   }
 
   private void setupContestView() {
@@ -87,7 +86,7 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
     remoteService.getViewService().contestView(contestId).then(new DoneCallback<ContestView>() {
       @Override
       public void onDone(ContestView contestView) {
-        setupContestInfos(contestView);
+        setupContestInformation(contestView);
         setupAuditions(contestView);
       }
     }).fail(new FailCallback<APIException>() {
@@ -100,13 +99,12 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
     });
   }
 
-  private void setupContestInfos(ContestView contestView) {
+  private void setupContestInformation(ContestView contestView) {
     Contest contest = contestView.getContest();
     contestNameView.setText(contestView.getContest().getName());
-    //        totalAuditionsView.setText(getString(R.string.total_auditions, contestView.getTotalAuditions()));
     MediaUtils.setImage(instance, contestView.getContest(), contestImageView);
     long millisInFuture = contest.getEndDate().getTime() - System.currentTimeMillis();
-    if(millisInFuture > 0 && contest.getProgress().equals(Contest.Progress.running)) {
+    if(millisInFuture > 0 && contest.getProgress().equals(Progress.RUNNING)) {
       countdownView.setVisibility(View.VISIBLE);
       new CountDownTimer(millisInFuture, 1000) {
 
@@ -134,14 +132,18 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
 
   private void setupAuditions(ContestView contestView) {
     List<AuditionView> auditionsViews = new ArrayList<>();
-    for(Audition audition : contestView.getAuditions()) {
+    for(Video audition : contestView.getAuditions()) {
       AuditionView auditionView = new AuditionView();
       auditionView.setAudition(audition);
-      auditionView.setUser(audition.getUser());
-      if(contestView.getVotesByAudition().containsKey(audition.getId())) {
-        auditionView.setTotalVotes(contestView.getVotesByAudition().get(audition.getId()));
+      if(contestView.getTotalLikes().containsKey(audition.getId())) {
+        auditionView.setTotalLikes(contestView.getTotalLikes().get(audition.getId()));
       } else {
-        auditionView.setTotalVotes(0);
+        auditionView.setTotalLikes(0);
+      }
+      if(contestView.getTotalComments().containsKey(audition.getId())) {
+        auditionView.setTotalComments(contestView.getTotalComments().get(audition.getId()));
+      } else {
+        auditionView.setTotalComments(0);
       }
       auditionsViews.add(auditionView);
     }

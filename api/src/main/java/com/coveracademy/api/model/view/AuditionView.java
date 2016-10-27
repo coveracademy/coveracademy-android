@@ -1,47 +1,27 @@
 package com.coveracademy.api.model.view;
 
-import com.coveracademy.api.model.Audition;
-import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.model.User;
+import com.coveracademy.api.model.Video;
 
 public class AuditionView {
 
-  private Audition audition;
-  private Contest contest;
-  private User user;
-  private int totalVotes;
+  private Video audition;
+  private int totalLikes;
   private int totalComments;
 
-  public Audition getAudition() {
+  public Video getAudition() {
     return audition;
   }
 
-  public void setAudition(Audition audition) {
+  public void setAudition(Video audition) {
     this.audition = audition;
   }
 
-  public Contest getContest() {
-    return contest;
+  public Integer getTotalLikes() {
+    return totalLikes;
   }
 
-  public void setContest(Contest contest) {
-    this.contest = contest;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  public Integer getTotalVotes() {
-    return totalVotes;
-  }
-
-  public void setTotalVotes(Integer totalVotes) {
-    this.totalVotes = totalVotes;
+  public void setTotalLikes(Integer totalLikes) {
+    this.totalLikes = totalLikes;
   }
 
   public Integer getTotalComments() {

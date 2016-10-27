@@ -10,21 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.api.enumeration.Progress;
+import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.adapter.ContestsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
-import com.coveracademy.api.model.view.ContestView;
+import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
-import org.jdeferred.Promise;
 
 import java.util.List;
 
@@ -74,9 +73,9 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
   }
 
   private void setupContestsView() {
-    remoteService.getViewService().contestsView().then(new DoneCallback<List<ContestView>>() {
+    remoteService.getViewService().contestsView().then(new DoneCallback<List<ContestsItemView>>() {
       @Override
-      public void onDone(List<ContestView> contestsView) {
+      public void onDone(List<ContestsItemView> contestsView) {
         contestsAdapter.setItems(contestsView);
       }
     }).fail(new FailCallback<APIException>() {

@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.api.enumeration.Progress;
+import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.JoinContestActivity;
 import com.coveracademy.app.activity.UserActivity;
@@ -40,7 +40,7 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
 
   @BindView(R.id.coordinator_layout) View coordinatorLayout;
   @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
-  @BindView(R.id.auditions) RecyclerView auditionsView;
+  @BindView(R.id.videos) RecyclerView videosView;
 
   @Override
   public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +69,8 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   private void setupAuditionsAdapter() {
     auditionsAdapter = new AuditionsAdapter(getContext());
     auditionsAdapter.setOnUserClickListener(this);
-    auditionsView.setLayoutManager(new LinearLayoutManager(getContext()));
-    auditionsView.setAdapter(auditionsAdapter);
+    videosView.setLayoutManager(new LinearLayoutManager(getContext()));
+    videosView.setAdapter(auditionsAdapter);
   }
 
   private void setupAuditionsView() {

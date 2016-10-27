@@ -1,6 +1,6 @@
 package com.coveracademy.api.model.view;
 
-import com.coveracademy.api.model.Audition;
+import com.coveracademy.api.model.Video;
 import com.coveracademy.api.model.User;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class UserView {
 
   private User user;
-  private List<Audition> auditions;
+  private List<Video> videos;
   private List<User> fans;
   private int totalFans;
   private boolean fan;
@@ -21,12 +21,12 @@ public class UserView {
     this.user = user;
   }
 
-  public List<Audition> getAuditions() {
-    return auditions;
+  public List<Video> getVideos() {
+    return videos;
   }
 
-  public void setAuditions(List<Audition> auditions) {
-    this.auditions = auditions;
+  public void setVideos(List<Video> videos) {
+    this.videos = videos;
   }
 
   public List<User> getFans() {
