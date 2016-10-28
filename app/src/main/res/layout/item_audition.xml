@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/content_margin"
-        android:paddingBottom="@dimen/content_margin">
+        android:paddingBottom="@dimen/content_margin_double">
 
         <LinearLayout
             android:id="@+id/user"
@@ -38,17 +38,32 @@
                 android:layout_height="@dimen/avatar_small"
                 android:src="@drawable/no_avatar"/>
 
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/content_margin"
                 android:layout_marginStart="@dimen/content_margin"
-                android:layout_gravity="center_vertical"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_small"
-                android:textAllCaps="false"/>
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_normal"
+                    android:textAllCaps="false"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/text_micro"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -72,6 +87,7 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/contest"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,18 +98,11 @@
             android:paddingEnd="@dimen/content_margin"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/contest"/>
-
             <TextView
+                android:id="@+id/contest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/content_margin_double"
-                android:layout_marginStart="@dimen/content_margin_double"
-                android:textSize="@dimen/text_medium"
-                android:text="In the contest"/>
+                android:textSize="@dimen/text_medium"/>
 
         </LinearLayout>
 
@@ -147,8 +156,8 @@
                 android:id="@+id/total_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_main_total_likes"
-                android:textColor="@android:color/black"
+                android:text="@string/total_likes"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/text_small"
                 android:textAllCaps="false"/>
 
@@ -160,7 +169,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginEnd="5dp"
                 android:text="@string/activity_main_bubble_separator"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/text_small"
                 android:textAllCaps="false"/>
 
@@ -168,8 +177,8 @@
                 android:id="@+id/total_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_main_total_comments"
-                android:textColor="@android:color/black"
+                android:text="@string/total_comments"
+                android:textColor="@color/primary_text"
                 android:textSize="@dimen/text_small"
                 android:textAllCaps="false"/>
 

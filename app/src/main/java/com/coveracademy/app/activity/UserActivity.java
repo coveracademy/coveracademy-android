@@ -22,8 +22,9 @@ import butterknife.ButterKnife;
 
 public class UserActivity extends CoverAcademyActivity {
 
-  private static final String TAG = UserActivity.class.getSimpleName();
   public static final String USER_ID = "USER_ID";
+
+  private static final String TAG = UserActivity.class.getSimpleName();
 
   private UserActivity instance;
   private RemoteService remoteService;
@@ -65,7 +66,7 @@ public class UserActivity extends CoverAcademyActivity {
     remoteService.getViewService().userView(userId).then(new DoneCallback<UserView>() {
       @Override
       public void onDone(UserView userView) {
-        userNameView.setText(userView.getUser().getName());
+        userNameView.setText(userView.getUser().getFirstName());
         MediaUtils.setPhoto(instance, userView.getUser(), userAvatarView);
       }
     }).fail(new FailCallback<APIException>() {

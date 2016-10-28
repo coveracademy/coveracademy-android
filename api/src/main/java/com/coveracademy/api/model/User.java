@@ -5,7 +5,8 @@ import java.util.Date;
 public class User {
 
   private Long id;
-  private String name;
+  private String firstName;
+  private String lastName;
   private String email;
   private String biography;
   private String username;
@@ -21,12 +22,20 @@ public class User {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String name) {
+    this.firstName = name;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {
@@ -75,5 +84,9 @@ public class User {
 
   public void setRegistrationDate(Date registrationDate) {
     this.registrationDate = registrationDate;
+  }
+
+  public String getName() {
+    return firstName + " " + lastName;
   }
 }

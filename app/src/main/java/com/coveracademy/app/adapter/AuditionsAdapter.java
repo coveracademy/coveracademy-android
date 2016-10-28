@@ -2,6 +2,7 @@ package com.coveracademy.app.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +39,24 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
   @Override
   public void onBindViewHolder(AuditionViewHolder holder, int position) {
     AuditionView auditionView = getItem(position);
-    Video video = auditionView.getAudition();
-    Contest contest = auditionView.getAudition().getContest();
     User user = auditionView.getAudition().getUser();
-    int totalVotes = auditionView.getTotalLikes();
+    Video audition = auditionView.getAudition();
+    Contest contest = auditionView.getAudition().getContest();
+    int totalLikes = auditionView.getTotalLikes();
     int totalComments = auditionView.getTotalComments();
 
-    holder.userNameView.setText(user.getName());
-    holder.totalLikesView.setText(getContext().getString(R.string.activity_main_total_likes, totalVotes));
-    holder.totalCommentsView.setText(getContext().getString(R.string.activity_main_total_comments, totalComments));
-    MediaUtils.setThumbnail(getContext(), video, holder.auditionThumbnailView);
+    holder.userNameView.setText(user.getFirstName());
+    holder.dateView.setText(DateUtils.getRelativeTimeSpanString(audition.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+    ;
+    if(contest != null) {
+      holder.contestNameView.setText(contest.getName());
+      holder.contestView.setVisibility(View.VISIBLE);
+    } else {
+      holder.contestView.setVisibility(View.GONE);
+    }
+    holder.totalLikesView.setText(getContext().getString(R.string.total_likes, totalLikes));
+    holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, totalComments));
+    MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
     MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
   }
 
@@ -55,15 +64,18 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     this.onUserClickListener = onUserClickListener;
   }
 
-  public class AuditionViewHolder extends RecyclerView.ViewHolder {
+  class AuditionViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.user_avatar) ImageView userAvatarView;
     @BindView(R.id.user_name) TextView userNameView;
+    @BindView(R.id.date) TextView dateView;
     @BindView(R.id.audition_thumbnail) ImageView auditionThumbnailView;
+    @BindView(R.id.contest) View contestView;
+    @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.total_likes) TextView totalLikesView;
     @BindView(R.id.total_comments) TextView totalCommentsView;
 
-    public AuditionViewHolder(View itemView) {
+    AuditionViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
@@ -75,11 +87,21 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
         onUserClickListener.onUserClick(user);
       }
     }
+
+    @OnClick(R.id.contest_name)
+    void onContestClick() {
+      if(onUserClickListener != null) {
+        Contest contest = getItem(getAdapterPosition()).getAudition().getContest();
+        onUserClickListener.onContestClick(contest);
+      }
+    }
   }
 
   public interface OnUserClickListener {
 
     void onUserClick(User user);
+
+    void onContestClick(Contest contest);
 
   }
 }

@@ -8,7 +8,6 @@ public class Video {
   private Long userId;
   private Long contestId;
   private String title;
-  private String description;
   private String slug;
   private String url;
   private String smallThumbnail;
@@ -49,14 +48,6 @@ public class Video {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public String getSlug() {

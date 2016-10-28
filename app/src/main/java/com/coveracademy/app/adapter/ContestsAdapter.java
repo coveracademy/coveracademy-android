@@ -66,7 +66,7 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     this.onContestClickListener = onContestClickListener;
   }
 
-  public class ContestViewHolder extends RecyclerView.ViewHolder {
+  class ContestViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.contest_image) ImageView contestImageView;
@@ -77,7 +77,7 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     @BindView(R.id.second_winner_avatar) ImageView secondWinnerAvatarView;
     @BindView(R.id.third_winner_avatar) ImageView thirdWinnerAvatarView;
 
-    public ContestViewHolder(View itemView) {
+    ContestViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }

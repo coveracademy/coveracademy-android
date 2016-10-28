@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.app.R;
+import com.coveracademy.app.util.UIUtils;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class WelcomeActivity extends CoverAcademyActivity {
 
+  private static String TAG = WelcomeActivity.class.getSimpleName();
   private static String[] FACEBOOK_PERMISSIONS = new String[] {"email"};
 
   private WelcomeActivity instance;
@@ -52,17 +54,20 @@ public class WelcomeActivity extends CoverAcademyActivity {
     loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
       @Override
       public void onSuccess(LoginResult loginResult) {
+        UIUtils.showProgressDialog(TAG, instance, R.string.dialog_wait_a_moment);
         remoteService.getUserService().authenticate(loginResult.getAccessToken().getToken()).then(new DoneCallback<User>() {
           @Override
           public void onDone(User user) {
             Intent intent = new Intent(instance, MainActivity.class);
             startActivity(intent);
             finish();
+            UIUtils.hideProgressDialog(TAG);
           }
         }).fail(new FailCallback<APIException>() {
           @Override
           public void onFail(APIException result) {
             LoginManager.getInstance().logOut();
+            UIUtils.hideProgressDialog(TAG);
           }
         });
       }

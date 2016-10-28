@@ -1,6 +1,5 @@
 package com.coveracademy.app.activity;
 
-import android.accounts.Account;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -75,7 +74,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
     MediaUtils.setPhoto(this, user, avatarView);
 
     TextView nameView = ButterKnife.findById(drawerHeaderView, R.id.name);
-    nameView.setText(user.getName());
+    nameView.setText(user.getFirstName());
 
     navigationView.getMenu().setGroupVisible(R.id.items, true);
     navigationView.getMenu().setGroupVisible(R.id.extra, true);

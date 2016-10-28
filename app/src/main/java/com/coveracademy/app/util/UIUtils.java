@@ -2,21 +2,31 @@ package com.coveracademy.app.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coveracademy.api.service.rest.RequestQueue;
 import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 import com.rey.material.widget.ProgressView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.ButterKnife;
 
 public class UIUtils {
+
+  private static final Map<String, AlertDialog> ALERT_DIALOGS = new HashMap<>();
 
   public static void defaultToolbar(final Activity activity) {
     defaultToolbar(activity, new View.OnClickListener() {
@@ -63,6 +73,41 @@ public class UIUtils {
     ProgressView progressView = ButterKnife.findById(view, R.id.progress_view);
     if(progressView != null) {
       progressView.stop();
+    }
+  }
+
+  public static void showProgressDialog(String id, Context context, int titleResource) {
+    showProgressDialog(id, context, titleResource, null);
+  }
+
+  public static void showProgressDialog(String id, Context context, int titleResource, final String cancelationTag) {
+    if(!ALERT_DIALOGS.containsKey(id)) {
+      View promptView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null);
+      TextView titleView = ButterKnife.findById(promptView, R.id.title);
+      titleView.setText(context.getString(titleResource));
+      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+      dialogBuilder.setView(promptView);
+      dialogBuilder.setCancelable(false);
+      if(cancelationTag != null) {
+        dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+            RequestQueue.getInstance().cancelAll(cancelationTag);
+          }
+        });
+      }
+      AlertDialog dialog = dialogBuilder.create();
+      dialog.show();
+      ALERT_DIALOGS.put(id, dialog);
+    }
+  }
+
+  public static void hideProgressDialog(String id) {
+    if(ALERT_DIALOGS.containsKey(id)) {
+      AlertDialog dialog = ALERT_DIALOGS.get(id);
+      dialog.dismiss();
+      ALERT_DIALOGS.remove(id);
     }
   }
 

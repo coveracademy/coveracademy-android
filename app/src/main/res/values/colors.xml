@@ -4,6 +4,9 @@
     <color name="primary_dark">#0288d1</color>
     <color name="accent">#ffc107</color>
 
+    <color name="primary_text">#000000</color>
+    <color name="secondary_text">#727272</color>
+
     <color name="window_background">#f1f1f1</color>
     <color name="cab_background">#727272</color>
 

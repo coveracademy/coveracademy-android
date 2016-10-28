@@ -35,8 +35,9 @@ import butterknife.ButterKnife;
 
 public class ContestActivity extends CoverAcademyActivity implements AuditionsAdapter.OnUserClickListener {
 
-  private static final String TAG = ContestActivity.class.getSimpleName();
   public static final String CONTEST_ID = "CONTEST_ID";
+
+  private static final String TAG = ContestActivity.class.getSimpleName();
 
   private ContestActivity instance;
   private RemoteService remoteService;
@@ -152,6 +153,11 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
 
   @Override
   public void onUserClick(User user) {
+
+  }
+
+  @Override
+  public void onContestClick(Contest contest) {
 
   }
 }
