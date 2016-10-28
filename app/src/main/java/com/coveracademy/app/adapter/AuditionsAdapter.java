@@ -45,7 +45,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     int totalLikes = auditionView.getTotalLikes();
     int totalComments = auditionView.getTotalComments();
 
-    holder.userNameView.setText(user.getFirstName());
+    holder.userNameView.setText(user.getName());
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(audition.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
     ;
     if(contest != null) {
