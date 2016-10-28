@@ -10,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
-import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.activity.JoinContestActivity;
-import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.adapter.AuditionsAdapter;
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.app.util.UIUtils;
@@ -33,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AuditionsFragment extends StatefulFragment implements AuditionsAdapter.OnUserClickListener {
+public class AuditionsFragment extends StatefulFragment {
 
   private static final String TAG = AuditionsFragment.class.getSimpleName();
 
@@ -70,7 +66,6 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
 
   private void setupAuditionsAdapter() {
     auditionsAdapter = new AuditionsAdapter(getContext());
-    auditionsAdapter.setOnUserClickListener(this);
     videosView.setLayoutManager(new LinearLayoutManager(getContext()));
     videosView.setAdapter(auditionsAdapter);
   }
@@ -104,19 +99,5 @@ public class AuditionsFragment extends StatefulFragment implements AuditionsAdap
   void onJoinContestClick() {
     Intent joinContestIntent = new Intent(getContext(), JoinContestActivity.class);
     startActivity(joinContestIntent);
-  }
-
-  @Override
-  public void onUserClick(User user) {
-    Intent intent = new Intent(getContext(), UserActivity.class);
-    intent.putExtra(UserActivity.USER_ID, user.getId());
-    startActivity(intent);
-  }
-
-  @Override
-  public void onContestClick(Contest contest) {
-    Intent intent = new Intent(getContext(), ContestActivity.class);
-    intent.putExtra(ContestActivity.CONTEST_ID, contest.getId());
-    startActivity(intent);
   }
 }

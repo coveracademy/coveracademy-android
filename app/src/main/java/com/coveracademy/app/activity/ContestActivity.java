@@ -15,7 +15,6 @@ import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.service.RemoteService;
@@ -33,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ContestActivity extends CoverAcademyActivity implements AuditionsAdapter.OnUserClickListener {
+public class ContestActivity extends CoverAcademyActivity {
 
   public static final String CONTEST_ID = "CONTEST_ID";
 
@@ -73,7 +72,6 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
 
   private void setupAuditionsAdapter() {
     auditionsAdapter = new AuditionsAdapter(this);
-    auditionsAdapter.setOnUserClickListener(this);
     videosView.setLayoutManager(new LinearLayoutManager(this));
     videosView.setAdapter(auditionsAdapter);
   }
@@ -149,15 +147,5 @@ public class ContestActivity extends CoverAcademyActivity implements AuditionsAd
       auditionsViews.add(auditionView);
     }
     auditionsAdapter.setItems(auditionsViews);
-  }
-
-  @Override
-  public void onUserClick(User user) {
-
-  }
-
-  @Override
-  public void onContestClick(Contest contest) {
-
   }
 }

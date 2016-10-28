@@ -90,13 +90,13 @@ public class Contest {
 
   public Progress getProgress() {
     Date now = new Date();
-    Progress progress = Progress.WAITING;
-    if(startDate == null || endDate == null || now.before(endDate)) {
+    Progress progress;
+    if(startDate == null || endDate == null || now.before(startDate)) {
       progress = Progress.WAITING;
-    } else if(now.after(startDate) && now.before(endDate)) {
-      progress = Progress.RUNNING;
     } else if(now.after(endDate)) {
       progress = Progress.FINISHED;
+    } else {
+      progress = Progress.RUNNING;
     }
     return progress;
   }

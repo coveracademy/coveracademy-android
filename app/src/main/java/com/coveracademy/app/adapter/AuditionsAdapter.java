@@ -1,6 +1,7 @@
 package com.coveracademy.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import com.coveracademy.app.R;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.AuditionView;
+import com.coveracademy.app.activity.ContestActivity;
+import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.util.MediaUtils;
 
 import java.util.ArrayList;
@@ -23,8 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter.AuditionViewHolder> {
-
-  private OnUserClickListener onUserClickListener;
 
   public AuditionsAdapter(Context context) {
     super(context, new ArrayList<AuditionView>());
@@ -47,7 +48,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
 
     holder.userNameView.setText(user.getName());
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(audition.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
-    ;
+
     if(contest != null) {
       holder.contestNameView.setText(contest.getName());
       holder.contestView.setVisibility(View.VISIBLE);
@@ -58,10 +59,6 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, totalComments));
     MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
     MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
-  }
-
-  public void setOnUserClickListener(OnUserClickListener onUserClickListener) {
-    this.onUserClickListener = onUserClickListener;
   }
 
   class AuditionViewHolder extends RecyclerView.ViewHolder {
@@ -82,26 +79,17 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
 
     @OnClick(R.id.user)
     void onUserClick() {
-      if(onUserClickListener != null) {
-        User user = getItem(getAdapterPosition()).getAudition().getUser();
-        onUserClickListener.onUserClick(user);
-      }
+      User user = getItem(getAdapterPosition()).getAudition().getUser();
+      Intent intent = new Intent(getContext(), UserActivity.class);
+      intent.putExtra(UserActivity.USER_ID, user.getId());
     }
 
     @OnClick(R.id.contest_name)
     void onContestClick() {
-      if(onUserClickListener != null) {
-        Contest contest = getItem(getAdapterPosition()).getAudition().getContest();
-        onUserClickListener.onContestClick(contest);
-      }
+      Contest contest = getItem(getAdapterPosition()).getAudition().getContest();
+      Intent intent = new Intent(getContext(), ContestActivity.class);
+      intent.putExtra(ContestActivity.CONTEST_ID, contest.getId());
+      getContext().startActivity(intent);
     }
-  }
-
-  public interface OnUserClickListener {
-
-    void onUserClick(User user);
-
-    void onContestClick(Contest contest);
-
   }
 }
