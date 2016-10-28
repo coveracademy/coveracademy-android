@@ -22,9 +22,9 @@ public class MediaUtils {
 
   private static final String VIDEOS_ONLY = "video/*";
 
-  public static final String MEDIA_DIRECTORY = "/CoverAcademy/media";
-  public static final String TEMP_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/temp";
-  public static final String VIDEOS_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/videos";
+  private static final String MEDIA_DIRECTORY = "/CoverAcademy/media";
+  private static final String TEMP_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/temp";
+  private static final String VIDEOS_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/videos";
   public static final String VIDEO_FILE_NAME = "video";
 
   private static final String FACEBOOK_PICTURE_URL = "https://graph.facebook.com/v2.2/%s/picture?type=large";
@@ -41,7 +41,7 @@ public class MediaUtils {
 
   }
 
-  public static void setPhoto(Context context, User user, ImageView imageView) {
+  public static void setPicture(Context context, User user, ImageView imageView) {
     Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
   }
 

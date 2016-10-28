@@ -134,15 +134,12 @@ public class ContestActivity extends CoverAcademyActivity {
     for(Video audition : contestView.getAuditions()) {
       AuditionView auditionView = new AuditionView();
       auditionView.setAudition(audition);
+      auditionView.setLiked(contestView.getLikedAuditions().contains(audition.getId()));
       if(contestView.getTotalLikes().containsKey(audition.getId())) {
         auditionView.setTotalLikes(contestView.getTotalLikes().get(audition.getId()));
-      } else {
-        auditionView.setTotalLikes(0);
       }
       if(contestView.getTotalComments().containsKey(audition.getId())) {
         auditionView.setTotalComments(contestView.getTotalComments().get(audition.getId()));
-      } else {
-        auditionView.setTotalComments(0);
       }
       auditionsViews.add(auditionView);
     }

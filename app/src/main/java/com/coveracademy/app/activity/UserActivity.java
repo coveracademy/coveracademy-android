@@ -67,7 +67,7 @@ public class UserActivity extends CoverAcademyActivity {
       @Override
       public void onDone(UserView userView) {
         userNameView.setText(userView.getUser().getFirstName());
-        MediaUtils.setPhoto(instance, userView.getUser(), userAvatarView);
+        MediaUtils.setPicture(instance, userView.getUser(), userAvatarView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override

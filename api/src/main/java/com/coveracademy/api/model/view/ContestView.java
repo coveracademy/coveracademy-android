@@ -6,15 +6,17 @@ import com.coveracademy.api.model.Video;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ContestView {
 
   private Contest contest;
   private List<User> winners;
   private List<Video> auditions;
-  private Integer totalAuditions;
+  private Set<Long> likedAuditions;
   private Map<Long, Integer> totalLikes;
   private Map<Long, Integer> totalComments;
+  private int totalAuditions;
 
   public Contest getContest() {
     return contest;
@@ -40,12 +42,12 @@ public class ContestView {
     this.auditions = auditions;
   }
 
-  public Integer getTotalAuditions() {
-    return totalAuditions;
+  public Set<Long> getLikedAuditions() {
+    return likedAuditions;
   }
 
-  public void setTotalAuditions(Integer totalAuditions) {
-    this.totalAuditions = totalAuditions;
+  public void setLikedAuditions(Set<Long> likedAuditions) {
+    this.likedAuditions = likedAuditions;
   }
 
   public Map<Long, Integer> getTotalLikes() {
@@ -62,5 +64,13 @@ public class ContestView {
 
   public void setTotalComments(Map<Long, Integer> totalComments) {
     this.totalComments = totalComments;
+  }
+
+  public int getTotalAuditions() {
+    return totalAuditions;
+  }
+
+  public void setTotalAuditions(int totalAuditions) {
+    this.totalAuditions = totalAuditions;
   }
 }

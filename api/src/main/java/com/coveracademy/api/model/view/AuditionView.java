@@ -7,6 +7,7 @@ public class AuditionView {
   private Video audition;
   private int totalLikes;
   private int totalComments;
+  private boolean liked;
 
   public Video getAudition() {
     return audition;
@@ -16,19 +17,27 @@ public class AuditionView {
     this.audition = audition;
   }
 
-  public Integer getTotalLikes() {
+  public int getTotalLikes() {
     return totalLikes;
   }
 
-  public void setTotalLikes(Integer totalLikes) {
+  public void setTotalLikes(int totalLikes) {
     this.totalLikes = totalLikes;
   }
 
-  public Integer getTotalComments() {
+  public int getTotalComments() {
     return totalComments;
   }
 
-  public void setTotalComments(Integer totalComments) {
+  public void setTotalComments(int totalComments) {
     this.totalComments = totalComments;
+  }
+
+  public boolean isLiked() {
+    return liked;
+  }
+
+  public void setLiked(boolean liked) {
+    this.liked = liked;
   }
 }

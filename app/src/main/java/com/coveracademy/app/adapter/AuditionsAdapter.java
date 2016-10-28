@@ -43,11 +43,14 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     User user = auditionView.getAudition().getUser();
     Video audition = auditionView.getAudition();
     Contest contest = auditionView.getAudition().getContest();
-    int totalLikes = auditionView.getTotalLikes();
-    int totalComments = auditionView.getTotalComments();
+
+    MediaUtils.setPicture(getContext(), user, holder.userAvatarView);
+    MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
 
     holder.userNameView.setText(user.getName());
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(audition.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+    holder.totalLikesView.setText(getContext().getString(R.string.total_likes, auditionView.getTotalLikes()));
+    holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, auditionView.getTotalComments()));
 
     if(contest != null) {
       holder.contestNameView.setText(contest.getName());
@@ -55,10 +58,12 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     } else {
       holder.contestView.setVisibility(View.GONE);
     }
-    holder.totalLikesView.setText(getContext().getString(R.string.total_likes, totalLikes));
-    holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, totalComments));
-    MediaUtils.setThumbnail(getContext(), audition, holder.auditionThumbnailView);
-    MediaUtils.setPhoto(getContext(), user, holder.userAvatarView);
+
+    if(!auditionView.isLiked()) {
+      holder.likedView.setImageResource(R.drawable.no_like);
+    } else {
+      holder.likedView.setImageResource(R.drawable.comment);
+    }
   }
 
   class AuditionViewHolder extends RecyclerView.ViewHolder {
@@ -69,6 +74,7 @@ public class AuditionsAdapter extends BaseAdapter<AuditionView, AuditionsAdapter
     @BindView(R.id.audition_thumbnail) ImageView auditionThumbnailView;
     @BindView(R.id.contest) View contestView;
     @BindView(R.id.contest_name) TextView contestNameView;
+    @BindView(R.id.liked) ImageView likedView;
     @BindView(R.id.total_likes) TextView totalLikesView;
     @BindView(R.id.total_comments) TextView totalCommentsView;
 

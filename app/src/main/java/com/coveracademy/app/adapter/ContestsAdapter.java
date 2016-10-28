@@ -49,11 +49,11 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
       for(int index = 0; index < contestsItemView.getWinners().size(); index++) {
         User user = contestsItemView.getWinners().get(index);
         if(index == 0) {
-          MediaUtils.setPhoto(getContext(), user, holder.firstWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.firstWinnerAvatarView);
         } else if(index == 1) {
-          MediaUtils.setPhoto(getContext(), user, holder.secondWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.secondWinnerAvatarView);
         } else {
-          MediaUtils.setPhoto(getContext(), user, holder.thirdWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.thirdWinnerAvatarView);
         }
       }
     } else {

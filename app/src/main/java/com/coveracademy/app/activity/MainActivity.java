@@ -71,7 +71,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
 
   private void setupDrawerContent() {
     ImageView avatarView = ButterKnife.findById(drawerHeaderView, R.id.avatar);
-    MediaUtils.setPhoto(this, user, avatarView);
+    MediaUtils.setPicture(this, user, avatarView);
 
     TextView nameView = ButterKnife.findById(drawerHeaderView, R.id.name);
     nameView.setText(user.getFirstName());
