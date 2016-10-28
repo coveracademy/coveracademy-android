@@ -2,7 +2,7 @@ package com.coveracademy.api.service;
 
 import android.content.Context;
 
-import com.coveracademy.api.model.view.AuditionView;
+import com.coveracademy.api.model.view.VideoView;
 import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.api.model.view.ContestView;
 import com.coveracademy.api.model.view.UserView;
@@ -25,8 +25,8 @@ public class ViewService extends RestService {
     return new RequestPromise<>(builder);
   }
 
-  public DefaultPromise<List<AuditionView>> auditionsView() {
-    GetBuilder builder = getRequestBuilderFactory().get(Types.listOfAuditionView());
+  public DefaultPromise<List<VideoView>> auditionsView() {
+    GetBuilder builder = getRequestBuilderFactory().get(Types.listOfVideoView());
     builder.concatPath("/auditions");
     return new RequestPromise<>(builder);
   }

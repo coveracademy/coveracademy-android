@@ -9,7 +9,7 @@ public class ContestsItemView {
 
   private Contest contest;
   private List<User> winners;
-  private int totalAuditions;
+  private int totalVideos;
 
   public Contest getContest() {
     return contest;
@@ -27,11 +27,11 @@ public class ContestsItemView {
     this.winners = winners;
   }
 
-  public int getTotalAuditions() {
-    return totalAuditions;
+  public int getTotalVideos() {
+    return totalVideos;
   }
 
-  public void setTotalAuditions(int totalAuditions) {
-    this.totalAuditions = totalAuditions;
+  public void setTotalVideos(int totalVideos) {
+    this.totalVideos = totalVideos;
   }
 }

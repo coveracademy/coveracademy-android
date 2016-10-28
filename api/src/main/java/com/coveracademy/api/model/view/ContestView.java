@@ -12,11 +12,11 @@ public class ContestView {
 
   private Contest contest;
   private List<User> winners;
-  private List<Video> auditions;
-  private Set<Long> likedAuditions;
+  private List<Video> videos;
+  private Set<Long> likedVideos;
   private Map<Long, Integer> totalLikes;
   private Map<Long, Integer> totalComments;
-  private int totalAuditions;
+  private int totalVideos;
 
   public Contest getContest() {
     return contest;
@@ -34,20 +34,20 @@ public class ContestView {
     this.winners = winners;
   }
 
-  public List<Video> getAuditions() {
-    return auditions;
+  public List<Video> getVideos() {
+    return videos;
   }
 
-  public void setAuditions(List<Video> auditions) {
-    this.auditions = auditions;
+  public void setVideos(List<Video> videos) {
+    this.videos = videos;
   }
 
-  public Set<Long> getLikedAuditions() {
-    return likedAuditions;
+  public Set<Long> getLikedVideos() {
+    return likedVideos;
   }
 
-  public void setLikedAuditions(Set<Long> likedAuditions) {
-    this.likedAuditions = likedAuditions;
+  public void setLikedVideos(Set<Long> likedVideos) {
+    this.likedVideos = likedVideos;
   }
 
   public Map<Long, Integer> getTotalLikes() {
@@ -66,11 +66,11 @@ public class ContestView {
     this.totalComments = totalComments;
   }
 
-  public int getTotalAuditions() {
-    return totalAuditions;
+  public int getTotalVideos() {
+    return totalVideos;
   }
 
-  public void setTotalAuditions(int totalAuditions) {
-    this.totalAuditions = totalAuditions;
+  public void setTotalVideos(int totalVideos) {
+    this.totalVideos = totalVideos;
   }
 }

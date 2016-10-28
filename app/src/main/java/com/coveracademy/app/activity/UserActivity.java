@@ -34,7 +34,7 @@ public class UserActivity extends CoverAcademyActivity {
   @BindView(R.id.root) View rootView;
   @BindView(R.id.user_name) TextView userNameView;
   @BindView(R.id.user_avatar) ImageView userAvatarView;
-  @BindView(R.id.total_auditions) TextView totalAuditionsView;
+  @BindView(R.id.total_videos) TextView totalAuditionsView;
   @BindView(R.id.total_fans) TextView totalFansView;
   @BindView(R.id.total_idols) TextView totalIdolsView;
 

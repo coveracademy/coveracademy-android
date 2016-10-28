@@ -197,7 +197,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
 
     private TabsAdapter(FragmentManager fragmentManager) {
       super(fragmentManager);
-      titles = new String[] {getString(R.string.activity_main_auditions_title), getString(R.string.activity_main_contests_title)};
+      titles = new String[] {getString(R.string.activity_main_tab_auditions), getString(R.string.activity_main_tab_contests)};
       contents = new Fragment[] {new AuditionsFragment(), new ContestsFragment()};
     }
 

@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.JoinContestActivity;
-import com.coveracademy.app.adapter.AuditionsAdapter;
+import com.coveracademy.app.adapter.VideosAdapter;
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.view.AuditionView;
+import com.coveracademy.api.model.view.VideoView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.app.util.UIUtils;
 
@@ -34,7 +34,7 @@ public class AuditionsFragment extends StatefulFragment {
   private static final String TAG = AuditionsFragment.class.getSimpleName();
 
   private RemoteService remoteService;
-  private AuditionsAdapter auditionsAdapter;
+  private VideosAdapter videosAdapter;
 
   @BindView(R.id.coordinator_layout) View coordinatorLayout;
   @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
@@ -47,8 +47,8 @@ public class AuditionsFragment extends StatefulFragment {
 
     remoteService = RemoteService.getInstance(getContext());
 
-    setupAuditionsAdapter();
-    setupAuditionsView();
+    setupVideosAdapter();
+    setupVideosView();
     setupRefreshLayout();
 
     return view;
@@ -59,22 +59,22 @@ public class AuditionsFragment extends StatefulFragment {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        setupAuditionsView();
+        setupVideosView();
       }
     });
   }
 
-  private void setupAuditionsAdapter() {
-    auditionsAdapter = new AuditionsAdapter(getContext());
+  private void setupVideosAdapter() {
+    videosAdapter = new VideosAdapter(getContext());
     videosView.setLayoutManager(new LinearLayoutManager(getContext()));
-    videosView.setAdapter(auditionsAdapter);
+    videosView.setAdapter(videosAdapter);
   }
 
-  private void setupAuditionsView() {
-    remoteService.getViewService().auditionsView().then(new DoneCallback<List<AuditionView>>() {
+  private void setupVideosView() {
+    remoteService.getViewService().auditionsView().then(new DoneCallback<List<VideoView>>() {
       @Override
-      public void onDone(List<AuditionView> auditionsView) {
-        auditionsAdapter.setItems(auditionsView);
+      public void onDone(List<VideoView> auditionsView) {
+        videosAdapter.setItems(auditionsView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override

@@ -2,19 +2,19 @@ package com.coveracademy.api.model.view;
 
 import com.coveracademy.api.model.Video;
 
-public class AuditionView {
+public class VideoView {
 
-  private Video audition;
+  private Video video;
   private int totalLikes;
   private int totalComments;
   private boolean liked;
 
-  public Video getAudition() {
-    return audition;
+  public Video getVideo() {
+    return video;
   }
 
-  public void setAudition(Video audition) {
-    this.audition = audition;
+  public void setVideo(Video video) {
+    this.video = video;
   }
 
   public int getTotalLikes() {

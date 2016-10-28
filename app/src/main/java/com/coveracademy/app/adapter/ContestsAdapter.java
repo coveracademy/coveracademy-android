@@ -70,7 +70,7 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
 
     @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.contest_image) ImageView contestImageView;
-    @BindView(R.id.total_auditions) TextView totalAuditionsView;
+    @BindView(R.id.total_videos) TextView totalVideosView;
     @BindView(R.id.winners) View winnersView;
     @BindView(R.id.actions) View actionsView;
     @BindView(R.id.first_winner_avatar) ImageView firstWinnerAvatarView;

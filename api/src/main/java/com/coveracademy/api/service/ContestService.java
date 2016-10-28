@@ -7,4 +7,5 @@ public class ContestService extends RestService {
   ContestService(Context context) {
     super(context, "/contests");
   }
+
 }

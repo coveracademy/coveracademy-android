@@ -7,14 +7,16 @@ import com.coveracademy.api.service.rest.RequestQueue;
 public class RemoteService {
 
   private static RemoteService instance;
-  private UserService userService;
-  private ContestService contestService;
   private ViewService viewService;
+  private UserService userService;
+  private VideoService videoService;
+  private ContestService contestService;
 
   private RemoteService(Context context) {
-    userService = new UserService(context);
-    contestService = new ContestService(context);
     viewService = new ViewService(context);
+    userService = new UserService(context);
+    videoService = new VideoService(context);
+    contestService = new ContestService(context);
   }
 
   public static RemoteService getInstance(Context context) {
@@ -25,15 +27,19 @@ public class RemoteService {
     return instance;
   }
 
-  public ContestService getContestService() {
-    return contestService;
+  public ViewService getViewService() {
+    return viewService;
   }
 
   public UserService getUserService() {
     return userService;
   }
 
-  public ViewService getViewService() {
-    return viewService;
+  public VideoService getVideoService() {
+    return videoService;
+  }
+
+  public ContestService getContestService() {
+    return contestService;
   }
 }

@@ -31,7 +31,7 @@ public class JsonRequest extends Request<Object> {
   private static final int DEFAULT_TIMEOUT = 30000;
   private static final int DEFAULT_MAX_RETRIES = 0;
 
-  private final Type responseType;
+  private Type responseType;
   private Map<String, String> headers;
   private Response.Listener<Object> listener;
   private Gson gson;

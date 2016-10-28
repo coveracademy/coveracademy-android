@@ -13,8 +13,8 @@
     <string name="title_activity_main">Cover Academy</string>
 
     <!-- Main activity -->
-    <string name="activity_main_auditions_title">Auditions</string>
-    <string name="activity_main_contests_title">Contests</string>
+    <string name="activity_main_tab_auditions">Auditions</string>
+    <string name="activity_main_tab_contests">Contests</string>
     <string name="activity_main_bubble_separator">•</string>
     <string name="activity_main_dialog_logout_title">Logout</string>
     <string name="activity_main_dialog_logout_message">Do you really want to logout?</string>
@@ -53,10 +53,10 @@
 
     <!-- Commons -->
     <string name="join_contest">Join contest</string>
-    <string name="total_auditions">%1$s videos</string>
+    <string name="total_auditions">%1$s auditions</string>
     <string name="vote">Vote</string>
     <string name="winners">Winners</string>
-    <string name="select_video">Select a audition</string>
+    <string name="select_video">Select a video</string>
     <string name="total_likes">%1$d likes</string>
     <string name="total_comments">%1$d comments</string>
 
