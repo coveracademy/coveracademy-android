@@ -15,10 +15,10 @@
         android:padding="@dimen/content_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_avatar"
-            android:layout_width="@dimen/avatar_medium"
-            android:layout_height="@dimen/avatar_medium"
-            android:src="@drawable/no_avatar"/>
+            android:id="@+id/user_picture"
+            android:layout_width="@dimen/picture_medium"
+            android:layout_height="@dimen/picture_medium"
+            android:src="@drawable/no_picture"/>
 
         <TextView
             android:id="@+id/user_name"

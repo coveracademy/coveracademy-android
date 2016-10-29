@@ -33,8 +33,7 @@ public class UserActivity extends CoverAcademyActivity {
 
   @BindView(R.id.root) View rootView;
   @BindView(R.id.user_name) TextView userNameView;
-  @BindView(R.id.user_avatar) ImageView userAvatarView;
-  @BindView(R.id.total_videos) TextView totalAuditionsView;
+  @BindView(R.id.user_picture) ImageView userPictureView;
   @BindView(R.id.total_fans) TextView totalFansView;
   @BindView(R.id.total_idols) TextView totalIdolsView;
 
@@ -51,6 +50,7 @@ public class UserActivity extends CoverAcademyActivity {
     setupRefreshLayout();
 
     UIUtils.defaultToolbar(this);
+    setTitle("");
   }
 
   private void setupRefreshLayout() {
@@ -67,7 +67,7 @@ public class UserActivity extends CoverAcademyActivity {
       @Override
       public void onDone(UserView userView) {
         userNameView.setText(userView.getUser().getFirstName());
-        MediaUtils.setPicture(instance, userView.getUser(), userAvatarView);
+        MediaUtils.setPicture(instance, userView.getUser(), userPictureView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override

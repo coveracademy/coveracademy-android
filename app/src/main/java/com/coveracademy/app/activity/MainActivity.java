@@ -70,7 +70,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   }
 
   private void setupDrawerContent() {
-    ImageView avatarView = ButterKnife.findById(drawerHeaderView, R.id.avatar);
+    ImageView avatarView = ButterKnife.findById(drawerHeaderView, R.id.picture);
     MediaUtils.setPicture(this, user, avatarView);
 
     TextView nameView = ButterKnife.findById(drawerHeaderView, R.id.name);
@@ -83,7 +83,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
 
   private void setupToolbar() {
     setSupportActionBar(toolbar);
-    setTitle(getString(R.string.title_activity_main));
+    setTitle(getString(R.string.activity_title_main));
   }
 
   private void setupTabs() {

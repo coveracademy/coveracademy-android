@@ -42,7 +42,7 @@ public class MediaUtils {
   }
 
   public static void setPicture(Context context, User user, ImageView imageView) {
-    Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_avatar).error(R.drawable.no_avatar).into(imageView);
+    Picasso.with(context).load(String.format(FACEBOOK_PICTURE_URL, user.getFacebookAccount())).placeholder(R.drawable.no_picture).error(R.drawable.no_picture).into(imageView);
   }
 
   public static void setThumbnail(Context context, Video video, ImageView imageView) {

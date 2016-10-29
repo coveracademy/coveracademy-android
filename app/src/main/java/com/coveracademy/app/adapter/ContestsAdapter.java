@@ -49,11 +49,11 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
       for(int index = 0; index < contestsItemView.getWinners().size(); index++) {
         User user = contestsItemView.getWinners().get(index);
         if(index == 0) {
-          MediaUtils.setPicture(getContext(), user, holder.firstWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.firstWinnerPictureView);
         } else if(index == 1) {
-          MediaUtils.setPicture(getContext(), user, holder.secondWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.secondWinnerPictureView);
         } else {
-          MediaUtils.setPicture(getContext(), user, holder.thirdWinnerAvatarView);
+          MediaUtils.setPicture(getContext(), user, holder.thirdWinnerPictureView);
         }
       }
     } else {
@@ -73,9 +73,9 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     @BindView(R.id.total_videos) TextView totalVideosView;
     @BindView(R.id.winners) View winnersView;
     @BindView(R.id.actions) View actionsView;
-    @BindView(R.id.first_winner_avatar) ImageView firstWinnerAvatarView;
-    @BindView(R.id.second_winner_avatar) ImageView secondWinnerAvatarView;
-    @BindView(R.id.third_winner_avatar) ImageView thirdWinnerAvatarView;
+    @BindView(R.id.first_winner_picture) ImageView firstWinnerPictureView;
+    @BindView(R.id.second_winner_picture) ImageView secondWinnerPictureView;
+    @BindView(R.id.third_winner_picture) ImageView thirdWinnerPictureView;
 
     ContestViewHolder(View itemView) {
       super(itemView);

@@ -10,7 +10,8 @@
     <string name="drawer_closed">Drawer Closed</string>
 
     <!-- Activities titles -->
-    <string name="title_activity_main">Cover Academy</string>
+    <string name="activity_title_main">Cover Academy</string>
+    <string name="activity_title_comments">Comments</string>
 
     <!-- Main activity -->
     <string name="activity_main_tab_auditions">Auditions</string>

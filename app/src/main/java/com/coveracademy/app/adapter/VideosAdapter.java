@@ -12,11 +12,14 @@ import android.widget.TextView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Video;
+import com.coveracademy.api.promise.DefaultPromise;
 import com.coveracademy.api.service.RemoteService;
+import com.coveracademy.api.service.VideoService;
 import com.coveracademy.app.R;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.VideoView;
+import com.coveracademy.app.activity.CommentsActivity;
 import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.util.MediaUtils;
@@ -49,7 +52,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     Video video = videoView.getVideo();
     Contest contest = videoView.getVideo().getContest();
 
-    MediaUtils.setPicture(getContext(), user, holder.userAvatarView);
+    MediaUtils.setPicture(getContext(), user, holder.userPictureView);
     MediaUtils.setThumbnail(getContext(), video, holder.thumbnailView);
 
     holder.userNameView.setText(user.getName());
@@ -67,13 +70,13 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     if(!videoView.isLiked()) {
       holder.likeView.setImageResource(R.drawable.no_like);
     } else {
-      holder.likeView.setImageResource(R.drawable.comment);
+      holder.likeView.setImageResource(R.drawable.like);
     }
   }
 
   class VideoViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.user_avatar) ImageView userAvatarView;
+    @BindView(R.id.user_picture) ImageView userPictureView;
     @BindView(R.id.user_name) TextView userNameView;
     @BindView(R.id.date) TextView dateView;
     @BindView(R.id.thumbnail) ImageView thumbnailView;
@@ -93,6 +96,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       User user = getItem(getAdapterPosition()).getVideo().getUser();
       Intent intent = new Intent(getContext(), UserActivity.class);
       intent.putExtra(UserActivity.USER_ID, user.getId());
+      getContext().startActivity(intent);
     }
 
     @OnClick(R.id.contest_name)
@@ -103,13 +107,26 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       getContext().startActivity(intent);
     }
 
+    @OnClick({R.id.comment, R.id.status})
+    void onCommentOrStatusClick() {
+      Video video = getItem(getAdapterPosition()).getVideo();
+      Intent intent = new Intent(getContext(), CommentsActivity.class);
+      intent.putExtra(CommentsActivity.VIDEO_ID, video.getId());
+      getContext().startActivity(intent);
+    }
+
     @OnClick(R.id.like)
     void onLikeClick() {
-      Video video = getItem(getAdapterPosition()).getVideo();
-      RemoteService.getInstance(getContext()).getVideoService().like(video).then(new DoneCallback<Void>() {
+      final VideoView videoView = getItem(getAdapterPosition());
+      Video video = videoView.getVideo();
+      VideoService videoService = RemoteService.getInstance(getContext()).getVideoService();
+      DefaultPromise<Void> promise = !videoView.isLiked() ? videoService.like(video) : videoService.dislike(video);
+      promise.then(new DoneCallback<Void>() {
         @Override
         public void onDone(Void result) {
-
+          videoView.setTotalLikes(videoView.getTotalLikes() + (!videoView.isLiked() ? 1 : -1));
+          videoView.setLiked(!videoView.isLiked());
+          reloadItem(getAdapterPosition());
         }
       }).fail(new FailCallback<APIException>() {
         @Override

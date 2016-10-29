@@ -90,24 +90,24 @@
                 app:columnCount="3">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/first_winner_avatar"
-                    android:layout_width="@dimen/avatar_medium"
-                    android:layout_height="@dimen/avatar_medium"
-                    android:src="@drawable/no_avatar"
+                    android:id="@+id/first_winner_picture"
+                    android:layout_width="@dimen/picture_medium"
+                    android:layout_height="@dimen/picture_medium"
+                    android:src="@drawable/no_picture"
                     app:layout_columnWeight="1"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/second_winner_avatar"
-                    android:layout_width="@dimen/avatar_medium"
-                    android:layout_height="@dimen/avatar_medium"
-                    android:src="@drawable/no_avatar"
+                    android:id="@+id/second_winner_picture"
+                    android:layout_width="@dimen/picture_medium"
+                    android:layout_height="@dimen/picture_medium"
+                    android:src="@drawable/no_picture"
                     app:layout_columnWeight="1"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/third_winner_avatar"
-                    android:layout_width="@dimen/avatar_medium"
-                    android:layout_height="@dimen/avatar_medium"
-                    android:src="@drawable/no_avatar"
+                    android:id="@+id/third_winner_picture"
+                    android:layout_width="@dimen/picture_medium"
+                    android:layout_height="@dimen/picture_medium"
+                    android:src="@drawable/no_picture"
                     app:layout_columnWeight="1"/>
 
             </android.support.v7.widget.GridLayout>
