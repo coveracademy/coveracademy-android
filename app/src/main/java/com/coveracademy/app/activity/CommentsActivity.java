@@ -3,6 +3,9 @@ package com.coveracademy.app.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Comment;
@@ -17,22 +20,27 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CommentsActivity extends CoverAcademyActivity {
 
   public static final String VIDEO_ID = "VIDEO_ID";
 
-  private static final String TAG = ContestActivity.class.getSimpleName();
+  private static final String TAG = CommentsActivity.class.getSimpleName();
 
+  private Video video;
   private CommentsActivity instance;
   private RemoteService remoteService;
   private CommentsAdapter commentsAdapter;
 
+  @BindView(R.id.root) View rootView;
   @BindView(R.id.comments) RecyclerView commentsView;
+  @BindView(R.id.message) TextView messageInput;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +51,20 @@ public class CommentsActivity extends CoverAcademyActivity {
     instance = this;
     remoteService = RemoteService.getInstance(this);
 
+    setupVideo();
     setupCommentsAdapter();
     setupCommentsView();
 
     UIUtils.defaultToolbar(this);
     setTitle(getString(R.string.activity_title_comments));
+  }
+
+  private void setupVideo() {
+    video = new Video();
+    video.setId(getIntent().getLongExtra(VIDEO_ID, -1L));
+    if(video.getId() == -1L) {
+      finish();
+    }
   }
 
   private void setupCommentsAdapter() {
@@ -57,13 +74,6 @@ public class CommentsActivity extends CoverAcademyActivity {
   }
 
   private void setupCommentsView() {
-    long videoId = getIntent().getLongExtra(VIDEO_ID, -1L);
-    if(videoId == -1L) {
-      finish();
-      return;
-    }
-    Video video = new Video();
-    video.setId(videoId);
     remoteService.getViewService().commentsView(video).then(new DoneCallback<List<Comment>>() {
       @Override
       public void onDone(List<Comment> comments) {
@@ -82,6 +92,37 @@ public class CommentsActivity extends CoverAcademyActivity {
         } else {
           UIUtils.hideProgressBar(instance);
         }
+      }
+    });
+  }
+
+  @OnClick(R.id.send_message)
+  void onSendMessageClick() {
+    final Comment comment = new Comment();
+    comment.setVideoId(video.getId());
+    comment.setMessage(messageInput.getText().toString());
+    comment.setStatus(Comment.Status.SENDING);
+    comment.setSendDate(new Date());
+    comment.setUser(application.getUser());
+
+    messageInput.setText("");
+    commentsView.scrollToPosition(0);
+    commentsAdapter.addItem(0, comment);
+    remoteService.getVideoService().comment(video, comment.getMessage()).then(new DoneCallback<Comment>() {
+      @Override
+      public void onDone(Comment sentComment) {
+        comment.setId(sentComment.getId());
+        comment.setSendDate(sentComment.getSendDate());
+        comment.setStatus(Comment.Status.SENT);
+        commentsAdapter.reloadItem(0);
+      }
+    }).fail(new FailCallback<APIException>() {
+      @Override
+      public void onFail(APIException e) {
+        Log.e(TAG, "Error sending comment", e);
+        UIUtils.alert(rootView, e, getString(R.string.activity_comments_alert_error_sending_message));
+        comment.setStatus(Comment.Status.ERROR_SENDING);
+        commentsAdapter.reloadItem(0);
       }
     });
   }

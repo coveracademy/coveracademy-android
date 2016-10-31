@@ -38,7 +38,6 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   private MainActivity instance;
   private DrawerToggle drawerToggle;
   private View drawerHeaderView;
-  private TabsAdapter tabsAdapter;
 
   private User user;
 
@@ -87,7 +86,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   }
 
   private void setupTabs() {
-    tabsAdapter = new TabsAdapter(getSupportFragmentManager());
+    TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager());
     tabsPager.setAdapter(tabsAdapter);
     tabs.setupWithViewPager(tabsPager);
     tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -184,6 +183,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
       @Override
       public void onDone(User user) {
         instance.user = user;
+        application.setUser(user);
         setupDrawerContent();
         setupTabs();
       }

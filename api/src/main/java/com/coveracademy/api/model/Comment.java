@@ -4,12 +4,22 @@ import java.util.Date;
 
 public class Comment {
 
+  private Long id;
   private Long userId;
   private Long videoId;
   private String message;
-  private Date registrationDate;
+  private Status status;
+  private Date sendDate;
 
   private User user;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public Long getUserId() {
     return userId;
@@ -35,12 +45,20 @@ public class Comment {
     this.message = message;
   }
 
-  public Date getRegistrationDate() {
-    return registrationDate;
+  public Status getStatus() {
+    return status;
   }
 
-  public void setRegistrationDate(Date registrationDate) {
-    this.registrationDate = registrationDate;
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public Date getSendDate() {
+    return sendDate;
+  }
+
+  public void setSendDate(Date sendDate) {
+    this.sendDate = sendDate;
   }
 
   public User getUser() {
@@ -49,5 +67,9 @@ public class Comment {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public enum Status {
+    SENDING, SENT, ERROR_SENDING;
   }
 }

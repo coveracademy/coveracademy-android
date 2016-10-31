@@ -41,15 +41,15 @@ public class CommentsAdapter extends BaseAdapter<Comment, CommentsAdapter.Commen
 
     MediaUtils.setPicture(getContext(), user, holder.userPictureView);
     holder.userNameView.setText(user.getName());
-    holder.commentView.setText(comment.getMessage());
-    holder.dateView.setText(DateUtils.getRelativeTimeSpanString(comment.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+    holder.messageView.setText(comment.getMessage());
+    holder.dateView.setText(DateUtils.getRelativeTimeSpanString(comment.getSendDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
   }
 
   class CommentViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.user_picture) ImageView userPictureView;
     @BindView(R.id.user_name) TextView userNameView;
-    @BindView(R.id.comment) TextView commentView;
+    @BindView(R.id.message) TextView messageView;
     @BindView(R.id.date) TextView dateView;
 
     CommentViewHolder(View itemView) {
@@ -57,7 +57,7 @@ public class CommentsAdapter extends BaseAdapter<Comment, CommentsAdapter.Commen
       ButterKnife.bind(this, itemView);
     }
 
-    @OnClick(R.id.user)
+    @OnClick({R.id.user_picture, R.id.user_name})
     void onUserClick() {
       User user = getItem(getAdapterPosition()).getUser();
       Intent intent = new Intent(getContext(), UserActivity.class);

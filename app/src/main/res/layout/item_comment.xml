@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/content_margin">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_picture"
         android:layout_width="@dimen/picture_small"
-        android:layout_height="@dimen/picture_small"/>
+        android:layout_height="@dimen/picture_small"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"/>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_toRightOf="@+id/user_picture"
+        android:layout_toEndOf="@+id/user_picture">
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_normal"
-            android:textColor="@color/primary_text"/>
+            android:textColor="@color/primary_text"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/comment"
+            android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:textSize="@dimen/text_normal"
             android:textColor="@color/primary_text"/>
 
@@ -33,9 +42,10 @@
             android:id="@+id/date"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginTop="3dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/text_micro"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

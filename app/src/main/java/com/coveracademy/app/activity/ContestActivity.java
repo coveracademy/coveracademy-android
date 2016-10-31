@@ -42,6 +42,7 @@ public class ContestActivity extends CoverAcademyActivity {
   private RemoteService remoteService;
   private VideosAdapter videosAdapter;
 
+  @BindView(R.id.root) View rootView;
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.contest_name) TextView contestNameView;
   @BindView(R.id.contest_image) ImageView contestImageView;
@@ -92,7 +93,7 @@ public class ContestActivity extends CoverAcademyActivity {
       @Override
       public void onFail(APIException e) {
         Log.e(TAG, "Error loading contests view", e);
-        UIUtils.alert(instance, e, getString(R.string.activity_contest_alert_error_loading_contest));
+        UIUtils.alert(rootView, e, getString(R.string.activity_contest_alert_error_loading_contest));
         finish();
       }
     });

@@ -2,6 +2,8 @@ package com.coveracademy.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
@@ -10,7 +12,6 @@ import com.coveracademy.app.util.UIUtils;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -29,6 +30,7 @@ public class WelcomeActivity extends CoverAcademyActivity {
   private WelcomeActivity instance;
   private CallbackManager callbackManager;
 
+  @BindView(R.id.root) View rootView;
   @BindView(R.id.login) LoginButton loginButton;
 
   @Override
@@ -65,9 +67,11 @@ public class WelcomeActivity extends CoverAcademyActivity {
           }
         }).fail(new FailCallback<APIException>() {
           @Override
-          public void onFail(APIException result) {
+          public void onFail(APIException e) {
+            Log.e(TAG, "Error authenticating user", e);
             LoginManager.getInstance().logOut();
             UIUtils.hideProgressDialog(TAG);
+            UIUtils.alert(rootView, e, getString(R.string.activity_welcome_alert_error_authenticating));
           }
         });
       }

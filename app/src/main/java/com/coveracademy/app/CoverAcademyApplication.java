@@ -3,9 +3,13 @@ package com.coveracademy.app;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.coveracademy.api.model.User;
+
 public class CoverAcademyApplication extends MultiDexApplication {
 
   private static final String TAG = CoverAcademyApplication.class.getSimpleName();
+
+  private User user;
 
   @Override
   public void onCreate() {
@@ -28,5 +32,13 @@ public class CoverAcademyApplication extends MultiDexApplication {
 
   private void clearAll() {
 
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

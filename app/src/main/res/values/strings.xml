@@ -13,6 +13,9 @@
     <string name="activity_title_main">Cover Academy</string>
     <string name="activity_title_comments">Comments</string>
 
+    <!-- Welcome activity -->
+    <string name="activity_welcome_alert_error_authenticating">Couldn\'t authenticate, please try again later!</string>
+
     <!-- Main activity -->
     <string name="activity_main_tab_auditions">Auditions</string>
     <string name="activity_main_tab_contests">Contests</string>
@@ -32,6 +35,10 @@
     <string name="activity_contest_seconds_remaining">%1$ds</string>
     <string name="activity_contest_contest_finished">Contest finished</string>
     <string name="activity_contest_alert_error_loading_contest">Couldn\'t load contest, please try again later!</string>
+
+    <!-- Comments activity -->
+    <string name="activity_comments_type_a_message">Type a message…</string>
+    <string name="activity_comments_alert_error_sending_message">Couldn\'t send message, please try again later!</string>
 
     <!-- Alerts -->
     <string name="message_no_internet_connection">Your internet connection was lost</string>

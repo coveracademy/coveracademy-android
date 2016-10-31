@@ -46,7 +46,7 @@ public class ViewService extends RestService {
   }
 
   public DefaultPromise<List<Comment>> commentsView(Video video) {
-    GetBuilder builder = getRequestBuilderFactory().get(Types.listOfContestView());
+    GetBuilder builder = getRequestBuilderFactory().get(Types.listOfComments());
     builder.concatPath("/videos/").concatPath(video.getId()).concatPath("/comments");
     return new RequestPromise<>(builder);
   }

@@ -91,6 +91,12 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
+    <!-- Edit Text -->
+    <style name="EditTextWithoutUnderline" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:background">@null</item>
+    </style>
+
     <!-- Button -->
     <style name="SmallButton">
         <item name="android:padding">@dimen/content_margin</item>
