@@ -43,7 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/content_margin"
+            android:paddingLeft="@dimen/content_margin_double"
+            android:paddingStart="@dimen/content_margin_double"
+            android:paddingRight="@dimen/content_margin"
+            android:paddingEnd="@dimen/content_margin"
+            android:paddingTop="@dimen/content_margin"
+            android:paddingBottom="@dimen/content_margin"
             android:hint="@string/activity_comments_type_a_message"/>
 
         <LinearLayout

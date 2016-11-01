@@ -43,6 +43,13 @@ public class CommentsAdapter extends BaseAdapter<Comment, CommentsAdapter.Commen
     holder.userNameView.setText(user.getName());
     holder.messageView.setText(comment.getMessage());
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(comment.getSendDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+    if(Comment.Status.SENDING.equals(comment.getStatus())) {
+      holder.statusView.setImageResource(R.drawable.message_sending);
+    } else if(Comment.Status.SENT.equals(comment.getStatus())) {
+      holder.statusView.setImageResource(R.drawable.message_sent);
+    } else if(Comment.Status.ERROR_SENDING.equals(comment.getStatus())) {
+      holder.statusView.setImageResource(R.drawable.message_error_sending);
+    }
   }
 
   class CommentViewHolder extends RecyclerView.ViewHolder {
@@ -51,6 +58,7 @@ public class CommentsAdapter extends BaseAdapter<Comment, CommentsAdapter.Commen
     @BindView(R.id.user_name) TextView userNameView;
     @BindView(R.id.message) TextView messageView;
     @BindView(R.id.date) TextView dateView;
+    @BindView(R.id.status) ImageView statusView;
 
     CommentViewHolder(View itemView) {
       super(itemView);

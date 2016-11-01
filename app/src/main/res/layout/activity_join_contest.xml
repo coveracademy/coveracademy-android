@@ -1,7 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include layout="@layout/progress_view"/>
+
+
+    </RelativeLayout>
 
     <Button
         style="@style/Button"
@@ -12,7 +28,7 @@
         android:layout_marginRight="2dp"
         android:layout_marginEnd="2dp"
         android:gravity="center"
-        android:text="Competir"
+        android:text="@string/activity_join_contest_challenge"
         android:textAllCaps="true"/>
 
 </LinearLayout>

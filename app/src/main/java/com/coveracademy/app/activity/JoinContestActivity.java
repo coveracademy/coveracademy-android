@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.coveracademy.app.R;
 import com.coveracademy.app.constant.Constants;
 import com.coveracademy.app.util.MediaUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class JoinContestActivity extends CoverAcademyActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_join_contest);
     ButterKnife.bind(this);
+
+    UIUtils.defaultToolbar(this);
+    setTitle(getString(R.string.activity_title_join_contest));
   }
 
   @OnClick(R.id.join_contest)

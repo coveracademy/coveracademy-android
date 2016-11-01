@@ -14,6 +14,7 @@ import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.app.util.MediaUtils;
+import com.coveracademy.app.util.component.ContestCountDownTimer;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,13 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     holder.contestNameView.setText(contest.getName());
     MediaUtils.setImage(getContext(), contest, holder.contestImageView);
 
-    if(contest.getProgress().equals(Progress.FINISHED)) {
-      holder.actionsView.setVisibility(View.GONE);
+    if(Progress.RUNNING.equals(contest.getProgress())) {
+      holder.winnersView.setVisibility(View.GONE);
+      holder.contestRunningView.setVisibility(View.VISIBLE);
+      new ContestCountDownTimer(getContext(), contest, holder.daysRemainingView, holder.hoursRemainingView, holder.minutesRemainingView, holder.secondsRemainingView).start();
+    } else if(Progress.FINISHED.equals(contest.getProgress())) {
       holder.winnersView.setVisibility(View.VISIBLE);
+      holder.contestRunningView.setVisibility(View.GONE);
       for(int index = 0; index < contestsItemView.getWinners().size(); index++) {
         User user = contestsItemView.getWinners().get(index);
         if(index == 0) {
@@ -57,8 +62,8 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
         }
       }
     } else {
-      holder.actionsView.setVisibility(View.VISIBLE);
       holder.winnersView.setVisibility(View.GONE);
+      holder.contestRunningView.setVisibility(View.GONE);
     }
   }
 
@@ -70,9 +75,13 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
 
     @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.contest_image) ImageView contestImageView;
+    @BindView(R.id.contest_running) View contestRunningView;
+    @BindView(R.id.days_remaining) TextView daysRemainingView;
+    @BindView(R.id.hours_remaining) TextView hoursRemainingView;
+    @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
+    @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
     @BindView(R.id.total_videos) TextView totalVideosView;
     @BindView(R.id.winners) View winnersView;
-    @BindView(R.id.actions) View actionsView;
     @BindView(R.id.first_winner_picture) ImageView firstWinnerPictureView;
     @BindView(R.id.second_winner_picture) ImageView secondWinnerPictureView;
     @BindView(R.id.third_winner_picture) ImageView thirdWinnerPictureView;
@@ -83,7 +92,7 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     }
 
     @OnClick(R.id.contest)
-    void onContestClick(View view) {
+    void onContestClick() {
       if(onContestClickListener != null) {
         Contest contest = getItem(getAdapterPosition()).getContest();
         onContestClickListener.onContestClick(contest);

@@ -11,7 +11,6 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Comment;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.api.promise.Progress;
-import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.app.R;
 import com.coveracademy.app.adapter.CommentsAdapter;
 import com.coveracademy.app.util.UIUtils;
@@ -26,6 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class CommentsActivity extends CoverAcademyActivity {
 
@@ -35,11 +35,11 @@ public class CommentsActivity extends CoverAcademyActivity {
 
   private Video video;
   private CommentsActivity instance;
-  private RemoteService remoteService;
   private CommentsAdapter commentsAdapter;
 
   @BindView(R.id.root) View rootView;
   @BindView(R.id.comments) RecyclerView commentsView;
+  @BindView(R.id.send_message) View sendMessageView;
   @BindView(R.id.message) TextView messageInput;
 
   @Override
@@ -49,7 +49,6 @@ public class CommentsActivity extends CoverAcademyActivity {
     ButterKnife.bind(this);
 
     instance = this;
-    remoteService = RemoteService.getInstance(this);
 
     setupVideo();
     setupCommentsAdapter();
@@ -74,6 +73,7 @@ public class CommentsActivity extends CoverAcademyActivity {
   }
 
   private void setupCommentsView() {
+    sendMessageView.setEnabled(false);
     remoteService.getViewService().commentsView(video).then(new DoneCallback<List<Comment>>() {
       @Override
       public void onDone(List<Comment> comments) {
@@ -94,6 +94,15 @@ public class CommentsActivity extends CoverAcademyActivity {
         }
       }
     });
+  }
+
+  @OnTextChanged(R.id.message)
+  void onMessageChanged(CharSequence message) {
+    if(message.toString().trim().isEmpty()) {
+      sendMessageView.setEnabled(false);
+    } else {
+      sendMessageView.setEnabled(true);
+    }
   }
 
   @OnClick(R.id.send_message)

@@ -24,7 +24,7 @@
 
         <item
             android:id="@+id/rate_us"
-            android:icon="@drawable/star"
+            android:icon="@drawable/fan"
             android:title="@string/menu_rate_us"
             android:checkable="false"/>
 

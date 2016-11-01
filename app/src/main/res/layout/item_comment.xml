@@ -38,13 +38,28 @@
             android:textSize="@dimen/text_normal"
             android:textColor="@color/primary_text"/>
 
-        <TextView
-            android:id="@+id/date"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginTop="3dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/text_micro"/>
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/text_small"/>
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_height="15dp"
+                android:layout_width="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

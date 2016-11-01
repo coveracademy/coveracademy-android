@@ -1,7 +1,6 @@
 package com.coveracademy.app.activity;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import com.coveracademy.app.R;
 import com.coveracademy.app.adapter.VideosAdapter;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
+import com.coveracademy.app.util.component.ContestCountDownTimer;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -46,7 +46,7 @@ public class ContestActivity extends CoverAcademyActivity {
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.contest_name) TextView contestNameView;
   @BindView(R.id.contest_image) ImageView contestImageView;
-  @BindView(R.id.contest_countdown) View countdownView;
+  @BindView(R.id.contest_running) View contestRunningView;
   @BindView(R.id.contest_finished) View contestFinishedView;
   @BindView(R.id.days_remaining) TextView daysRemainingView;
   @BindView(R.id.hours_remaining) TextView hoursRemainingView;
@@ -103,30 +103,13 @@ public class ContestActivity extends CoverAcademyActivity {
     Contest contest = contestView.getContest();
     contestNameView.setText(contestView.getContest().getName());
     MediaUtils.setImage(instance, contestView.getContest(), contestImageView);
-    long millisInFuture = contest.getEndDate().getTime() - System.currentTimeMillis();
-    if(millisInFuture > 0 && contest.getProgress().equals(Progress.RUNNING)) {
-      countdownView.setVisibility(View.VISIBLE);
-      new CountDownTimer(millisInFuture, 1000) {
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-          int days = (int) ((millisUntilFinished / 1000) / 86400);
-          int hours = (int) (((millisUntilFinished / 1000) - (days * 86400)) / 3600);
-          int minutes = (int) (((millisUntilFinished / 1000) - (days * 86400) - (hours * 3600)) / 60);
-          int seconds = (int) ((millisUntilFinished / 1000) % 60);
-          daysRemainingView.setText(getString(R.string.activity_contest_days_remaining, days));
-          hoursRemainingView.setText(getString(R.string.activity_contest_hours_remaining, hours));
-          minutesRemainingView.setText(getString(R.string.activity_contest_minutes_remaining, minutes));
-          secondsRemainingView.setText(getString(R.string.activity_contest_seconds_remaining, seconds));
-        }
-
-        @Override
-        public void onFinish() {
-
-        }
-      }.start();
+    if(contest.getProgress().equals(Progress.RUNNING)) {
+      contestRunningView.setVisibility(View.VISIBLE);
+      contestFinishedView.setVisibility(View.GONE);
+      new ContestCountDownTimer(this, contest, daysRemainingView, hoursRemainingView, minutesRemainingView, secondsRemainingView).start();
     } else {
       contestFinishedView.setVisibility(View.VISIBLE);
+      contestRunningView.setVisibility(View.GONE);
     }
   }
 

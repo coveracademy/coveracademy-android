@@ -67,6 +67,17 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/contest_running"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/content_margin">
+
+            <include layout="@layout/contest_countdown"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/winners"
             android:visibility="gone"
             android:orientation="vertical"
@@ -111,37 +122,6 @@
                     app:layout_columnWeight="1"/>
 
             </android.support.v7.widget.GridLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/actions"
-            android:visibility="gone"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/content_margin">
-
-            <Button
-                style="@style/Button"
-                android:theme="@style/PrimaryButtonTheme"
-                android:id="@+id/like"
-                android:text="@string/vote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"/>
-
-            <Button
-                style="@style/Button"
-                android:theme="@style/PrimaryButtonTheme"
-                android:id="@+id/join_contest"
-                android:text="@string/join_contest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/content_margin"
-                android:layout_marginStart="@dimen/content_margin"
-                android:textAllCaps="false"/>
 
         </LinearLayout>
 

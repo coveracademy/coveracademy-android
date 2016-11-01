@@ -132,6 +132,14 @@
                 android:src="@drawable/comment"/>
 
             <ImageView
+                android:id="@+id/fan"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/content_margin_double"
+                android:layout_marginStart="@dimen/content_margin_double"
+                android:src="@drawable/fan"/>
+
+            <ImageView
                 android:id="@+id/share"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
