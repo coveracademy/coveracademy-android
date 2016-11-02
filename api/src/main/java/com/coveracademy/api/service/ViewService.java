@@ -3,6 +3,7 @@ package com.coveracademy.api.service;
 import android.content.Context;
 
 import com.coveracademy.api.model.Comment;
+import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.api.model.view.VideoView;
 import com.coveracademy.api.model.view.ContestsItemView;
@@ -48,6 +49,13 @@ public class ViewService extends RestService {
   public DefaultPromise<List<Comment>> commentsView(Video video) {
     GetBuilder builder = getRequestBuilderFactory().get(Types.listOfComments());
     builder.concatPath("/videos/").concatPath(video.getId()).concatPath("/comments");
+    return new RequestPromise<>(builder);
+  }
+
+
+  public DefaultPromise<List<Contest>> joinContestView() {
+    GetBuilder builder = getRequestBuilderFactory().get(Types.listOfContests());
+    builder.concatPath("/contests/join");
     return new RequestPromise<>(builder);
   }
 }

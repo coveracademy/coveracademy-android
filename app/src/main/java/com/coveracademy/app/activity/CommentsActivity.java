@@ -81,7 +81,7 @@ public class CommentsActivity extends CoverAcademyActivity {
       }
     }).fail(new FailCallback<APIException>() {
       @Override
-      public void onFail(APIException result) {
+      public void onFail(APIException e) {
 
       }
     }).progress(new ProgressCallback<Progress>() {

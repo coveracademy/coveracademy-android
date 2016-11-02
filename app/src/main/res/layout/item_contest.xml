@@ -55,13 +55,6 @@
                     android:textSize="@dimen/text_mega_large"
                     android:textColor="@android:color/white"/>
 
-                <TextView
-                    android:id="@+id/total_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
-                    android:textColor="@android:color/white"/>
-
             </LinearLayout>
 
         </RelativeLayout>

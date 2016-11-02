@@ -80,7 +80,6 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     @BindView(R.id.hours_remaining) TextView hoursRemainingView;
     @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
     @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
-    @BindView(R.id.total_videos) TextView totalVideosView;
     @BindView(R.id.winners) View winnersView;
     @BindView(R.id.first_winner_picture) ImageView firstWinnerPictureView;
     @BindView(R.id.second_winner_picture) ImageView secondWinnerPictureView;
@@ -96,6 +95,30 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
       if(onContestClickListener != null) {
         Contest contest = getItem(getAdapterPosition()).getContest();
         onContestClickListener.onContestClick(contest);
+      }
+    }
+
+    @OnClick(R.id.first_winner_picture)
+    void onFirstWinnerPictureClick() {
+      if(onContestClickListener != null) {
+        User user = getItem(getAdapterPosition()).getWinners().get(0);
+        onContestClickListener.onWinnerClick(user);
+      }
+    }
+
+    @OnClick(R.id.second_winner_picture)
+    void onSecondWinnerPictureClick() {
+      if(onContestClickListener != null) {
+        User user = getItem(getAdapterPosition()).getWinners().get(1);
+        onContestClickListener.onWinnerClick(user);
+      }
+    }
+
+    @OnClick(R.id.third_winner_picture)
+    void onThirdWinnerPictureClick() {
+      if(onContestClickListener != null) {
+        User user = getItem(getAdapterPosition()).getWinners().get(2);
+        onContestClickListener.onWinnerClick(user);
       }
     }
   }

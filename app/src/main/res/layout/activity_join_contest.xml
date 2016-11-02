@@ -4,8 +4,7 @@
     android:id="@+id/root"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
 
@@ -16,19 +15,73 @@
 
         <include layout="@layout/progress_view"/>
 
+        <LinearLayout
+            android:id="@+id/select_contest"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selected_contest"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/black"/>
+
+                <ImageView
+                    android:id="@+id/contest_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:alpha="0.6"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:paddingTop="@dimen/content_margin"
+                    android:paddingBottom="@dimen/content_margin"
+                    android:paddingLeft="@dimen/content_margin_double"
+                    android:paddingRight="@dimen/content_margin_double">
+
+                    <TextView
+                        style="@style/TextViewWithShadow"
+                        android:id="@+id/contest_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_mega_large"
+                        android:textColor="@android:color/white"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <Button
+                style="@style/Button"
+                android:theme="@style/DefaultButtonTheme"
+                android:id="@+id/select_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_margin_double"
+                android:gravity="center"
+                android:text="@string/activity_join_contest_select_video"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
-
-    <Button
-        style="@style/Button"
-        android:theme="@style/DefaultButtonTheme"
-        android:id="@+id/join_contest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="2dp"
-        android:layout_marginEnd="2dp"
-        android:gravity="center"
-        android:text="@string/activity_join_contest_challenge"
-        android:textAllCaps="true"/>
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.activity.ContestActivity;
+import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.adapter.ContestsAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
@@ -106,6 +107,8 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
 
   @Override
   public void onWinnerClick(User user) {
-
+    Intent intent = new Intent(getContext(), UserActivity.class);
+    intent.putExtra(UserActivity.USER_ID, user.getId());
+    startActivity(intent);
   }
 }
