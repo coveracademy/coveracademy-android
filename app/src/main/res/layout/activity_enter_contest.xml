@@ -4,7 +4,8 @@
     android:id="@+id/root"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <include layout="@layout/toolbar"/>
 
@@ -47,31 +48,30 @@
                     android:scaleType="centerCrop"
                     android:alpha="0.6"/>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
+                <TextView
+                    style="@style/TextViewWithShadow"
+                    android:id="@+id/contest_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:paddingTop="@dimen/content_margin"
-                    android:paddingBottom="@dimen/content_margin"
-                    android:paddingLeft="@dimen/content_margin_double"
-                    android:paddingRight="@dimen/content_margin_double">
-
-                    <TextView
-                        style="@style/TextViewWithShadow"
-                        android:id="@+id/contest_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_mega_large"
-                        android:textColor="@android:color/white"/>
-
-                </LinearLayout>
+                    android:padding="@dimen/content_margin_double"
+                    android:textSize="@dimen/text_ultra_large"
+                    android:textColor="@android:color/white"/>
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_margin_double">
+
+                <include layout="@layout/contest_countdown"/>
+
+            </LinearLayout>
+
             <Button
                 style="@style/Button"
-                android:theme="@style/DefaultButtonTheme"
+                android:theme="@style/PrimaryButtonTheme"
                 android:id="@+id/select_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,17 +93,18 @@
                 android:id="@+id/video"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"/>
 
             <Button
                 style="@style/Button"
-                android:theme="@style/DefaultButtonTheme"
+                android:theme="@style/PrimaryButtonTheme"
                 android:id="@+id/submit_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/content_margin_double"
                 android:gravity="center"
-                android:text="@string/activity_enter_contest_select_video"
+                android:text="@string/activity_enter_contest_submit"
                 android:textAllCaps="true"/>
 
         </LinearLayout>

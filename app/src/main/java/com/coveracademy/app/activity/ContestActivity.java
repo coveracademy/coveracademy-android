@@ -48,10 +48,6 @@ public class ContestActivity extends CoverAcademyActivity {
   @BindView(R.id.contest_image) ImageView contestImageView;
   @BindView(R.id.contest_running) View contestRunningView;
   @BindView(R.id.contest_finished) View contestFinishedView;
-  @BindView(R.id.days_remaining) TextView daysRemainingView;
-  @BindView(R.id.hours_remaining) TextView hoursRemainingView;
-  @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
-  @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
   @BindView(R.id.videos) RecyclerView videosView;
 
   @Override
@@ -106,7 +102,7 @@ public class ContestActivity extends CoverAcademyActivity {
     if(contest.getProgress().equals(Progress.RUNNING)) {
       contestRunningView.setVisibility(View.VISIBLE);
       contestFinishedView.setVisibility(View.GONE);
-      new ContestCountDownTimer(this, contest, daysRemainingView, hoursRemainingView, minutesRemainingView, secondsRemainingView).start();
+      new ContestCountDownTimer(this, contest, rootView).start();
     } else {
       contestFinishedView.setVisibility(View.VISIBLE);
       contestRunningView.setVisibility(View.GONE);

@@ -47,7 +47,7 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     if(Progress.RUNNING.equals(contest.getProgress())) {
       holder.winnersView.setVisibility(View.GONE);
       holder.contestRunningView.setVisibility(View.VISIBLE);
-      new ContestCountDownTimer(getContext(), contest, holder.daysRemainingView, holder.hoursRemainingView, holder.minutesRemainingView, holder.secondsRemainingView).start();
+      new ContestCountDownTimer(getContext(), contest, holder.itemView).start();
     } else if(Progress.FINISHED.equals(contest.getProgress())) {
       holder.winnersView.setVisibility(View.VISIBLE);
       holder.contestRunningView.setVisibility(View.GONE);

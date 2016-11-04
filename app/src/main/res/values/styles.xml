@@ -159,10 +159,4 @@
         <item name="android:textColor">@color/button_danger</item>
     </style>
 
-    <style name="FloatActionButtonLabel">
-        <item name="android:background">@drawable/fab_label</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/text_normal</item>
-    </style>
-
 </resources>

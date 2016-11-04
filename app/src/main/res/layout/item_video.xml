@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/content_margin_double"
             android:paddingStart="@dimen/content_margin_double"
-            android:paddingRight="@dimen/content_margin"
-            android:paddingEnd="@dimen/content_margin">
+            android:paddingRight="@dimen/content_margin_double"
+            android:paddingEnd="@dimen/content_margin_double">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_picture"
@@ -40,8 +40,9 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/content_margin"
                 android:layout_marginStart="@dimen/content_margin"
                 android:layout_gravity="center_vertical">
@@ -64,6 +65,15 @@
                     android:textAllCaps="false"/>
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/fan"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/fan"/>
 
         </LinearLayout>
 
@@ -130,14 +140,6 @@
                 android:layout_marginLeft="@dimen/content_margin_double"
                 android:layout_marginStart="@dimen/content_margin_double"
                 android:src="@drawable/comment"/>
-
-            <ImageView
-                android:id="@+id/fan"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="@dimen/content_margin_double"
-                android:layout_marginStart="@dimen/content_margin_double"
-                android:src="@drawable/fan"/>
 
             <ImageView
                 android:id="@+id/share"

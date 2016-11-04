@@ -22,6 +22,7 @@ import com.coveracademy.app.R;
 import com.coveracademy.app.constant.Constants;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
+import com.coveracademy.app.util.component.ContestCountDownTimer;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -118,6 +119,8 @@ public class EnterContestActivity extends CoverAcademyActivity {
   private void setupContestView() {
     contestNameView.setText(selectedContest.getName());
     MediaUtils.setImage(this, selectedContest, contestImageView);
+    new ContestCountDownTimer(this, selectedContest, rootView).start();
+
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.VISIBLE);
     selectedVideoView.setVisibility(View.GONE);
@@ -146,7 +149,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
           if(uri != null) {
             Intent intent = new Intent(this, VideoTrimmerActivity.class);
             intent.putExtra(VideoTrimmerActivity.EXTRA_VIDEO_PATH, FileUtils.getPath(this, uri));
-            startActivity(intent);
+            startActivityForResult(intent, Constants.REQUEST_TRIM_VIDEO);
           }
           break;
         case Constants.REQUEST_TRIM_VIDEO:
@@ -174,9 +177,6 @@ public class EnterContestActivity extends CoverAcademyActivity {
     }
     if(denied) {
       finish();
-    } else {
-      MediaUtils.createDirectories();
-      MediaUtils.selectVideo(this);
     }
   }
 
