@@ -12,7 +12,7 @@
     <!-- Activities titles -->
     <string name="activity_title_main">Cover Academy</string>
     <string name="activity_title_comments">Comments</string>
-    <string name="activity_title_join_contest">Join the contest</string>
+    <string name="activity_title_enter_contest">Enter the contest</string>
 
     <!-- Welcome activity -->
     <string name="activity_welcome_alert_error_authenticating">Couldn\'t authenticate, please try again later!</string>
@@ -25,6 +25,7 @@
     <string name="activity_main_dialog_logout_message">Do you really want to logout?</string>
     <string name="activity_main_alert_error_loading_auditions">Couldn\'t load auditions, please try again later!</string>
     <string name="activity_main_alert_error_loading_contests">Couldn\'t load contests, please try again later!</string>
+    <string name="activity_main_alert_error_authenticating_user">Couldn\'t authenticate, please try again later!</string>
 
     <!-- User activity -->
     <string name="activity_user_alert_error_loading_user">Couldn\'t load user, please try again later!</string>
@@ -39,11 +40,14 @@
 
     <!-- Comments activity -->
     <string name="activity_comments_type_a_message">Type a message…</string>
-    <string name="activity_comments_alert_error_sending_message">Couldn\'t send message, please try again later!</string>
+    <string name="activity_comments_alert_error_sending_comment">Couldn\'t send comment, please try again later!</string>
+    <string name="activity_comments_alert_error_loading_comments">Couldn\'t load comments, please try again later!</string>
 
-    <!-- Join contest activity -->
-    <string name="activity_join_contest_select_video">Select a video</string>
-    <string name="activity_join_contest_submit">Submit</string>
+    <!-- Enter contest activity -->
+    <string name="activity_enter_contest_select_video">Select a video</string>
+    <string name="activity_enter_contest_submit">Submit</string>
+    <string name="activity_enter_contest_alert_error_loading">Couldn\'t load available contests, please try again later!</string>
+    <string name="activity_enter_contest_alert_error_loading_selected_video">Couldn\'t load selected video, please try again later!</string>
 
     <!-- Alerts -->
     <string name="message_no_internet_connection">Your internet connection was lost</string>

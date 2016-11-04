@@ -15,25 +15,31 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.app.R;
 import com.coveracademy.app.fragment.AuditionsFragment;
 import com.coveracademy.app.fragment.ContestsFragment;
 import com.coveracademy.app.util.MediaUtils;
+import com.coveracademy.app.util.UIUtils;
 import com.coveracademy.app.util.component.ConfirmDialog;
 import com.facebook.login.LoginManager;
 
 import org.jdeferred.DoneCallback;
+import org.jdeferred.FailCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends CoverAcademyActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+  private static final String TAG = MainActivity.class.getSimpleName();
 
   private MainActivity instance;
   private DrawerToggle drawerToggle;
@@ -186,6 +192,13 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
         application.setUser(user);
         setupDrawerContent();
         setupTabs();
+      }
+    }).fail(new FailCallback<APIException>() {
+      @Override
+      public void onFail(APIException e) {
+        Log.e(TAG, "Error getting authenticated user", e);
+        UIUtils.alert(drawerLayout, e, getString(R.string.activity_main_alert_error_authenticating_user));
+        logout();
       }
     });
   }

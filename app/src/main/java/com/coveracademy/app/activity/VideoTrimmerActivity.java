@@ -18,7 +18,6 @@ import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
 public class VideoTrimmerActivity extends CoverAcademyActivity implements OnTrimVideoListener {
 
   public static final String EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH";
-  public static final String EXTRA_TRIM_VIDEO_PATH = "EXTRA_TRIM_VIDEO_PATH";
 
   @BindView(R.id.video_trimmer) K4LVideoTrimmer videoTrimmer;
 
@@ -40,7 +39,7 @@ public class VideoTrimmerActivity extends CoverAcademyActivity implements OnTrim
   @Override
   public void getResult(Uri uri) {
     Intent intent = new Intent();
-    intent.putExtra(EXTRA_TRIM_VIDEO_PATH, uri);
+    intent.setData(uri);
     setResult(RESULT_OK, intent);
     finish();
   }

@@ -82,7 +82,8 @@ public class CommentsActivity extends CoverAcademyActivity {
     }).fail(new FailCallback<APIException>() {
       @Override
       public void onFail(APIException e) {
-
+        Log.e(TAG, "Error loading comments", e);
+        UIUtils.alert(rootView, e, getString(R.string.activity_comments_alert_error_loading_comments));
       }
     }).progress(new ProgressCallback<Progress>() {
       @Override
@@ -129,7 +130,7 @@ public class CommentsActivity extends CoverAcademyActivity {
       @Override
       public void onFail(APIException e) {
         Log.e(TAG, "Error sending comment", e);
-        UIUtils.alert(rootView, e, getString(R.string.activity_comments_alert_error_sending_message));
+        UIUtils.alert(rootView, e, getString(R.string.activity_comments_alert_error_sending_comment));
         comment.setStatus(Comment.Status.ERROR_SENDING);
         commentsAdapter.reloadItem(0);
       }

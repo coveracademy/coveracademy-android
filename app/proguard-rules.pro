@@ -60,6 +60,9 @@
 # Volley
 -dontwarn com.android.volley.**
 
+# Material
+-dontwarn com.rey.material.**
+
 #############################
 ### Indirect dependencies ###
 #############################
@@ -74,3 +77,9 @@
 
 # Slf4j
 -dontwarn org.slf4j.**
+
+# Mp4Parser
+-keep class * implements com.coremedia.iso.boxes.Box { *; }
+-dontwarn com.coremedia.iso.boxes.**
+-dontwarn com.googlecode.mp4parser.authoring.tracks.mjpeg.**
+-dontwarn com.googlecode.mp4parser.authoring.tracks.ttml.**

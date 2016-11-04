@@ -9,10 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
-import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
@@ -34,30 +35,106 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import life.knowledge4.videotrimmer.utils.FileUtils;
 
-public class JoinContestActivity extends CoverAcademyActivity {
+public class EnterContestActivity extends CoverAcademyActivity {
 
-  private JoinContestActivity instance;
+  private static String TAG = EnterContestActivity.class.getSimpleName();
+
+  private EnterContestActivity instance;
   private List<Contest> contests;
   private Contest selectedContest;
+  private Uri selectedVideoUri;
 
+  @BindView(R.id.root) View rootView;
   @BindView(R.id.select_contest) View selectContestView;
   @BindView(R.id.selected_contest) View selectedContestView;
+  @BindView(R.id.selected_video) View selectedVideoView;
   @BindView(R.id.contest_name) TextView contestNameView;
   @BindView(R.id.contest_image) ImageView contestImageView;
+  @BindView(R.id.video) VideoView videoView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_join_contest);
+    setContentView(R.layout.activity_enter_contest);
     ButterKnife.bind(this);
 
     contests = new ArrayList<>();
     instance = this;
 
+    setupPermissions();
     setupContests();
 
     UIUtils.defaultToolbar(this);
-    setTitle(getString(R.string.activity_title_join_contest));
+    setTitle(getString(R.string.activity_title_enter_contest));
+  }
+
+  private void setupPermissions() {
+    List<String> permissions = new ArrayList<>();
+    if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+      permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
+    if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+      permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+    if(!permissions.isEmpty()) {
+      ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 0);
+    }
+  }
+
+  private void setupContests() {
+    remoteService.getViewService().joinContestView().then(new DoneCallback<List<Contest>>() {
+      @Override
+      public void onDone(List<Contest> contests) {
+        instance.contests = contests;
+        if(contests.isEmpty()) {
+          // No contests available
+          // Show some view
+        } else if(contests.size() == 1) {
+          selectedContest = contests.get(0);
+          setupContestView();
+        } else {
+          setupContestsAdapter();
+        }
+      }
+    }).fail(new FailCallback<APIException>() {
+      @Override
+      public void onFail(APIException e) {
+        Log.e(TAG, "Error loading join contest view", e);
+        UIUtils.alert(rootView, e, getString(R.string.activity_enter_contest_alert_error_loading));
+        finish();
+      }
+    }).progress(new ProgressCallback<Progress>() {
+      @Override
+      public void onProgress(Progress progress) {
+        if(progress.equals(Progress.PENDING)) {
+          UIUtils.showProgressBar(instance);
+        } else {
+          UIUtils.hideProgressBar(instance);
+        }
+      }
+    });
+  }
+
+  private void setupContestView() {
+    contestNameView.setText(selectedContest.getName());
+    MediaUtils.setImage(this, selectedContest, contestImageView);
+    selectContestView.setVisibility(View.GONE);
+    selectedContestView.setVisibility(View.VISIBLE);
+    selectedVideoView.setVisibility(View.GONE);
+  }
+
+  private void setupContestsAdapter() {
+    selectContestView.setVisibility(View.VISIBLE);
+    selectedContestView.setVisibility(View.GONE);
+    selectedVideoView.setVisibility(View.GONE);
+  }
+
+  private void setupSubmitView() {
+    videoView.setVideoPath(selectedVideoUri.getPath());
+    videoView.start();
+    selectContestView.setVisibility(View.GONE);
+    selectedContestView.setVisibility(View.GONE);
+    selectedVideoView.setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -73,7 +150,11 @@ public class JoinContestActivity extends CoverAcademyActivity {
           }
           break;
         case Constants.REQUEST_TRIM_VIDEO:
-          finish();
+          uri = data.getData();
+          if(uri != null) {
+            selectedVideoUri = uri;
+            setupSubmitView();
+          }
           break;
       }
     }
@@ -100,63 +181,13 @@ public class JoinContestActivity extends CoverAcademyActivity {
   }
 
   @OnClick(R.id.select_video)
-  void onJoinContestClick() {
-    List<String> permissions = new ArrayList<>();
-    if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-      permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-    }
-    if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-      permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-    if(!permissions.isEmpty()) {
-      ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 0);
-    } else {
-      MediaUtils.createDirectories();
-      MediaUtils.selectVideo(this);
-    }
+  void onSelectVideoClick() {
+    MediaUtils.createDirectories();
+    MediaUtils.selectVideo(this);
   }
 
-  private void setupContests() {
-    remoteService.getViewService().joinContestView().then(new DoneCallback<List<Contest>>() {
-      @Override
-      public void onDone(List<Contest> contests) {
-        instance.contests = contests;
-        if(contests.isEmpty()) {
-          // No contests available
-          // Show some view
-        } else if(contests.size() == 1) {
-          selectedContest = contests.get(0);
-          setupContestView();
-        } else {
-          setupContestsAdapter();
-        }
-      }
-    }).fail(new FailCallback<APIException>() {
-      @Override
-      public void onFail(APIException e) {
+  @OnClick(R.id.submit_video)
+  void onSubmitVideoClick() {
 
-      }
-    }).progress(new ProgressCallback<Progress>() {
-      @Override
-      public void onProgress(Progress progress) {
-        if(progress.equals(Progress.PENDING)) {
-          UIUtils.showProgressBar(instance);
-        } else {
-          UIUtils.hideProgressBar(instance);
-        }
-      }
-    });
-  }
-
-  private void setupContestView() {
-    contestNameView.setText(selectedContest.getName());
-    MediaUtils.setImage(this, selectedContest, contestImageView);
-    selectContestView.setVisibility(View.GONE);
-    selectedContestView.setVisibility(View.VISIBLE);
-  }
-
-  private void setupContestsAdapter() {
-    selectContestView.setVisibility(View.VISIBLE);
-    selectedContestView.setVisibility(View.GONE);
   }
 }

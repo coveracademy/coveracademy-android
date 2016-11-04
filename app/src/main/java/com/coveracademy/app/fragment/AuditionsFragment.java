@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
-import com.coveracademy.app.activity.JoinContestActivity;
+import com.coveracademy.app.activity.EnterContestActivity;
 import com.coveracademy.app.adapter.VideosAdapter;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.view.VideoView;
@@ -97,7 +97,7 @@ public class AuditionsFragment extends StatefulFragment {
 
   @OnClick(R.id.join_contest)
   void onJoinContestClick() {
-    Intent joinContestIntent = new Intent(getContext(), JoinContestActivity.class);
+    Intent joinContestIntent = new Intent(getContext(), EnterContestActivity.class);
     startActivity(joinContestIntent);
   }
 }

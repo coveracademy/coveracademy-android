@@ -77,7 +77,33 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/content_margin_double"
                 android:gravity="center"
-                android:text="@string/activity_join_contest_select_video"
+                android:text="@string/activity_enter_contest_select_video"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selected_video"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <VideoView
+                android:id="@+id/video"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <Button
+                style="@style/Button"
+                android:theme="@style/DefaultButtonTheme"
+                android:id="@+id/submit_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_margin_double"
+                android:gravity="center"
+                android:text="@string/activity_enter_contest_select_video"
                 android:textAllCaps="true"/>
 
         </LinearLayout>
