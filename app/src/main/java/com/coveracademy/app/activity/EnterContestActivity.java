@@ -17,12 +17,15 @@ import android.widget.VideoView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
+import com.coveracademy.api.model.Video;
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.constant.Constants;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 import com.coveracademy.app.util.component.ContestCountDownTimer;
+
+import net.gotev.uploadservice.UploadNotificationConfig;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -188,6 +191,16 @@ public class EnterContestActivity extends CoverAcademyActivity {
 
   @OnClick(R.id.submit_video)
   void onSubmitVideoClick() {
+    remoteService.getVideoService().upload(new Video(), selectedVideoUri, new UploadNotificationConfig()).then(new DoneCallback<String>() {
+      @Override
+      public void onDone(String uploadId) {
 
+      }
+    }).fail(new FailCallback<APIException>() {
+      @Override
+      public void onFail(APIException result) {
+
+      }
+    });
   }
 }

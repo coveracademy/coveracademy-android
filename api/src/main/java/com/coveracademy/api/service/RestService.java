@@ -2,17 +2,23 @@ package com.coveracademy.api.service;
 
 import android.content.Context;
 
-import com.coveracademy.api.service.rest.builder.RequestBuilderFactory;
+import com.coveracademy.api.service.rest.RequestFactory;
 
 class RestService {
 
-  private RequestBuilderFactory requestBuilderFactory;
+  private Context context;
+  private RequestFactory requestFactory;
 
   RestService(Context context, String path) {
-    requestBuilderFactory = new RequestBuilderFactory(context, path);
+    this.context = context;
+    this.requestFactory = new RequestFactory(context, path);
   }
 
-  RequestBuilderFactory getRequestBuilderFactory() {
-    return requestBuilderFactory;
+  public Context getContext() {
+    return context;
+  }
+
+  public RequestFactory getRequestFactory() {
+    return requestFactory;
   }
 }

@@ -6,10 +6,8 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.promise.DefaultPromise;
 import com.coveracademy.api.promise.RequestPromise;
-import com.coveracademy.api.service.rest.AuthorizationManager;
-import com.coveracademy.api.service.rest.builder.GetBuilder;
-import com.coveracademy.api.service.rest.builder.PostBuilder;
-import com.coveracademy.api.service.rest.builder.request.json.Types;
+import com.coveracademy.api.service.rest.Request;
+import com.coveracademy.api.service.rest.json.Types;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -27,10 +25,11 @@ public class UserService extends RestService {
 
   public DefaultPromise<User> authenticate(String accessToken) {
     final DefaultPromise<User> promise = new DefaultPromise<>();
-    GetBuilder builder = getRequestBuilderFactory().get(Types.mapOfStrings());
-    builder.concatPath("/auth/facebook");
-    builder.addParam("access_token", accessToken);
-    new RequestPromise<Map<String, String>>(builder).then(new DoneCallback<Map<String, String>>() {
+    Request<Map<String, String>> request = getRequestFactory().get(Types.mapOfStrings());
+    request.concatPath("auth");
+    request.concatPath("facebook");
+    request.addParameter("access_token", accessToken);
+    new RequestPromise<>(request).then(new DoneCallback<Map<String, String>>() {
       @Override
       public void onDone(Map<String, String> result) {
         String token = result.get("token");
@@ -47,16 +46,17 @@ public class UserService extends RestService {
   }
 
   public RequestPromise<User> getAuthenticatedUser() {
-    GetBuilder builder = getRequestBuilderFactory().get(User.class);
-    builder.concatPath("/authenticated");
-    return new RequestPromise<>(builder);
+    Request<User> request = getRequestFactory().get(User.class);
+    request.concatPath("authenticated");
+    return new RequestPromise<>(request);
   }
 
   public DefaultPromise<Void> logout() {
     final DefaultPromise<Void> promise = new DefaultPromise<>();
-    PostBuilder builder = getRequestBuilderFactory().post(null);
-    builder.concatPath("/auth/logout");
-    new RequestPromise<Void>(builder).then(new DoneCallback<Void>() {
+    Request<Void> request = getRequestFactory().post(null);
+    request.concatPath("auth");
+    request.concatPath("logout");
+    new RequestPromise<>(request).then(new DoneCallback<Void>() {
       @Override
       public void onDone(Void result) {
         AuthorizationManager.getInstance(context).setToken(null);

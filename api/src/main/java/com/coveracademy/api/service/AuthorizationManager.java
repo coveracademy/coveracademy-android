@@ -1,4 +1,4 @@
-package com.coveracademy.api.service.rest;
+package com.coveracademy.api.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;

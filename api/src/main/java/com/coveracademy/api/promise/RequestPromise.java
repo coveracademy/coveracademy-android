@@ -1,76 +1,86 @@
 package com.coveracademy.api.promise;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
+import android.os.Handler;
+import android.os.Looper;
+
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.service.rest.builder.RequestBuilder;
+import com.coveracademy.api.exception.RequestException;
+import com.coveracademy.api.service.rest.Request;
 
-public class RequestPromise<D> extends DefaultPromise<D> {
+import org.jdeferred.Deferred;
 
-  private static final String COVERACADEMY_RESPONSE_HEADER = "X-CoverAcademy";
+public class RequestPromise<T> extends DefaultPromise<T> {
 
-  private RequestBuilder builder;
+  private static final String DEFAULT_RESPONSE_HEADER = "X-CoverAcademy";
 
-  public RequestPromise(RequestBuilder<?> builder) {
-    this.builder = builder;
+  private Request<T> request;
+  private Handler mainHandler;
+
+  public RequestPromise(Request<T> request) {
+    this.request = request;
+    mainHandler = new Handler(Looper.getMainLooper());
     execute();
   }
 
   private void execute() {
-    final Response.Listener<D> listener = new Response.Listener<D>() {
+    Request.ResponseCallback<T> callback = new Request.ResponseCallback<T>() {
       @Override
-      public void onResponse(D response) {
-        resolve(response);
-      }
-    };
-    final Response.ErrorListener errorListener = new Response.ErrorListener() {
-      @Override
-      public void onErrorResponse(VolleyError error) {
+      public void onFailure(RequestException e) {
         APIException apiException;
         try {
-          if(error instanceof ServerError) {
-            ServerError serverError = (ServerError) error;
-            String response = new String(serverError.networkResponse.data);
-            if(!response.isEmpty()) {
-              apiException = APIException.fromJson(new String(serverError.networkResponse.data));
-            } else {
+          switch(e.getCode()) {
+            case RequestException.SERVER_ERROR:
+              apiException = APIException.fromJson(e.getResponse().body().string());
+              break;
+            case RequestException.AUTH_ERROR:
               apiException = new APIException();
-              apiException.setKey(APIException.UNKNOWN_ERROR);
-            }
-          } else {
-            apiException = new APIException();
-            apiException.setError(error.getMessage());
-            if(error instanceof AuthFailureError) {
-              if(error.networkResponse.headers.containsKey(COVERACADEMY_RESPONSE_HEADER)) {
+              apiException.setError(e.getMessage());
+              if(e.getResponse().headers().get(DEFAULT_RESPONSE_HEADER) != null) {
                 apiException.setKey(APIException.AUTHENTICATION_ERROR);
               } else {
                 apiException.setKey(APIException.NO_INTERNET_ACCESS);
               }
-            } else if(error instanceof ParseError) {
-              apiException.setKey(APIException.UNKNOWN_ERROR);
-            } else if(error instanceof NoConnectionError) {
-              apiException.setKey(APIException.NO_INTERNET_CONNECTION);
-            } else if(error instanceof TimeoutError) {
+              break;
+            case RequestException.TIMEOUT_ERROR:
+              apiException = new APIException();
+              apiException.setError(e.getMessage());
               apiException.setKey(APIException.CONNECTION_TIMEOUT);
-            } else if(error instanceof NetworkError) {
+              break;
+            case RequestException.NETWORK_ERROR:
+              apiException = new APIException();
+              apiException.setError(e.getMessage());
               apiException.setKey(APIException.NETWORK_ERROR);
-            }
+              break;
+            default:
+              apiException = new APIException();
+              apiException.setError(e.getMessage());
+              apiException.setKey(APIException.UNKNOWN_ERROR);
           }
-        } catch(Exception e) {
+        } catch(Exception ex) {
           apiException = new APIException();
+          apiException.setError(e.getMessage());
           apiException.setKey(APIException.UNKNOWN_ERROR);
         }
-        reject(apiException);
+        final APIException finalException = apiException;
+        mainHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            reject(finalException);
+          }
+        });
+      }
+
+      @Override
+      public void onResponse(final T response) {
+        mainHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            resolve(response);
+          }
+        });
       }
     };
-    builder.withListener(listener);
-    builder.withErrorListener(errorListener);
-    builder.execute();
+    request.setCallback(callback);
+    request.execute();
   }
 }

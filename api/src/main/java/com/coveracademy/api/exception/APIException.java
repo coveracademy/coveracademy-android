@@ -2,7 +2,7 @@ package com.coveracademy.api.exception;
 
 import android.util.Log;
 
-import com.coveracademy.api.service.rest.builder.request.json.GsonFactory;
+import com.coveracademy.api.service.rest.json.GsonFactory;
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.SerializedName;
 

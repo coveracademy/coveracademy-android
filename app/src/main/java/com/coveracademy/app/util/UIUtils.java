@@ -4,17 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.coveracademy.api.service.rest.RequestQueue;
 import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 import com.rey.material.widget.ProgressView;
@@ -93,7 +94,6 @@ public class UIUtils {
           @Override
           public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
-            RequestQueue.getInstance().cancelAll(cancelationTag);
           }
         });
       }
@@ -137,7 +137,7 @@ public class UIUtils {
       snackbar.setAction(actionTitle, onActionClickListener);
     } else {
       int interval = 5000;
-      Handler handler = new Handler();
+      Handler handler = new Handler(Looper.getMainLooper());
       Runnable runnable = new Runnable() {
         public void run() {
           snackbar.dismiss();

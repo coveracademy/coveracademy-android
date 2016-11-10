@@ -2,8 +2,6 @@ package com.coveracademy.api.service;
 
 import android.content.Context;
 
-import com.coveracademy.api.service.rest.RequestQueue;
-
 public class RemoteService {
 
   private static RemoteService instance;
@@ -21,7 +19,6 @@ public class RemoteService {
 
   public static RemoteService getInstance(Context context) {
     if(instance == null) {
-      RequestQueue.useContext(context);
       instance = new RemoteService(context);
     }
     return instance;

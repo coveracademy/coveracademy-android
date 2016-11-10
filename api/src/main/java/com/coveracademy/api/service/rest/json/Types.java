@@ -1,9 +1,9 @@
-package com.coveracademy.api.service.rest.builder.request.json;
+package com.coveracademy.api.service.rest.json;
 
 import com.coveracademy.api.model.Comment;
 import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.model.view.VideoView;
 import com.coveracademy.api.model.view.ContestsItemView;
+import com.coveracademy.api.model.view.VideoView;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

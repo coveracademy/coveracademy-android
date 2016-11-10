@@ -5,6 +5,13 @@ import android.util.Log;
 
 import com.coveracademy.api.model.User;
 
+import net.gotev.uploadservice.UploadService;
+import net.gotev.uploadservice.okhttp.OkHttpStack;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+
 public class CoverAcademyApplication extends MultiDexApplication {
 
   private static final String TAG = CoverAcademyApplication.class.getSimpleName();
@@ -15,6 +22,10 @@ public class CoverAcademyApplication extends MultiDexApplication {
   public void onCreate() {
     super.onCreate();
     setup();
+
+    OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(1, TimeUnit.HOURS).writeTimeout(1, TimeUnit.HOURS).readTimeout(1, TimeUnit.HOURS).build();
+    UploadService.NAMESPACE = BuildConfig.APPLICATION_ID;
+    UploadService.HTTP_STACK = new OkHttpStack(okHttpClient);
   }
 
   @Override

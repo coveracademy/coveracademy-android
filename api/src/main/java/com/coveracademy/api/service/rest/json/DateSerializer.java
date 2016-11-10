@@ -1,4 +1,4 @@
-package com.coveracademy.api.service.rest.builder.request.json;
+package com.coveracademy.api.service.rest.json;
 
 import android.util.Log;
 
