@@ -46,8 +46,11 @@
     <!-- Enter contest activity -->
     <string name="activity_enter_contest_select_video">Select a video</string>
     <string name="activity_enter_contest_submit">Submit</string>
+    <string name="activity_enter_contest_uploading_video">Uploading video…</string>
     <string name="activity_enter_contest_alert_error_loading">Couldn\'t load available contests, please try again later!</string>
     <string name="activity_enter_contest_alert_error_loading_selected_video">Couldn\'t load selected video, please try again later!</string>
+    <string name="activity_enter_contest_video_uploaded">Video uploaded with success. Please wait while we confirm your video.</string>
+    <string name="activity_enter_contest_alert_error_uploading_video">Couldn\'t upload video, please try again later!</string>
 
     <!-- Alerts -->
     <string name="message_no_internet_connection">Your internet connection was lost</string>
@@ -76,5 +79,6 @@
     <string name="select_video">Select a video</string>
     <string name="total_likes">%1$d likes</string>
     <string name="total_comments">%1$d comments</string>
+    <string name="alert_error_liking_video">Couldn\'t like video, please try again later!</string>
 
 </resources>

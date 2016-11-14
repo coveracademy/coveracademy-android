@@ -191,15 +191,20 @@ public class EnterContestActivity extends CoverAcademyActivity {
 
   @OnClick(R.id.submit_video)
   void onSubmitVideoClick() {
-    remoteService.getVideoService().upload(new Video(), selectedVideoUri, new UploadNotificationConfig()).then(new DoneCallback<String>() {
+    finish();
+    UploadNotificationConfig uploadNotificationConfig = new UploadNotificationConfig();
+    uploadNotificationConfig.setTitle(getString(R.string.activity_enter_contest_uploading_video));
+    uploadNotificationConfig.setCompletedMessage(getString(R.string.activity_enter_contest_video_uploaded));
+    remoteService.getVideoService().upload(selectedVideoUri, selectedContest, uploadNotificationConfig).then(new DoneCallback<String>() {
       @Override
       public void onDone(String uploadId) {
-
+        // Do nothing
       }
     }).fail(new FailCallback<APIException>() {
       @Override
-      public void onFail(APIException result) {
-
+      public void onFail(APIException e) {
+        Log.e(TAG, "Error uploading video", e);
+        UIUtils.alert(rootView, e, getString(R.string.activity_enter_contest_alert_error_uploading_video));
       }
     });
   }

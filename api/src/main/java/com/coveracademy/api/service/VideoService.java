@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Comment;
+import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.api.promise.DefaultPromise;
 import com.coveracademy.api.promise.RequestPromise;
@@ -45,10 +46,13 @@ public class VideoService extends RestService {
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<String> upload(Video video, Uri videoUri, UploadNotificationConfig notificationConfig) {
+  public DefaultPromise<String> upload(Uri videoUri, Contest contest, UploadNotificationConfig notificationConfig) {
     DefaultPromise<String> promise = new DefaultPromise<>();
     try {
       MultipartRequest request = getRequestFactory().upload(videoUri);
+      if(contest != null) {
+        request.addParameter("contest", contest.getId());
+      }
       request.setNotificationConfig(notificationConfig);
       request.concatPath("uploads");
       request.execute();

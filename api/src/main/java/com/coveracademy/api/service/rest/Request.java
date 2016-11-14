@@ -56,9 +56,9 @@ public abstract class Request<T> implements Callback {
   abstract T convertResponse(Response response) throws IOException;
 
   void setDefaultHeaders() {
+    headers.put(HEADER_ACCEPT_ENCODING, HEADER_ENCODING_GZIP);
     headers.put(HEADER_VERSION, String.valueOf(BuildConfig.VERSION_CODE));
     headers.put(HEADER_TOKEN, AuthorizationManager.getInstance(context).getToken());
-    headers.put(HEADER_ACCEPT_ENCODING, HEADER_ENCODING_GZIP);
   }
 
   public Context getContext() {
@@ -173,7 +173,9 @@ public abstract class Request<T> implements Callback {
     okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder();
     requestBuilder.url(getFullUrl());
     for(Map.Entry<String, String> header : headers.entrySet()) {
-      requestBuilder.header(header.getKey(), header.getValue());
+      if(header.getKey() != null && header.getValue() != null) {
+        requestBuilder.header(header.getKey(), header.getValue());
+      }
     }
     if(body == null && (HttpMethod.POST.equals(method) || HttpMethod.PUT.equals(method))) {
       body = "";

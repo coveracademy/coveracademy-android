@@ -7,12 +7,9 @@ public class Video {
   private Long id;
   private Long userId;
   private Long contestId;
-  private String title;
-  private String slug;
   private String url;
-  private String smallThumbnail;
-  private String mediumThumbnail;
-  private String largeThumbnail;
+  private String thumbnail;
+  private String description;
   private Date registrationDate;
 
   private User user;
@@ -42,22 +39,6 @@ public class Video {
     this.contestId = contestId;
   }
 
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getSlug() {
-    return slug;
-  }
-
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
   public String getUrl() {
     return url;
   }
@@ -66,28 +47,20 @@ public class Video {
     this.url = url;
   }
 
-  public String getSmallThumbnail() {
-    return smallThumbnail;
+  public String getThumbnail() {
+    return thumbnail;
   }
 
-  public void setSmallThumbnail(String smallThumbnail) {
-    this.smallThumbnail = smallThumbnail;
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
   }
 
-  public String getMediumThumbnail() {
-    return mediumThumbnail;
+  public String getDescription() {
+    return description;
   }
 
-  public void setMediumThumbnail(String mediumThumbnail) {
-    this.mediumThumbnail = mediumThumbnail;
-  }
-
-  public String getLargeThumbnail() {
-    return largeThumbnail;
-  }
-
-  public void setLargeThumbnail(String largeThumbnail) {
-    this.largeThumbnail = largeThumbnail;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Date getRegistrationDate() {

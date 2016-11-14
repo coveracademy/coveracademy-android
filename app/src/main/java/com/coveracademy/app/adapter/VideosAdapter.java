@@ -2,8 +2,11 @@ package com.coveracademy.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import com.coveracademy.app.activity.CommentsActivity;
 import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.util.MediaUtils;
+import com.coveracademy.app.util.UIUtils;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -34,6 +38,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoViewHolder> {
+
+  private static String TAG = VideosAdapter.class.getSimpleName();
 
   public VideosAdapter(Context context) {
     super(context, new ArrayList<VideoView>());
@@ -54,6 +60,10 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
 
     MediaUtils.setPicture(getContext(), user, holder.userPictureView);
     MediaUtils.setThumbnail(getContext(), video, holder.thumbnailView);
+
+    holder.thumbnailView.setVisibility(View.VISIBLE);
+    holder.playIconView.setVisibility(View.VISIBLE);
+    holder.streamView.setVisibility(View.GONE);
 
     holder.userNameView.setText(user.getName());
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(video.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
@@ -76,19 +86,26 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
 
   class VideoViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.root) View rootView;
     @BindView(R.id.user_picture) ImageView userPictureView;
     @BindView(R.id.user_name) TextView userNameView;
     @BindView(R.id.date) TextView dateView;
     @BindView(R.id.thumbnail) ImageView thumbnailView;
+    @BindView(R.id.play_icon) ImageView playIconView;
+    @BindView(R.id.stream) android.widget.VideoView streamView;
     @BindView(R.id.contest) View contestView;
     @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.like) ImageView likeView;
     @BindView(R.id.total_likes) TextView totalLikesView;
     @BindView(R.id.total_comments) TextView totalCommentsView;
 
+    private VideoViewHolder instance;
+    private MediaPlayer mediaPlayer;
+
     VideoViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+      instance = this;
     }
 
     @OnClick(R.id.user)
@@ -130,10 +147,45 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
         }
       }).fail(new FailCallback<APIException>() {
         @Override
-        public void onFail(APIException result) {
-
+        public void onFail(APIException e) {
+          Log.e(TAG, "Error liking video", e);
+          UIUtils.alert(rootView, e, getContext().getString(R.string.alert_error_liking_video));
         }
       });
+    }
+
+    @OnClick(R.id.video)
+    void onVideoClick() {
+      if(thumbnailView.getVisibility() == View.VISIBLE) {
+        streamView.getLayoutParams().width = thumbnailView.getWidth();
+        streamView.getLayoutParams().height = thumbnailView.getHeight();
+
+        thumbnailView.setVisibility(View.GONE);
+        playIconView.setVisibility(View.GONE);
+        streamView.setVisibility(View.VISIBLE);
+
+        VideoView videoView = getItem(getAdapterPosition());
+        Video video = videoView.getVideo();
+
+        streamView.setVideoURI(Uri.parse(MediaUtils.getVideoUrl(video)));
+        streamView.start();
+        streamView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+          @Override
+          public void onPrepared(MediaPlayer mediaPlayer) {
+            instance.mediaPlayer = mediaPlayer;
+          }
+        });
+      } else if(mediaPlayer != null) {
+        if(mediaPlayer.isPlaying()) {
+          mediaPlayer.pause();
+        } else {
+          mediaPlayer.start();
+        }
+      } else {
+        thumbnailView.setVisibility(View.VISIBLE);
+        playIconView.setVisibility(View.VISIBLE);
+        streamView.setVisibility(View.GONE);
+      }
     }
   }
 }

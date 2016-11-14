@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Environment;
 import android.widget.ImageView;
 
+import com.coveracademy.api.config.Configuration;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.app.R;
 import com.coveracademy.api.model.Contest;
@@ -23,16 +24,14 @@ public class MediaUtils {
   private static final String VIDEOS_ONLY = "video/*";
 
   private static final String MEDIA_DIRECTORY = "/CoverAcademy/media";
-  private static final String TEMP_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/temp";
+  private static final String UPLOADS_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/uploads";
   private static final String VIDEOS_MEDIA_DIRECTORY = MEDIA_DIRECTORY + "/videos";
-  public static final String VIDEO_FILE_NAME = "video";
-
   private static final String FACEBOOK_PICTURE_URL = "https://graph.facebook.com/v2.2/%s/picture?type=large";
 
   private static final Set<String> MEDIA_DIRECTORIES = new HashSet<>();
 
   static {
-    MEDIA_DIRECTORIES.add(TEMP_MEDIA_DIRECTORY);
+    MEDIA_DIRECTORIES.add(UPLOADS_MEDIA_DIRECTORY);
     MEDIA_DIRECTORIES.add(VIDEOS_MEDIA_DIRECTORY);
     createDirectories();
   }
@@ -46,7 +45,7 @@ public class MediaUtils {
   }
 
   public static void setThumbnail(Context context, Video video, ImageView imageView) {
-    Picasso.with(context).load(video.getLargeThumbnail()).into(imageView);
+    Picasso.with(context).load(getVideoThumbnail(video)).into(imageView);
   }
 
   public static void setImage(Context context, Contest contest, ImageView imageView) {
@@ -62,7 +61,7 @@ public class MediaUtils {
   }
 
   public static String getTemporaryDirectory() {
-    return Environment.getExternalStorageDirectory() + "/" + TEMP_MEDIA_DIRECTORY;
+    return Environment.getExternalStorageDirectory() + "/" + UPLOADS_MEDIA_DIRECTORY;
   }
 
   public static void createDirectories() {
@@ -78,6 +77,22 @@ public class MediaUtils {
           }
         }
       }
+    }
+  }
+
+  public static String getVideoUrl(Video video) {
+    if(video.getUrl().startsWith("http")) {
+      return video.getUrl();
+    } else {
+      return Configuration.VIDEOS_MEDIA_URL + video.getUrl();
+    }
+  }
+
+  public static String getVideoThumbnail(Video video) {
+    if(video.getThumbnail().startsWith("http")) {
+      return video.getThumbnail();
+    } else {
+      return Configuration.VIDEOS_MEDIA_URL + video.getThumbnail();
     }
   }
 }

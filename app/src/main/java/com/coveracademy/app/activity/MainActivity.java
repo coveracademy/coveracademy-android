@@ -79,7 +79,7 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
     MediaUtils.setPicture(this, user, avatarView);
 
     TextView nameView = ButterKnife.findById(drawerHeaderView, R.id.name);
-    nameView.setText(user.getFirstName());
+    nameView.setText(user.getName());
 
     navigationView.getMenu().setGroupVisible(R.id.items, true);
     navigationView.getMenu().setGroupVisible(R.id.extra, true);

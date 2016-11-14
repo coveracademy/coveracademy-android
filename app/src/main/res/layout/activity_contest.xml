@@ -8,16 +8,16 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:titleEnabled="false"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            app:contentScrim="@color/primary">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/primary"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedTitleTheme">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -44,6 +44,7 @@
                         android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="60dp"
                         android:padding="@dimen/content_margin">
 
                         <include layout="@layout/contest_countdown"/>
@@ -51,24 +52,17 @@
                     </LinearLayout>
 
                     <TextView
-                        style="@style/CollapsingToolbarExpandedTitleTheme"
                         android:id="@+id/contest_finished"
                         android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/content_margin"
+                        android:layout_marginBottom="60dp"
                         android:layout_gravity="center"
+                        android:padding="@dimen/content_margin"
                         android:background="@color/contest_finished"
                         android:text="@string/activity_contest_contest_finished"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/text_large"/>
-
-                    <TextView
-                        style="@style/CollapsingToolbarExpandedTitleTheme"
-                        android:id="@+id/contest_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/content_margin_double"/>
 
                 </LinearLayout>
 

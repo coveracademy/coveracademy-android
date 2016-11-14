@@ -1,14 +1,12 @@
 package com.coveracademy.app.activity;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
@@ -43,8 +41,7 @@ public class ContestActivity extends CoverAcademyActivity {
   private VideosAdapter videosAdapter;
 
   @BindView(R.id.root) View rootView;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.contest_name) TextView contestNameView;
+  @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
   @BindView(R.id.contest_image) ImageView contestImageView;
   @BindView(R.id.contest_running) View contestRunningView;
   @BindView(R.id.contest_finished) View contestFinishedView;
@@ -63,8 +60,7 @@ public class ContestActivity extends CoverAcademyActivity {
     setupContestView();
 
     UIUtils.defaultToolbar(this);
-    toolbar.setTitle("");
-    toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.transparent));
+    collapsingToolbar.setTitle(" ");
   }
 
   private void setupVideosAdapter() {
@@ -97,7 +93,7 @@ public class ContestActivity extends CoverAcademyActivity {
 
   private void setupContestInformation(ContestView contestView) {
     Contest contest = contestView.getContest();
-    contestNameView.setText(contestView.getContest().getName());
+    collapsingToolbar.setTitle(contest.getName());
     MediaUtils.setImage(instance, contestView.getContest(), contestImageView);
     if(contest.getProgress().equals(Progress.RUNNING)) {
       contestRunningView.setVisibility(View.VISIBLE);

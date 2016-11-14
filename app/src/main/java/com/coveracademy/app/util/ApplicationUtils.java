@@ -1,7 +1,9 @@
 package com.coveracademy.app.util;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import com.coveracademy.app.CoverAcademyApplication;
@@ -29,4 +31,7 @@ public class ApplicationUtils {
     return typedValue.resourceId;
   }
 
+  public static int pixelsToDp(int pixels) {
+    return Math.round(pixels / (Resources.getSystem().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
+  }
 }
