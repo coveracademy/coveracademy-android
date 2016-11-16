@@ -111,6 +111,7 @@ public class ContestActivity extends CoverAcademyActivity {
       VideoView videoView = new VideoView();
       videoView.setVideo(video);
       videoView.setLiked(contestView.getLikedVideos().contains(video.getId()));
+      videoView.setFan(contestView.getIdols().contains(video.getUserId()));
       if(contestView.getTotalLikes().containsKey(video.getId())) {
         videoView.setTotalLikes(contestView.getTotalLikes().get(video.getId()));
       }

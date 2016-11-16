@@ -8,6 +8,7 @@ public class VideoView {
   private int totalLikes;
   private int totalComments;
   private boolean liked;
+  private boolean fan;
 
   public Video getVideo() {
     return video;
@@ -39,5 +40,13 @@ public class VideoView {
 
   public void setLiked(boolean liked) {
     this.liked = liked;
+  }
+
+  public boolean isFan() {
+    return fan;
+  }
+
+  public void setFan(boolean fan) {
+    this.fan = fan;
   }
 }

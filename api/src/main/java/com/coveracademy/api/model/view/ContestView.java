@@ -14,6 +14,7 @@ public class ContestView {
   private List<User> winners;
   private List<Video> videos;
   private Set<Long> likedVideos;
+  private Set<Long> idols;
   private Map<Long, Integer> totalLikes;
   private Map<Long, Integer> totalComments;
   private int totalVideos;
@@ -48,6 +49,14 @@ public class ContestView {
 
   public void setLikedVideos(Set<Long> likedVideos) {
     this.likedVideos = likedVideos;
+  }
+
+  public Set<Long> getIdols() {
+    return idols;
+  }
+
+  public void setIdols(Set<Long> idols) {
+    this.idols = idols;
   }
 
   public Map<Long, Integer> getTotalLikes() {

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
+import com.coveracademy.api.model.Video;
 import com.coveracademy.api.promise.DefaultPromise;
 import com.coveracademy.api.promise.RequestPromise;
 import com.coveracademy.api.service.rest.Request;
@@ -70,4 +71,19 @@ public class UserService extends RestService {
     });
     return promise;
   }
+
+  public DefaultPromise<Void> fan(User user) {
+    Request<Void> request = getRequestFactory().post();
+    request.concatPath(user.getId());
+    request.concatPath("fans");
+    return new RequestPromise<>(request);
+  }
+
+  public DefaultPromise<Void> unfan(User user) {
+    Request<Void> request = getRequestFactory().delete();
+    request.concatPath(user.getId());
+    request.concatPath("fans");
+    return new RequestPromise<>(request);
+  }
+
 }

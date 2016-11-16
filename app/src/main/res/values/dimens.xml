@@ -13,8 +13,8 @@
     <dimen name="text_normal">16sp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">20sp</dimen>
-    <dimen name="text_mega_large">22sp</dimen>
-    <dimen name="text_extra_large">24sp</dimen>
+    <dimen name="text_extra_large">22sp</dimen>
+    <dimen name="text_mega_large">24sp</dimen>
     <dimen name="text_ultra_large">28sp</dimen>
 
     <dimen name="text_contest_countdown">26sp</dimen>

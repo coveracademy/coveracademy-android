@@ -17,7 +17,6 @@ import android.widget.VideoView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.model.Video;
 import com.coveracademy.api.promise.Progress;
 import com.coveracademy.app.R;
 import com.coveracademy.app.constant.Constants;
@@ -52,6 +51,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
   @BindView(R.id.select_contest) View selectContestView;
   @BindView(R.id.selected_contest) View selectedContestView;
   @BindView(R.id.selected_video) View selectedVideoView;
+  @BindView(R.id.uploading_video) View uploadingVideoView;
   @BindView(R.id.contest_name) TextView contestNameView;
   @BindView(R.id.contest_image) ImageView contestImageView;
   @BindView(R.id.video) VideoView videoView;
@@ -68,7 +68,12 @@ public class EnterContestActivity extends CoverAcademyActivity {
     setupPermissions();
     setupContests();
 
-    UIUtils.defaultToolbar(this);
+    UIUtils.defaultToolbar(this, new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        onBackClick();
+      }
+    });
     setTitle(getString(R.string.activity_title_enter_contest));
   }
 
@@ -97,7 +102,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
           selectedContest = contests.get(0);
           setupContestView();
         } else {
-          setupContestsAdapter();
+          setupContestsView();
         }
       }
     }).fail(new FailCallback<APIException>() {
@@ -119,7 +124,16 @@ public class EnterContestActivity extends CoverAcademyActivity {
     });
   }
 
+  private void setupContestsView() {
+    selectContestView.setVisibility(View.VISIBLE);
+    selectedContestView.setVisibility(View.GONE);
+    selectedVideoView.setVisibility(View.GONE);
+    uploadingVideoView.setVisibility(View.GONE);
+  }
+
   private void setupContestView() {
+    videoView.suspend();
+
     contestNameView.setText(selectedContest.getName());
     MediaUtils.setImage(this, selectedContest, contestImageView);
     new ContestCountDownTimer(this, selectedContest, rootView).start();
@@ -127,20 +141,39 @@ public class EnterContestActivity extends CoverAcademyActivity {
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.VISIBLE);
     selectedVideoView.setVisibility(View.GONE);
+    uploadingVideoView.setVisibility(View.GONE);
   }
 
-  private void setupContestsAdapter() {
-    selectContestView.setVisibility(View.VISIBLE);
-    selectedContestView.setVisibility(View.GONE);
-    selectedVideoView.setVisibility(View.GONE);
-  }
-
-  private void setupSubmitView() {
+  private void setupSubmitVideoView() {
     videoView.setVideoPath(selectedVideoUri.getPath());
     videoView.start();
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.GONE);
     selectedVideoView.setVisibility(View.VISIBLE);
+    uploadingVideoView.setVisibility(View.GONE);
+  }
+
+  private void setupUploadingVideoView() {
+    videoView.suspend();
+    selectContestView.setVisibility(View.GONE);
+    selectedContestView.setVisibility(View.GONE);
+    selectedVideoView.setVisibility(View.GONE);
+    uploadingVideoView.setVisibility(View.VISIBLE);
+  }
+
+  private void onBackClick() {
+    if(selectedVideoView.getVisibility() == View.VISIBLE) {
+      setupContestView();
+    } else if(selectedContestView.getVisibility() == View.VISIBLE && contests.size() > 1) {
+      setupContestsView();
+    } else {
+      super.onBackPressed();
+    }
+  }
+
+  @Override
+  public void onBackPressed() {
+    onBackClick();
   }
 
   @Override
@@ -159,7 +192,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
           uri = data.getData();
           if(uri != null) {
             selectedVideoUri = uri;
-            setupSubmitView();
+            setupSubmitVideoView();
           }
           break;
       }
@@ -191,7 +224,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
 
   @OnClick(R.id.submit_video)
   void onSubmitVideoClick() {
-    finish();
+    setupUploadingVideoView();
     UploadNotificationConfig uploadNotificationConfig = new UploadNotificationConfig();
     uploadNotificationConfig.setTitle(getString(R.string.activity_enter_contest_uploading_video));
     uploadNotificationConfig.setCompletedMessage(getString(R.string.activity_enter_contest_video_uploaded));
@@ -207,5 +240,10 @@ public class EnterContestActivity extends CoverAcademyActivity {
         UIUtils.alert(rootView, e, getString(R.string.activity_enter_contest_alert_error_uploading_video));
       }
     });
+  }
+
+  @OnClick(R.id.close)
+  void onCloseClick() {
+    finish();
   }
 }

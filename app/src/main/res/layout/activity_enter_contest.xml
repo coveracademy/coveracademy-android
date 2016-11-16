@@ -109,6 +109,41 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/uploading_video"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/content_margin"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/uploading"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_double"
+                android:gravity="center"
+                android:text="@string/activity_enter_contest_video_being_uploaded"
+                android:textSize="@dimen/text_mega_large"/>
+
+            <Button
+                style="@style/Button"
+                android:theme="@style/PrimaryButtonTheme"
+                android:id="@+id/close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_double"
+                android:text="@string/activity_enter_contest_close"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

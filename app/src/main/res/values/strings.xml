@@ -47,9 +47,11 @@
     <string name="activity_enter_contest_select_video">Select a video</string>
     <string name="activity_enter_contest_submit">Submit</string>
     <string name="activity_enter_contest_uploading_video">Uploading video…</string>
+    <string name="activity_enter_contest_close">Close</string>
+    <string name="activity_enter_contest_video_being_uploaded">Your video is being uploaded, please wait a moment.</string>
+    <string name="activity_enter_contest_video_uploaded">Video uploaded with success. Please wait while we confirm your video.</string>
     <string name="activity_enter_contest_alert_error_loading">Couldn\'t load available contests, please try again later!</string>
     <string name="activity_enter_contest_alert_error_loading_selected_video">Couldn\'t load selected video, please try again later!</string>
-    <string name="activity_enter_contest_video_uploaded">Video uploaded with success. Please wait while we confirm your video.</string>
     <string name="activity_enter_contest_alert_error_uploading_video">Couldn\'t upload video, please try again later!</string>
 
     <!-- Alerts -->
@@ -72,6 +74,7 @@
     <string name="dialog_wait_a_moment">Wait a moment…</string>
 
     <!-- Commons -->
+    <string name="in_contest">In contest</string>
     <string name="join_contest">Join contest</string>
     <string name="total_auditions">%1$s auditions</string>
     <string name="vote">Vote</string>
@@ -80,5 +83,6 @@
     <string name="total_likes">%1$d likes</string>
     <string name="total_comments">%1$d comments</string>
     <string name="alert_error_liking_video">Couldn\'t like video, please try again later!</string>
+    <string name="alert_error_turning_user_fan">Couldn\'t became a fan, please try again later!</string>
 
 </resources>
