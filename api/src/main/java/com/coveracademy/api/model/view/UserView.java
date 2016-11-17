@@ -10,8 +10,10 @@ public class UserView {
   private User user;
   private List<Video> videos;
   private List<User> fans;
-  private int totalFans;
   private boolean fan;
+  private int totalVideos;
+  private int totalFans;
+  private int totalIdols;
 
   public User getUser() {
     return user;
@@ -37,6 +39,22 @@ public class UserView {
     this.fans = fans;
   }
 
+  public boolean isFan() {
+    return fan;
+  }
+
+  public void setFan(boolean fan) {
+    this.fan = fan;
+  }
+
+  public int getTotalVideos() {
+    return totalVideos;
+  }
+
+  public void setTotalVideos(int totalVideos) {
+    this.totalVideos = totalVideos;
+  }
+
   public int getTotalFans() {
     return totalFans;
   }
@@ -45,11 +63,11 @@ public class UserView {
     this.totalFans = totalFans;
   }
 
-  public boolean isFan() {
-    return fan;
+  public int getTotalIdols() {
+    return totalIdols;
   }
 
-  public void setFan(boolean fan) {
-    this.fan = fan;
+  public void setTotalIdols(int totalIdols) {
+    this.totalIdols = totalIdols;
   }
 }

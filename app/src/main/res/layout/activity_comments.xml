@@ -45,16 +45,12 @@
             android:layout_gravity="center_vertical"
             android:paddingLeft="@dimen/content_margin_double"
             android:paddingStart="@dimen/content_margin_double"
-            android:paddingRight="@dimen/content_margin"
-            android:paddingEnd="@dimen/content_margin"
-            android:paddingTop="@dimen/content_margin"
-            android:paddingBottom="@dimen/content_margin"
             android:hint="@string/activity_comments_type_a_message"/>
 
         <LinearLayout
             android:id="@+id/send_message"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:layout_gravity="center_vertical"

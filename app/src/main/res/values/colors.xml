@@ -24,7 +24,7 @@
     <color name="button_accent_disabled">#6f03a9f4</color>
 
     <color name="swipe_refresh_first_color">#03a9f4</color>
-    <color name="swipe_refresh_second_color">#ac03f4</color>
+    <color name="swipe_refresh_second_color">#ff5252</color>
     <color name="swipe_refresh_third_color">#ffc107</color>
 
     <color name="days_remaining">#18967e</color>

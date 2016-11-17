@@ -78,7 +78,7 @@ public class ContestActivity extends CoverAcademyActivity {
     remoteService.getViewService().contestView(contestId).then(new DoneCallback<ContestView>() {
       @Override
       public void onDone(ContestView contestView) {
-        setupContestInformation(contestView);
+        setupContest(contestView);
         setupVideos(contestView);
       }
     }).fail(new FailCallback<APIException>() {
@@ -91,7 +91,7 @@ public class ContestActivity extends CoverAcademyActivity {
     });
   }
 
-  private void setupContestInformation(ContestView contestView) {
+  private void setupContest(ContestView contestView) {
     Contest contest = contestView.getContest();
     collapsingToolbar.setTitle(contest.getName());
     MediaUtils.setImage(instance, contestView.getContest(), contestImageView);

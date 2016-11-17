@@ -28,6 +28,9 @@
     <string name="activity_main_alert_error_authenticating_user">Couldn\'t authenticate, please try again later!</string>
 
     <!-- User activity -->
+    <string name="activity_user_fans">Fans</string>
+    <string name="activity_user_videos">Videos</string>
+    <string name="activity_user_idols">Idols</string>
     <string name="activity_user_alert_error_loading_user">Couldn\'t load user, please try again later!</string>
 
     <!-- Contest activity -->

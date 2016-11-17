@@ -1,6 +1,7 @@
 package com.coveracademy.app.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,8 +33,10 @@ public class UserActivity extends CoverAcademyActivity {
   private User user;
 
   @BindView(R.id.root) View rootView;
-  @BindView(R.id.user_name) TextView userNameView;
-  @BindView(R.id.user_picture) ImageView userPictureView;
+  @BindView(R.id.picture) ImageView pictureView;
+  @BindView(R.id.name) TextView nameView;
+  @BindView(R.id.biography) TextView biographyView;
+  @BindView(R.id.total_videos) TextView totalVideosView;
   @BindView(R.id.total_fans) TextView totalFansView;
   @BindView(R.id.total_idols) TextView totalIdolsView;
 
@@ -66,15 +69,31 @@ public class UserActivity extends CoverAcademyActivity {
     remoteService.getViewService().userView(userId).then(new DoneCallback<UserView>() {
       @Override
       public void onDone(UserView userView) {
-        userNameView.setText(userView.getUser().getFirstName());
-        MediaUtils.setPicture(instance, userView.getUser(), userPictureView);
+        setupUser(userView);
       }
     }).fail(new FailCallback<APIException>() {
       @Override
       public void onFail(APIException e) {
-        Log.e(TAG, "Error loading contests view", e);
+        Log.e(TAG, "Error loading user view", e);
         UIUtils.alert(rootView, e, getString(R.string.activity_user_alert_error_loading_user));
       }
     });
+  }
+
+  private void setupUser(UserView userView) {
+    User user = userView.getUser();
+    setTitle(user.getName());
+    MediaUtils.setPicture(instance, user, pictureView);
+    nameView.setText(user.getName());
+    totalVideosView.setText(String.valueOf(userView.getTotalVideos()));
+    totalFansView.setText(String.valueOf(userView.getTotalFans()));
+    totalIdolsView.setText(String.valueOf(userView.getTotalIdols()));
+    if(!TextUtils.isEmpty(user.getBiography())) {
+      biographyView.setText(user.getBiography());
+      biographyView.setVisibility(View.VISIBLE);
+    } else {
+      biographyView.setText("");
+      biographyView.setVisibility(View.GONE);
+    }
   }
 }

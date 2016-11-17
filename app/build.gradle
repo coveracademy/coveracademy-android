@@ -78,7 +78,7 @@ dependencies {
   compile 'com.android.support:gridlayout-v7:25.0.0'
   compile 'com.jakewharton:butterknife:8.4.0'
   compile 'com.squareup.picasso:picasso:2.5.2'
-  compile 'de.hdodenhof:circleimageview:2.0.0'
+  compile 'de.hdodenhof:circleimageview:2.1.0'
   compile 'com.github.rey5137:material:1.2.1'
   compile 'com.facebook.android:facebook-android-sdk:4.16.1'
   compile 'life.knowledge4:k4l-video-trimmer:1.0'

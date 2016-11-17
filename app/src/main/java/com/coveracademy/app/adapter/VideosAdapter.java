@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,10 +74,16 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(video.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
     holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, videoView.getTotalComments()));
 
+    if(!TextUtils.isEmpty(video.getDescription())) {
+      holder.descriptionView.setText(video.getDescription());
+      holder.descriptionView.setVisibility(View.VISIBLE);
+    } else {
+      holder.descriptionView.setText("");
+      holder.descriptionView.setVisibility(View.GONE);
+    }
     if(contest != null) {
       holder.inContestView.setVisibility(View.VISIBLE);
       holder.inContestSeparatorView.setVisibility(View.VISIBLE);
-
     } else {
       holder.inContestView.setVisibility(View.GONE);
       holder.inContestSeparatorView.setVisibility(View.GONE);
@@ -115,6 +122,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     @BindView(R.id.thumbnail) ImageView thumbnailView;
     @BindView(R.id.play_icon) ImageView playIconView;
     @BindView(R.id.stream) android.widget.VideoView streamView;
+    @BindView(R.id.description) TextView descriptionView;
     @BindView(R.id.fan) ImageView fanView;
     @BindView(R.id.like) ImageView likeView;
     @BindView(R.id.total_likes) TextView totalLikesView;

@@ -6,7 +6,7 @@
 
     <dimen name="picture_small">40dp</dimen>
     <dimen name="picture_medium">70dp</dimen>
-    <dimen name="picture_large">90dp</dimen>
+    <dimen name="picture_large">100dp</dimen>
 
     <dimen name="text_micro">12sp</dimen>
     <dimen name="text_small">14sp</dimen>
