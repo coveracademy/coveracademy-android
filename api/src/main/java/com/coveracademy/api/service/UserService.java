@@ -72,14 +72,14 @@ public class UserService extends RestService {
     return promise;
   }
 
-  public DefaultPromise<Void> fan(User user) {
+  public DefaultPromise<Void> becomeFan(User user) {
     Request<Void> request = getRequestFactory().post();
     request.concatPath(user.getId());
     request.concatPath("fans");
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<Void> unfan(User user) {
+  public DefaultPromise<Void> removeFan(User user) {
     Request<Void> request = getRequestFactory().delete();
     request.concatPath(user.getId());
     request.concatPath("fans");

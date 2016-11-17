@@ -95,21 +95,20 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
 
   private void setLikes(VideoViewHolder holder, VideoView videoView) {
     if(!videoView.isLiked()) {
-      holder.likeView.setImageResource(R.drawable.no_like);
+      holder.likeIconView.setImageResource(R.drawable.no_like);
     } else {
-      holder.likeView.setImageResource(R.drawable.like);
+      holder.likeIconView.setImageResource(R.drawable.like);
     }
     holder.totalLikesView.setText(getContext().getString(R.string.total_likes, videoView.getTotalLikes()));
   }
 
   private void setFan(VideoViewHolder holder, VideoView videoView) {
     if(!videoView.isFan()) {
-      holder.fanView.setImageResource(R.drawable.no_fan);
+      holder.fanIconView.setImageResource(R.drawable.no_fan);
     } else {
-      holder.fanView.setImageResource(R.drawable.fan);
+      holder.fanIconView.setImageResource(R.drawable.fan);
     }
   }
-
 
   class VideoViewHolder extends RecyclerView.ViewHolder {
 
@@ -119,12 +118,12 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     @BindView(R.id.in_contest) TextView inContestView;
     @BindView(R.id.in_contest_separator) TextView inContestSeparatorView;
     @BindView(R.id.date) TextView dateView;
+    @BindView(R.id.description) TextView descriptionView;
+    @BindView(R.id.stream) android.widget.VideoView streamView;
     @BindView(R.id.thumbnail) ImageView thumbnailView;
     @BindView(R.id.play_icon) ImageView playIconView;
-    @BindView(R.id.stream) android.widget.VideoView streamView;
-    @BindView(R.id.description) TextView descriptionView;
-    @BindView(R.id.fan) ImageView fanView;
-    @BindView(R.id.like) ImageView likeView;
+    @BindView(R.id.fan_icon) ImageView fanIconView;
+    @BindView(R.id.like_icon) ImageView likeIconView;
     @BindView(R.id.total_likes) TextView totalLikesView;
     @BindView(R.id.total_comments) TextView totalCommentsView;
     @BindView(R.id.loading_video) ProgressView loadingVideoProgressView;
@@ -156,8 +155,8 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       getContext().startActivity(intent);
     }
 
-    @OnClick({R.id.comment, R.id.status})
-    void onCommentOrStatusClick() {
+    @OnClick({R.id.comment_icon, R.id.status})
+    void onCommentIconOrStatusClick() {
       Video video = getItem(getAdapterPosition()).getVideo();
       Intent intent = new Intent(getContext(), CommentsActivity.class);
       intent.putExtra(CommentsActivity.VIDEO_ID, video.getId());
@@ -171,8 +170,8 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       setLikes(instance, videoView);
     }
 
-    @OnClick(R.id.like)
-    void onLikeClick() {
+    @OnClick(R.id.like_icon)
+    void onLikeIconClick() {
       VideoView videoView = getItem(getAdapterPosition());
       Video video = videoView.getVideo();
       VideoService videoService = RemoteService.getInstance(getContext()).getVideoService();
@@ -182,7 +181,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       promise.then(new DoneCallback<Void>() {
         @Override
         public void onDone(Void result) {
-          // Do nothing, like or dislike was confirmed.
+          // Do nothing, method was executed with success.
         }
       }).fail(new FailCallback<APIException>() {
         @Override
@@ -196,10 +195,10 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
         public void onProgress(Progress progress) {
           if(Progress.PENDING.equals(progress)) {
             loadingLikeProgressView.start();
-            likeView.setEnabled(false);
+            likeIconView.setEnabled(false);
           } else if(Progress.PROCESSED.equals(progress)) {
             loadingLikeProgressView.stop();
-            likeView.setEnabled(true);
+            likeIconView.setEnabled(true);
           }
         }
       });
@@ -210,23 +209,23 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       setFan(this, videoView);
     }
 
-    @OnClick(R.id.fan)
-    void onFanClick() {
+    @OnClick(R.id.fan_icon)
+    void onFanIconClick() {
       final VideoView videoView = getItem(getAdapterPosition());
       UserService userService = RemoteService.getInstance(getContext()).getUserService();
 
-      DefaultPromise<Void> promise = !videoView.isFan() ? userService.fan(videoView.getVideo().getUser()) : userService.unfan(videoView.getVideo().getUser());
+      DefaultPromise<Void> promise = !videoView.isFan() ? userService.becomeFan(videoView.getVideo().getUser()) : userService.removeFan(videoView.getVideo().getUser());
       changeFan(videoView);
       promise.then(new DoneCallback<Void>() {
         @Override
         public void onDone(Void result) {
-          // Do nothing, fan or unfan was confirmed.
+          // Do nothing, method was executed with success.
         }
       }).fail(new FailCallback<APIException>() {
         @Override
         public void onFail(APIException e) {
           Log.e(TAG, "Error becoming a user fan", e);
-          UIUtils.alert(rootView, e, getContext().getString(R.string.alert_error_turning_user_fan));
+          UIUtils.alert(rootView, e, getContext().getString(R.string.alert_error_becoming_user_fan));
           changeFan(videoView);
         }
       }).progress(new ProgressCallback<Progress>() {
@@ -234,10 +233,10 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
         public void onProgress(Progress progress) {
           if(Progress.PENDING.equals(progress)) {
             loadingFanProgressView.start();
-            fanView.setEnabled(false);
+            fanIconView.setEnabled(false);
           } else if(Progress.PROCESSED.equals(progress)) {
             loadingFanProgressView.stop();
-            fanView.setEnabled(true);
+            fanIconView.setEnabled(true);
           }
         }
       });

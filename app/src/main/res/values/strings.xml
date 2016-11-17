@@ -31,6 +31,8 @@
     <string name="activity_user_fans">Fans</string>
     <string name="activity_user_videos">Videos</string>
     <string name="activity_user_idols">Idols</string>
+    <string name="activity_user_i_am_a_fan">I\'m a fan</string>
+    <string name="activity_user_become_fan">Become a fan</string>
     <string name="activity_user_alert_error_loading_user">Couldn\'t load user, please try again later!</string>
 
     <!-- Contest activity -->
@@ -86,6 +88,7 @@
     <string name="total_likes">%1$d likes</string>
     <string name="total_comments">%1$d comments</string>
     <string name="alert_error_liking_video">Couldn\'t like video, please try again later!</string>
-    <string name="alert_error_turning_user_fan">Couldn\'t became a fan, please try again later!</string>
+    <string name="alert_error_becoming_user_fan">Couldn\'t became a fan, please try again later!</string>
+    <string name="alert_error_removing_user_fan">Couldn\'t remove you as fan, please try again later!</string>
 
 </resources>

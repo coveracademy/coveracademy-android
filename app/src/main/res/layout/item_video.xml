@@ -107,7 +107,7 @@
                 app:pv_progressMode="indeterminate"/>
 
             <ImageView
-                android:id="@+id/fan"
+                android:id="@+id/fan_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
@@ -181,13 +181,13 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:id="@+id/like"
+                android:id="@+id/like_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/no_like"/>
 
             <ImageView
-                android:id="@+id/comment"
+                android:id="@+id/comment_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/content_margin_double"
@@ -195,7 +195,7 @@
                 android:src="@drawable/comment"/>
 
             <ImageView
-                android:id="@+id/share"
+                android:id="@+id/share_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="17dp"
