@@ -1,6 +1,8 @@
 package com.coveracademy.app.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -8,12 +10,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coveracademy.api.promise.Progress;
+import com.coveracademy.api.model.Video;
+import com.coveracademy.api.model.view.VideoView;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.app.R;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.UserView;
 import com.coveracademy.api.service.RemoteService;
+import com.coveracademy.app.adapter.VideosAdapter;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 import com.rey.material.widget.ProgressView;
@@ -21,6 +26,9 @@ import com.rey.material.widget.ProgressView;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +43,7 @@ public class UserActivity extends CoverAcademyActivity {
   private UserActivity instance;
   private RemoteService remoteService;
   private UserView userView;
+  private VideosAdapter videosAdapter;
 
   @BindView(R.id.root) View rootView;
   @BindView(R.id.picture) ImageView pictureView;
@@ -46,8 +55,8 @@ public class UserActivity extends CoverAcademyActivity {
   @BindView(R.id.fan_icon) ImageView fanIconView;
   @BindView(R.id.loading_fan) ProgressView loadingFanProgressView;
   @BindView(R.id.become_fan) Button becomeFanButton;
-
   @BindView(R.id.remove_fan) Button removeFanButton;
+  @BindView(R.id.videos) RecyclerView videosView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,7 @@ public class UserActivity extends CoverAcademyActivity {
     instance = this;
     remoteService = RemoteService.getInstance(this);
 
+    setupVideosAdapter();
     setupUserView();
 
     UIUtils.defaultToolbar(this);
@@ -86,6 +96,14 @@ public class UserActivity extends CoverAcademyActivity {
     });
   }
 
+  private void setupVideosAdapter() {
+    videosAdapter = new VideosAdapter(this);
+    videosAdapter.showFanIcon(false);
+    videosView.setLayoutManager(new LinearLayoutManager(this));
+    videosView.setAdapter(videosAdapter);
+    videosView.setNestedScrollingEnabled(false);
+  }
+
   private void setupUser() {
     User user = userView.getUser();
     setTitle(user.getName());
@@ -104,7 +122,21 @@ public class UserActivity extends CoverAcademyActivity {
   }
 
   private void setupVideos() {
-
+    List<VideoView> videosView = new ArrayList<>();
+    for(Video video : userView.getVideos()) {
+      video.setUser(userView.getUser());
+      VideoView videoView = new VideoView();
+      videoView.setVideo(video);
+      videoView.setLiked(userView.getLikedVideos().contains(video.getId()));
+      if(userView.getTotalLikes().containsKey(video.getId())) {
+        videoView.setTotalLikes(userView.getTotalLikes().get(video.getId()));
+      }
+      if(userView.getTotalComments().containsKey(video.getId())) {
+        videoView.setTotalComments(userView.getTotalComments().get(video.getId()));
+      }
+      videosView.add(videoView);
+    }
+    videosAdapter.setItems(videosView);
   }
 
   private void changeFan() {
@@ -126,12 +158,12 @@ public class UserActivity extends CoverAcademyActivity {
     }
   }
 
-  private void setFanProgress(Progress progress) {
-    if(Progress.PENDING.equals(progress)) {
+  private void setFanProgress(Promise.Progress progress) {
+    if(Promise.Progress.PENDING.equals(progress)) {
       loadingFanProgressView.start();
       becomeFanButton.setEnabled(false);
       removeFanButton.setEnabled(false);
-    } else if(Progress.PROCESSED.equals(progress)) {
+    } else if(Promise.Progress.PROCESSED.equals(progress)) {
       loadingFanProgressView.stop();
       becomeFanButton.setEnabled(true);
       removeFanButton.setEnabled(true);
@@ -153,9 +185,9 @@ public class UserActivity extends CoverAcademyActivity {
         UIUtils.alert(rootView, e, getString(R.string.alert_error_becoming_user_fan));
         changeFan();
       }
-    }).progress(new ProgressCallback<Progress>() {
+    }).progress(new ProgressCallback<Promise.Progress>() {
       @Override
-      public void onProgress(Progress progress) {
+      public void onProgress(Promise.Progress progress) {
         setFanProgress(progress);
       }
     });
@@ -176,9 +208,9 @@ public class UserActivity extends CoverAcademyActivity {
         UIUtils.alert(rootView, e, getString(R.string.alert_error_removing_user_fan));
         changeFan();
       }
-    }).progress(new ProgressCallback<Progress>() {
+    }).progress(new ProgressCallback<Promise.Progress>() {
       @Override
-      public void onProgress(Progress progress) {
+      public void onProgress(Promise.Progress progress) {
         setFanProgress(progress);
       }
     });

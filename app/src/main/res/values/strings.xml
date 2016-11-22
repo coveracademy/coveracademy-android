@@ -3,7 +3,7 @@
 
     <string name="app_id">com.coveracademy</string>[
     <string name="app_name">Cover Academy</string>
-    <string name="facebook_client_id">329761620528304</string>
+    <string name="facebook_app_id">329761620528304</string>
     <string name="facebook_login_protocol_scheme">fb329761620528304</string>
 
     <string name="drawer_opened">Drawer Opened</string>
@@ -40,7 +40,6 @@
     <string name="activity_contest_hours_remaining">%1$dH</string>
     <string name="activity_contest_minutes_remaining">%1$dM</string>
     <string name="activity_contest_seconds_remaining">%1$dS</string>
-    <string name="activity_contest_contest_finished">Contest finished</string>
     <string name="activity_contest_alert_error_loading_contest">Couldn\'t load contest, please try again later!</string>
 
     <!-- Comments activity -->
@@ -51,10 +50,11 @@
     <!-- Enter contest activity -->
     <string name="activity_enter_contest_select_video">Select a video</string>
     <string name="activity_enter_contest_submit">Submit</string>
-    <string name="activity_enter_contest_uploading_video">Uploading video…</string>
     <string name="activity_enter_contest_close">Close</string>
+    <string name="activity_enter_contest_no_contests_available">No contests available now.</string>
     <string name="activity_enter_contest_video_being_uploaded">Your video is being uploaded, please wait a moment.</string>
     <string name="activity_enter_contest_video_uploaded">Video uploaded with success. Please wait while we confirm your video.</string>
+    <string name="activity_enter_contest_uploading_video">Uploading video…</string>
     <string name="activity_enter_contest_alert_error_loading">Couldn\'t load available contests, please try again later!</string>
     <string name="activity_enter_contest_alert_error_loading_selected_video">Couldn\'t load selected video, please try again later!</string>
     <string name="activity_enter_contest_alert_error_uploading_video">Couldn\'t upload video, please try again later!</string>
@@ -87,6 +87,10 @@
     <string name="select_video">Select a video</string>
     <string name="total_likes">%1$d likes</string>
     <string name="total_comments">%1$d comments</string>
+    <string name="finished">Finished</string>
+    <string name="share_video_title">Share this video!</string>
+    <string name="share_video_description">I\'m attending a music competition. Please help me win by liking this video.\n%1$s</string>
+    <string name="share_video_description_other_user">%1$s attending a music competition. Please help %2$s win by liking this video.\n%3$s</string>
     <string name="alert_error_liking_video">Couldn\'t like video, please try again later!</string>
     <string name="alert_error_becoming_user_fan">Couldn\'t became a fan, please try again later!</string>
     <string name="alert_error_removing_user_fan">Couldn\'t remove you as fan, please try again later!</string>

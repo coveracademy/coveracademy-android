@@ -7,9 +7,7 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.exception.RequestException;
 import com.coveracademy.api.service.rest.Request;
 
-import org.jdeferred.Deferred;
-
-public class RequestPromise<T> extends DefaultPromise<T> {
+public class RequestPromise<T> extends Promise<T> {
 
   private static final String DEFAULT_RESPONSE_HEADER = "X-CoverAcademy";
 

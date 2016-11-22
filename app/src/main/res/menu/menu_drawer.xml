@@ -12,6 +12,7 @@
             android:checkable="false"/>
 
     </group>
+
     <group
         android:id="@+id/extra"
         android:visible="false">
@@ -39,12 +40,6 @@
     <group
         android:id="@+id/others"
         android:visible="false">
-
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/settings"
-            android:title="@string/menu_settings"
-            android:checkable="false"/>
 
         <item
             android:id="@+id/logout"

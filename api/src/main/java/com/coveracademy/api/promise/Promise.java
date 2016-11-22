@@ -6,14 +6,13 @@ import org.jdeferred.Deferred;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
-import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
 
-public class DefaultPromise<D> extends DeferredObject<D, APIException, Progress> {
+public class Promise<D> extends DeferredObject<D, APIException, Promise.Progress> {
 
   @Override
-  public Promise<D, APIException, Progress> progress(ProgressCallback<Progress> callback) {
-    Promise<D, APIException, Progress> promise = super.progress(callback);
+  public org.jdeferred.Promise progress(ProgressCallback<Progress> callback) {
+    org.jdeferred.Promise promise = super.progress(callback);
     if(isPending()) {
       triggerProgress(Progress.PENDING);
     } else if(isRejected() || isResolved()) {
@@ -46,7 +45,7 @@ public class DefaultPromise<D> extends DeferredObject<D, APIException, Progress>
     resolve((D) null);
   }
 
-  public void resolve(DefaultPromise<D> promise) {
+  public void resolve(Promise<D> promise) {
     promise.then(new DoneCallback<D>() {
       @Override
       public void onDone(D result) {
@@ -58,5 +57,11 @@ public class DefaultPromise<D> extends DeferredObject<D, APIException, Progress>
         reject(result);
       }
     });
+  }
+
+  public enum Progress {
+
+    PENDING, REJECTED, RESOLVED, PROCESSED;
+
   }
 }

@@ -1,6 +1,7 @@
 package com.coveracademy.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.coveracademy.app.R;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestsItemView;
+import com.coveracademy.app.activity.ContestActivity;
+import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.component.ContestCountDownTimer;
 
@@ -23,8 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapter.ContestViewHolder> {
-
-  private OnContestClickListener onContestClickListener;
 
   public ContestsAdapter(Context context) {
     super(context, new ArrayList<ContestsItemView>());
@@ -45,12 +46,14 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     MediaUtils.setImage(getContext(), contest, holder.contestImageView);
 
     if(Progress.RUNNING.equals(contest.getProgress())) {
-      holder.winnersView.setVisibility(View.GONE);
       holder.contestRunningView.setVisibility(View.VISIBLE);
+      holder.contestFinishedView.setVisibility(View.GONE);
+      holder.winnersView.setVisibility(View.GONE);
       new ContestCountDownTimer(getContext(), contest, holder.itemView).start();
     } else if(Progress.FINISHED.equals(contest.getProgress())) {
-      holder.winnersView.setVisibility(View.VISIBLE);
       holder.contestRunningView.setVisibility(View.GONE);
+      holder.contestFinishedView.setVisibility(View.VISIBLE);
+      holder.winnersView.setVisibility(View.VISIBLE);
       for(int index = 0; index < contestsItemView.getWinners().size(); index++) {
         User user = contestsItemView.getWinners().get(index);
         if(index == 0) {
@@ -67,19 +70,12 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
     }
   }
 
-  public void setOnContestClickListener(OnContestClickListener onContestClickListener) {
-    this.onContestClickListener = onContestClickListener;
-  }
-
   class ContestViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.contest_name) TextView contestNameView;
     @BindView(R.id.contest_image) ImageView contestImageView;
     @BindView(R.id.contest_running) View contestRunningView;
-    @BindView(R.id.days_remaining) TextView daysRemainingView;
-    @BindView(R.id.hours_remaining) TextView hoursRemainingView;
-    @BindView(R.id.minutes_remaining) TextView minutesRemainingView;
-    @BindView(R.id.seconds_remaining) TextView secondsRemainingView;
+    @BindView(R.id.contest_finished) View contestFinishedView;
     @BindView(R.id.winners) View winnersView;
     @BindView(R.id.first_winner_picture) ImageView firstWinnerPictureView;
     @BindView(R.id.second_winner_picture) ImageView secondWinnerPictureView;
@@ -92,42 +88,34 @@ public class ContestsAdapter extends BaseAdapter<ContestsItemView, ContestsAdapt
 
     @OnClick(R.id.contest)
     void onContestClick() {
-      if(onContestClickListener != null) {
-        Contest contest = getItem(getAdapterPosition()).getContest();
-        onContestClickListener.onContestClick(contest);
-      }
+      Contest contest = getItem(getAdapterPosition()).getContest();
+      Intent intent = new Intent(getContext(), ContestActivity.class);
+      intent.putExtra(ContestActivity.CONTEST_ID, contest.getId());
+      getContext().startActivity(intent);
     }
 
     @OnClick(R.id.first_winner_picture)
     void onFirstWinnerPictureClick() {
-      if(onContestClickListener != null) {
-        User user = getItem(getAdapterPosition()).getWinners().get(0);
-        onContestClickListener.onWinnerClick(user);
-      }
+      User user = getItem(getAdapterPosition()).getWinners().get(0);
+      onWinnerClick(user);
     }
 
     @OnClick(R.id.second_winner_picture)
     void onSecondWinnerPictureClick() {
-      if(onContestClickListener != null) {
-        User user = getItem(getAdapterPosition()).getWinners().get(1);
-        onContestClickListener.onWinnerClick(user);
-      }
+      User user = getItem(getAdapterPosition()).getWinners().get(1);
+      onWinnerClick(user);
     }
 
     @OnClick(R.id.third_winner_picture)
     void onThirdWinnerPictureClick() {
-      if(onContestClickListener != null) {
-        User user = getItem(getAdapterPosition()).getWinners().get(2);
-        onContestClickListener.onWinnerClick(user);
-      }
+      User user = getItem(getAdapterPosition()).getWinners().get(2);
+      onWinnerClick(user);
     }
-  }
 
-  public interface OnContestClickListener {
-
-    void onContestClick(Contest contest);
-
-    void onWinnerClick(User user);
-
+    private void onWinnerClick(User user) {
+      Intent intent = new Intent(getContext(), UserActivity.class);
+      intent.putExtra(UserActivity.USER_ID, user.getId());
+      getContext().startActivity(intent);
+    }
   }
 }

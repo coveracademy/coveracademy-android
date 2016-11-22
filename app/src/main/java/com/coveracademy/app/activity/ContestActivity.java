@@ -1,5 +1,6 @@
 package com.coveracademy.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
+import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.Video;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.view.VideoView;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ContestActivity extends CoverAcademyActivity {
 
@@ -39,12 +42,17 @@ public class ContestActivity extends CoverAcademyActivity {
   private ContestActivity instance;
   private RemoteService remoteService;
   private VideosAdapter videosAdapter;
+  private ContestView contestView;
 
   @BindView(R.id.root) View rootView;
   @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
   @BindView(R.id.contest_image) ImageView contestImageView;
   @BindView(R.id.contest_running) View contestRunningView;
   @BindView(R.id.contest_finished) View contestFinishedView;
+  @BindView(R.id.winners) View winnersView;
+  @BindView(R.id.first_winner_picture) ImageView firstWinnerPictureView;
+  @BindView(R.id.second_winner_picture) ImageView secondWinnerPictureView;
+  @BindView(R.id.third_winner_picture) ImageView thirdWinnerPictureView;
   @BindView(R.id.videos) RecyclerView videosView;
 
   @Override
@@ -67,6 +75,7 @@ public class ContestActivity extends CoverAcademyActivity {
     videosAdapter = new VideosAdapter(this);
     videosView.setLayoutManager(new LinearLayoutManager(this));
     videosView.setAdapter(videosAdapter);
+    videosView.setNestedScrollingEnabled(false);
   }
 
   private void setupContestView() {
@@ -78,8 +87,9 @@ public class ContestActivity extends CoverAcademyActivity {
     remoteService.getViewService().contestView(contestId).then(new DoneCallback<ContestView>() {
       @Override
       public void onDone(ContestView contestView) {
-        setupContest(contestView);
-        setupVideos(contestView);
+        instance.contestView = contestView;
+        setupContest();
+        setupVideos();
       }
     }).fail(new FailCallback<APIException>() {
       @Override
@@ -91,7 +101,7 @@ public class ContestActivity extends CoverAcademyActivity {
     });
   }
 
-  private void setupContest(ContestView contestView) {
+  private void setupContest() {
     Contest contest = contestView.getContest();
     collapsingToolbar.setTitle(contest.getName());
     MediaUtils.setImage(instance, contestView.getContest(), contestImageView);
@@ -100,12 +110,23 @@ public class ContestActivity extends CoverAcademyActivity {
       contestFinishedView.setVisibility(View.GONE);
       new ContestCountDownTimer(this, contest, rootView).start();
     } else {
-      contestFinishedView.setVisibility(View.VISIBLE);
       contestRunningView.setVisibility(View.GONE);
+      contestFinishedView.setVisibility(View.VISIBLE);
+      winnersView.setVisibility(View.VISIBLE);
+      for(int index = 0; index < contestView.getWinners().size(); index++) {
+        User user = contestView.getWinners().get(index);
+        if(index == 0) {
+          MediaUtils.setPicture(this, user, firstWinnerPictureView);
+        } else if(index == 1) {
+          MediaUtils.setPicture(this, user, secondWinnerPictureView);
+        } else {
+          MediaUtils.setPicture(this, user, thirdWinnerPictureView);
+        }
+      }
     }
   }
 
-  private void setupVideos(ContestView contestView) {
+  private void setupVideos() {
     List<VideoView> videosView = new ArrayList<>();
     for(Video video : contestView.getVideos()) {
       VideoView videoView = new VideoView();
@@ -121,5 +142,29 @@ public class ContestActivity extends CoverAcademyActivity {
       videosView.add(videoView);
     }
     videosAdapter.setItems(videosView);
+  }
+
+  @OnClick(R.id.first_winner_picture)
+  void onFirstWinnerPictureClick() {
+    User user = contestView.getWinners().get(0);
+    onWinnerClick(user);
+  }
+
+  @OnClick(R.id.second_winner_picture)
+  void onSecondWinnerPictureClick() {
+    User user = contestView.getWinners().get(1);
+    onWinnerClick(user);
+  }
+
+  @OnClick(R.id.third_winner_picture)
+  void onThirdWinnerPictureClick() {
+    User user = contestView.getWinners().get(2);
+    onWinnerClick(user);
+  }
+
+  private void onWinnerClick(User user) {
+    Intent intent = new Intent(this, UserActivity.class);
+    intent.putExtra(UserActivity.USER_ID, user.getId());
+    startActivity(intent);
   }
 }

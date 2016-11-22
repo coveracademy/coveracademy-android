@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,214 +9,234 @@
 
     <include layout="@layout/toolbar"/>
 
-    <android.support.v7.widget.CardView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-3dp"
-        android:layout_marginLeft="-3dp"
-        android:layout_marginStart="-3dp"
-        android:layout_marginRight="-3dp"
-        android:layout_marginEnd="-3dp"
-        app:cardUseCompatPadding="true"
-        app:cardPreventCornerOverlap="false"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="2dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <FrameLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
+                android:layout_marginLeft="-3dp"
+                android:layout_marginStart="-3dp"
+                android:layout_marginRight="-3dp"
+                android:layout_marginEnd="-3dp"
+                app:cardUseCompatPadding="true"
+                app:cardPreventCornerOverlap="false"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp">
 
-                <ImageView
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/background_video_color"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/content_margin_double"
-                    android:layout_gravity="end"
-                    android:gravity="center">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <com.rey.material.widget.ProgressView
-                        android:id="@+id/loading_fan"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:pv_autostart="false"
-                        app:pv_circular="true"
-                        app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
-                        app:pv_progressMode="indeterminate"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:background="@color/background_video_color"
+                            android:scaleType="centerCrop"/>
 
-                    <ImageView
-                        android:id="@+id/fan_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/no_fan"/>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/content_margin_double"
+                            android:layout_gravity="end"
+                            android:gravity="center">
+
+                            <com.rey.material.widget.ProgressView
+                                android:id="@+id/loading_fan"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                app:pv_autostart="false"
+                                app:pv_circular="true"
+                                app:pv_progressStyle="@style/Material.Drawable.CircularProgress"
+                                app:pv_progressMode="indeterminate"/>
+
+                            <ImageView
+                                android:id="@+id/fan_icon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginStart="5dp"
+                                android:src="@drawable/no_fan"/>
+
+                        </LinearLayout>
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/picture"
+                            android:layout_width="@dimen/picture_large"
+                            android:layout_height="@dimen/picture_large"
+                            android:layout_marginTop="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/no_picture"
+                            app:civ_border_color="@android:color/white"
+                            app:civ_border_width="4dp"/>
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/content_margin"
+                        android:textSize="@dimen/text_large"
+                        android:textColor="@color/primary_text"/>
+
+                    <Button
+                        style="@style/SmallButton"
+                        android:theme="@style/PrimaryButtonTheme"
+                        android:visibility="gone"
+                        android:id="@+id/become_fan"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/activity_user_become_fan"
+                        android:textAllCaps="true"/>
+
+                    <Button
+                        style="@style/SmallButton"
+                        android:theme="@style/AccentButtonTheme"
+                        android:visibility="gone"
+                        android:id="@+id/remove_fan"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/activity_user_i_am_a_fan"
+                        android:textAllCaps="true"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/content_margin"
+                        android:layout_marginLeft="@dimen/content_margin"
+                        android:layout_marginStart="@dimen/content_margin"
+                        android:layout_marginRight="@dimen/content_margin"
+                        android:layout_marginEnd="@dimen/content_margin"
+                        android:background="?android:attr/listDivider"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/content_margin"
+                        android:paddingBottom="@dimen/content_margin"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/total_videos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_large"
+                                android:textColor="@color/primary_text"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/activity_user_videos"
+                                android:textSize="@dimen/text_small"
+                                android:textColor="@color/secondary_text"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginRight="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/total_fans"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_large"
+                                android:textColor="@color/primary_text"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/activity_user_fans"
+                                android:textSize="@dimen/text_small"
+                                android:textColor="@color/secondary_text"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/total_idols"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_large"
+                                android:textColor="@color/primary_text"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/activity_user_idols"
+                                android:textSize="@dimen/text_small"
+                                android:textColor="@color/secondary_text"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/content_margin"
+                        android:layout_marginStart="@dimen/content_margin"
+                        android:layout_marginRight="@dimen/content_margin"
+                        android:layout_marginEnd="@dimen/content_margin"
+                        android:background="?android:attr/listDivider"/>
+
+                    <TextView
+                        android:id="@+id/biography"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/content_margin"
+                        android:textSize="@dimen/text_small"
+                        android:textColor="@color/secondary_text"/>
 
                 </LinearLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/picture"
-                    android:layout_width="@dimen/picture_large"
-                    android:layout_height="@dimen/picture_large"
-                    android:layout_marginTop="100dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/no_picture"
-                    app:civ_border_color="@android:color/white"
-                    app:civ_border_width="4dp"/>
+            </android.support.v7.widget.CardView>
 
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/name"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/videos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/content_margin"
-                android:textSize="@dimen/text_large"
-                android:textColor="@color/primary_text"/>
-
-            <Button
-                style="@style/SmallButton"
-                android:theme="@style/PrimaryButtonTheme"
-                android:visibility="gone"
-                android:id="@+id/become_fan"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/activity_user_become_fan"
-                android:textAllCaps="true"/>
-
-            <Button
-                style="@style/SmallButton"
-                android:theme="@style/AccentButtonTheme"
-                android:visibility="gone"
-                android:id="@+id/remove_fan"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/activity_user_i_am_a_fan"
-                android:textAllCaps="true"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/content_margin"
-                android:layout_marginLeft="@dimen/content_margin"
-                android:layout_marginStart="@dimen/content_margin"
-                android:layout_marginRight="@dimen/content_margin"
-                android:layout_marginEnd="@dimen/content_margin"
-                android:background="?android:attr/listDivider"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/content_margin"
-                android:paddingBottom="@dimen/content_margin"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/total_videos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_large"
-                        android:textColor="@color/primary_text"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/activity_user_videos"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/secondary_text"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/total_fans"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_large"
-                        android:textColor="@color/primary_text"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/activity_user_fans"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/secondary_text"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/total_idols"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_large"
-                        android:textColor="@color/primary_text"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/activity_user_idols"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/secondary_text"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/content_margin"
-                android:layout_marginStart="@dimen/content_margin"
-                android:layout_marginRight="@dimen/content_margin"
-                android:layout_marginEnd="@dimen/content_margin"
-                android:background="?android:attr/listDivider"/>
-
-            <TextView
-                android:id="@+id/biography"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/content_margin"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/secondary_text"/>
+                android:clipToPadding="false"/>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

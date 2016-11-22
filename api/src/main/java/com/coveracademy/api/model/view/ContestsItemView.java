@@ -3,13 +3,14 @@ package com.coveracademy.api.model.view;
 import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.Contest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContestsItemView {
 
   private Contest contest;
-  private List<User> winners;
   private int totalVideos;
+  private List<User> winners = new ArrayList<>();
 
   public Contest getContest() {
     return contest;

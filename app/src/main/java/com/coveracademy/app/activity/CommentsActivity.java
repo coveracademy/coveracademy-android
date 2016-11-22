@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Comment;
 import com.coveracademy.api.model.Video;
-import com.coveracademy.api.promise.Progress;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.app.R;
 import com.coveracademy.app.adapter.CommentsAdapter;
 import com.coveracademy.app.util.UIUtils;
@@ -85,10 +85,10 @@ public class CommentsActivity extends CoverAcademyActivity {
         Log.e(TAG, "Error loading comments", e);
         UIUtils.alert(rootView, e, getString(R.string.activity_comments_alert_error_loading_comments));
       }
-    }).progress(new ProgressCallback<Progress>() {
+    }).progress(new ProgressCallback<Promise.Progress>() {
       @Override
-      public void onProgress(Progress progress) {
-        if(progress.equals(Progress.PENDING)) {
+      public void onProgress(Promise.Progress progress) {
+        if(progress.equals(Promise.Progress.PENDING)) {
           UIUtils.showProgressBar(instance);
         } else {
           UIUtils.hideProgressBar(instance);

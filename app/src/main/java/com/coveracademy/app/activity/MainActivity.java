@@ -26,6 +26,7 @@ import com.coveracademy.api.model.User;
 import com.coveracademy.app.R;
 import com.coveracademy.app.fragment.AuditionsFragment;
 import com.coveracademy.app.fragment.ContestsFragment;
+import com.coveracademy.app.util.ApplicationUtils;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 import com.coveracademy.app.util.component.ConfirmDialog;
@@ -134,9 +135,6 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
       case R.id.contact_us:
         onContactUsClick();
         break;
-      case R.id.settings:
-        onSettingsClick();
-        break;
       case R.id.logout:
         onLogoutClick();
         break;
@@ -145,23 +143,25 @@ public class MainActivity extends CoverAcademyActivity implements NavigationView
   }
 
   private void onEditProfileClick() {
-
+    //    drawerLayout.closeDrawer(navigationView);
+    //    Intent intent = new Intent(this, UserProfileActivity.class);
+    //    startActivityForResult(intent, Constants.REQUEST_EDIT_USER_PROFILE);
   }
 
   private void onShareClick() {
-
+    //    Intent intent = new Intent(Intent.ACTION_SEND);
+    //    intent.setType("text/plain");
+    //    intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.activity_main_share_message, ApplicationUtils.getGooglePlayUri(this)));
+    //    startActivity(Intent.createChooser(intent, getString(R.string.activity_main_share_title)));
   }
 
   private void onRateUsClick() {
-
+    startActivity(ApplicationUtils.createGooglePlayIntent(this));
   }
 
   private void onContactUsClick() {
-
-  }
-
-  private void onSettingsClick() {
-
+    //    Intent intent = new Intent(this, ContactUsActivity.class);
+    //    startActivity(intent);
   }
 
   private void onLogoutClick() {

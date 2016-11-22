@@ -37,14 +37,39 @@
                 android:scaleType="centerCrop"
                 android:alpha="0.6"/>
 
+            <LinearLayout
+                android:id="@+id/contest_finished"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/contest_name"
+                android:padding="@dimen/content_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/content_margin"
+                    android:background="@color/contest_finished"
+                    android:text="@string/finished"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_medium"/>
+
+            </LinearLayout>
+
             <TextView
                 style="@style/TextViewWithShadow"
                 android:id="@+id/contest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:padding="@dimen/content_margin_double"
-                android:textSize="@dimen/text_ultra_large"
+                android:paddingTop="@dimen/content_margin"
+                android:paddingBottom="@dimen/content_margin_double"
+                android:paddingLeft="30dp"
+                android:paddingStart="30dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:textSize="@dimen/text_mega_large"
                 android:textColor="@android:color/white"/>
 
         </RelativeLayout>
@@ -66,21 +91,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/content_margin">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/content_margin"
-                android:paddingRight="@dimen/content_margin"
-                android:gravity="center_horizontal"
-                android:text="@string/winners"
-                android:textSize="@dimen/text_medium"/>
+            android:paddingTop="@dimen/content_margin"
+            android:paddingBottom="@dimen/content_margin"
+            android:paddingLeft="@dimen/content_margin_double"
+            android:paddingStart="@dimen/content_margin_double"
+            android:paddingRight="@dimen/content_margin_double"
+            android:paddingEnd="@dimen/content_margin_double">
 
             <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/content_margin"
                 app:columnCount="3">
 
                 <de.hdodenhof.circleimageview.CircleImageView

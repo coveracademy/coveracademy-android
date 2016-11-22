@@ -17,7 +17,7 @@ import android.widget.VideoView;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.promise.Progress;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.app.R;
 import com.coveracademy.app.constant.Constants;
 import com.coveracademy.app.util.MediaUtils;
@@ -48,6 +48,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
   private Uri selectedVideoUri;
 
   @BindView(R.id.root) View rootView;
+  @BindView(R.id.no_contests) View noContestsView;
   @BindView(R.id.select_contest) View selectContestView;
   @BindView(R.id.selected_contest) View selectedContestView;
   @BindView(R.id.selected_video) View selectedVideoView;
@@ -91,13 +92,12 @@ public class EnterContestActivity extends CoverAcademyActivity {
   }
 
   private void setupContests() {
-    remoteService.getViewService().joinContestView().then(new DoneCallback<List<Contest>>() {
+    remoteService.getViewService().enterContestView().then(new DoneCallback<List<Contest>>() {
       @Override
       public void onDone(List<Contest> contests) {
         instance.contests = contests;
         if(contests.isEmpty()) {
-          // No contests available
-          // Show some view
+          setupNoContestView();
         } else if(contests.size() == 1) {
           selectedContest = contests.get(0);
           setupContestView();
@@ -112,10 +112,10 @@ public class EnterContestActivity extends CoverAcademyActivity {
         UIUtils.alert(rootView, e, getString(R.string.activity_enter_contest_alert_error_loading));
         finish();
       }
-    }).progress(new ProgressCallback<Progress>() {
+    }).progress(new ProgressCallback<Promise.Progress>() {
       @Override
-      public void onProgress(Progress progress) {
-        if(progress.equals(Progress.PENDING)) {
+      public void onProgress(Promise.Progress progress) {
+        if(progress.equals(Promise.Progress.PENDING)) {
           UIUtils.showProgressBar(instance);
         } else {
           UIUtils.hideProgressBar(instance);
@@ -124,7 +124,16 @@ public class EnterContestActivity extends CoverAcademyActivity {
     });
   }
 
+  private void setupNoContestView() {
+    noContestsView.setVisibility(View.VISIBLE);
+    selectContestView.setVisibility(View.GONE);
+    selectedContestView.setVisibility(View.GONE);
+    selectedVideoView.setVisibility(View.GONE);
+    uploadingVideoView.setVisibility(View.GONE);
+  }
+
   private void setupContestsView() {
+    noContestsView.setVisibility(View.GONE);
     selectContestView.setVisibility(View.VISIBLE);
     selectedContestView.setVisibility(View.GONE);
     selectedVideoView.setVisibility(View.GONE);
@@ -138,6 +147,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
     MediaUtils.setImage(this, selectedContest, contestImageView);
     new ContestCountDownTimer(this, selectedContest, rootView).start();
 
+    noContestsView.setVisibility(View.GONE);
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.VISIBLE);
     selectedVideoView.setVisibility(View.GONE);
@@ -147,6 +157,8 @@ public class EnterContestActivity extends CoverAcademyActivity {
   private void setupSubmitVideoView() {
     videoView.setVideoPath(selectedVideoUri.getPath());
     videoView.start();
+
+    noContestsView.setVisibility(View.GONE);
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.GONE);
     selectedVideoView.setVisibility(View.VISIBLE);
@@ -155,6 +167,8 @@ public class EnterContestActivity extends CoverAcademyActivity {
 
   private void setupUploadingVideoView() {
     videoView.suspend();
+
+    noContestsView.setVisibility(View.GONE);
     selectContestView.setVisibility(View.GONE);
     selectedContestView.setVisibility(View.GONE);
     selectedVideoView.setVisibility(View.GONE);
@@ -242,7 +256,7 @@ public class EnterContestActivity extends CoverAcademyActivity {
     });
   }
 
-  @OnClick(R.id.close)
+  @OnClick({R.id.close, R.id.finish})
   void onCloseClick() {
     finish();
   }

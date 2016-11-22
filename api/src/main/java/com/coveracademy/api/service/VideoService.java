@@ -7,7 +7,7 @@ import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Comment;
 import com.coveracademy.api.model.Contest;
 import com.coveracademy.api.model.Video;
-import com.coveracademy.api.promise.DefaultPromise;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.api.promise.RequestPromise;
 import com.coveracademy.api.service.rest.MultipartRequest;
 import com.coveracademy.api.service.rest.Request;
@@ -23,21 +23,21 @@ public class VideoService extends RestService {
     super(context, "/videos");
   }
 
-  public DefaultPromise<Void> like(Video video) {
+  public Promise<Void> like(Video video) {
     Request<Void> request = getRequestFactory().post();
     request.concatPath(video.getId());
     request.concatPath("likes");
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<Void> dislike(Video video) {
+  public Promise<Void> dislike(Video video) {
     Request<Void> request = getRequestFactory().delete();
     request.concatPath(video.getId());
     request.concatPath("likes");
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<Comment> comment(Video video, String message) {
+  public Promise<Comment> comment(Video video, String message) {
     Map<String, String> attributes = new HashMap<>();
     attributes.put("message", message);
     Request<Comment> request = getRequestFactory().post(attributes, Comment.class);
@@ -46,8 +46,8 @@ public class VideoService extends RestService {
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<String> upload(Uri videoUri, Contest contest, UploadNotificationConfig notificationConfig) {
-    DefaultPromise<String> promise = new DefaultPromise<>();
+  public Promise<String> upload(Uri videoUri, Contest contest, UploadNotificationConfig notificationConfig) {
+    Promise<String> promise = new Promise<>();
     try {
       MultipartRequest request = getRequestFactory().upload(videoUri);
       if(contest != null) {

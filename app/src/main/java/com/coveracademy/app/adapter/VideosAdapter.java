@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coveracademy.api.enumeration.Progress;
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.Video;
-import com.coveracademy.api.promise.DefaultPromise;
-import com.coveracademy.api.promise.Progress;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.api.service.UserService;
 import com.coveracademy.api.service.VideoService;
@@ -28,6 +28,7 @@ import com.coveracademy.api.model.view.VideoView;
 import com.coveracademy.app.activity.CommentsActivity;
 import com.coveracademy.app.activity.ContestActivity;
 import com.coveracademy.app.activity.UserActivity;
+import com.coveracademy.app.util.ApplicationUtils;
 import com.coveracademy.app.util.MediaUtils;
 import com.coveracademy.app.util.UIUtils;
 import com.rey.material.widget.ProgressView;
@@ -46,8 +47,14 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
 
   private static String TAG = VideosAdapter.class.getSimpleName();
 
+  private boolean showFanIcon = true;
+
   public VideosAdapter(Context context) {
     super(context, new ArrayList<VideoView>());
+  }
+
+  public void showFanIcon(boolean showFanIcon) {
+    this.showFanIcon = showFanIcon;
   }
 
   @Override
@@ -59,21 +66,55 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
   @Override
   public void onBindViewHolder(VideoViewHolder holder, int position) {
     VideoView videoView = getItem(position);
-    User user = videoView.getVideo().getUser();
     Video video = videoView.getVideo();
-    Contest contest = videoView.getVideo().getContest();
+    User user = video.getUser();
+    Contest contest = video.getContest();
 
-    MediaUtils.setPicture(getContext(), user, holder.userPictureView);
-    MediaUtils.setThumbnail(getContext(), video, holder.thumbnailView);
+    setUser(holder, user);
+    setContest(holder, contest);
+    setVideo(holder, video);
+    setVideoDate(holder, video);
+    setDescription(holder, video);
+    setComments(holder, videoView);
+    setLikes(holder, videoView);
+    setFan(holder, videoView);
+  }
 
+  private void setUser(VideoViewHolder holder, User user) {
+    if(user != null) {
+      holder.userPictureView.setVisibility(View.VISIBLE);
+      holder.userNameView.setVisibility(View.VISIBLE);
+
+      MediaUtils.setPicture(getContext(), user, holder.userPictureView);
+      holder.userNameView.setText(user.getName());
+    } else {
+      holder.userPictureView.setVisibility(View.GONE);
+      holder.userNameView.setVisibility(View.GONE);
+    }
+  }
+
+  private void setContest(VideoViewHolder holder, Contest contest) {
+    if(contest != null && contest.getProgress().equals(Progress.RUNNING)) {
+      holder.contestView.setVisibility(View.VISIBLE);
+      holder.contestSeparatorView.setVisibility(View.VISIBLE);
+    } else {
+      holder.contestView.setVisibility(View.GONE);
+      holder.contestSeparatorView.setVisibility(View.GONE);
+    }
+  }
+
+  private void setVideo(VideoViewHolder holder, Video video) {
     holder.thumbnailView.setVisibility(View.VISIBLE);
     holder.playIconView.setVisibility(View.VISIBLE);
     holder.streamView.setVisibility(View.GONE);
+    MediaUtils.setThumbnail(getContext(), video, holder.thumbnailView);
+  }
 
-    holder.userNameView.setText(user.getName());
+  private void setVideoDate(VideoViewHolder holder, Video video) {
     holder.dateView.setText(DateUtils.getRelativeTimeSpanString(video.getRegistrationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
-    holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, videoView.getTotalComments()));
+  }
 
+  private void setDescription(VideoViewHolder holder, Video video) {
     if(!TextUtils.isEmpty(video.getDescription())) {
       holder.descriptionView.setText(video.getDescription());
       holder.descriptionView.setVisibility(View.VISIBLE);
@@ -81,16 +122,10 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       holder.descriptionView.setText("");
       holder.descriptionView.setVisibility(View.GONE);
     }
-    if(contest != null) {
-      holder.inContestView.setVisibility(View.VISIBLE);
-      holder.inContestSeparatorView.setVisibility(View.VISIBLE);
-    } else {
-      holder.inContestView.setVisibility(View.GONE);
-      holder.inContestSeparatorView.setVisibility(View.GONE);
-    }
+  }
 
-    setLikes(holder, videoView);
-    setFan(holder, videoView);
+  private void setComments(VideoViewHolder holder, VideoView videoView) {
+    holder.totalCommentsView.setText(getContext().getString(R.string.total_comments, videoView.getTotalComments()));
   }
 
   private void setLikes(VideoViewHolder holder, VideoView videoView) {
@@ -103,10 +138,15 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
   }
 
   private void setFan(VideoViewHolder holder, VideoView videoView) {
-    if(!videoView.isFan()) {
-      holder.fanIconView.setImageResource(R.drawable.no_fan);
+    if(showFanIcon && videoView.getVideo().getUser() != null) {
+      if(!videoView.isFan()) {
+        holder.fanIconView.setImageResource(R.drawable.no_fan);
+      } else {
+        holder.fanIconView.setImageResource(R.drawable.fan);
+      }
+      holder.fanIconView.setVisibility(View.VISIBLE);
     } else {
-      holder.fanIconView.setImageResource(R.drawable.fan);
+      holder.fanIconView.setVisibility(View.GONE);
     }
   }
 
@@ -115,9 +155,11 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
     @BindView(R.id.root) View rootView;
     @BindView(R.id.user_picture) ImageView userPictureView;
     @BindView(R.id.user_name) TextView userNameView;
-    @BindView(R.id.in_contest) TextView inContestView;
-    @BindView(R.id.in_contest_separator) TextView inContestSeparatorView;
+
+    @BindView(R.id.contest) TextView contestView;
+    @BindView(R.id.contest_separator) TextView contestSeparatorView;
     @BindView(R.id.date) TextView dateView;
+
     @BindView(R.id.description) TextView descriptionView;
     @BindView(R.id.stream) android.widget.VideoView streamView;
     @BindView(R.id.thumbnail) ImageView thumbnailView;
@@ -139,6 +181,18 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       instance = this;
     }
 
+    private void changeLikes() {
+      VideoView videoView = getItem(getAdapterPosition());
+      videoView.setTotalLikes(videoView.getTotalLikes() + (!videoView.isLiked() ? 1 : -1));
+      videoView.setLiked(!videoView.isLiked());
+      setLikes(instance, videoView);
+    }
+
+    private void changeFan(VideoView videoView) {
+      videoView.setFan(!videoView.isFan());
+      setFan(this, videoView);
+    }
+
     @OnClick({R.id.user_name, R.id.user_picture})
     void onUserClick() {
       User user = getItem(getAdapterPosition()).getVideo().getUser();
@@ -147,7 +201,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       getContext().startActivity(intent);
     }
 
-    @OnClick(R.id.in_contest)
+    @OnClick(R.id.contest)
     void onContestClick() {
       Contest contest = getItem(getAdapterPosition()).getVideo().getContest();
       Intent intent = new Intent(getContext(), ContestActivity.class);
@@ -163,11 +217,13 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       getContext().startActivity(intent);
     }
 
-    private void changeLikes() {
-      VideoView videoView = getItem(getAdapterPosition());
-      videoView.setTotalLikes(videoView.getTotalLikes() + (!videoView.isLiked() ? 1 : -1));
-      videoView.setLiked(!videoView.isLiked());
-      setLikes(instance, videoView);
+    @OnClick(R.id.share_icon)
+    void onShareIconClick() {
+      Video video = getItem(getAdapterPosition()).getVideo();
+      Intent intent = new Intent(Intent.ACTION_SEND);
+      intent.setType("text/plain");
+      intent.putExtra(Intent.EXTRA_TEXT, getContext().getString(R.string.share_video_description, ApplicationUtils.getVideoUrl(video)));
+      getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share_video_title)));
     }
 
     @OnClick(R.id.like_icon)
@@ -176,7 +232,7 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       Video video = videoView.getVideo();
       VideoService videoService = RemoteService.getInstance(getContext()).getVideoService();
 
-      DefaultPromise<Void> promise = !videoView.isLiked() ? videoService.like(video) : videoService.dislike(video);
+      Promise<Void> promise = !videoView.isLiked() ? videoService.like(video) : videoService.dislike(video);
       changeLikes();
       promise.then(new DoneCallback<Void>() {
         @Override
@@ -190,13 +246,13 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
           UIUtils.alert(rootView, e, getContext().getString(R.string.alert_error_liking_video));
           changeLikes();
         }
-      }).progress(new ProgressCallback<Progress>() {
+      }).progress(new ProgressCallback<Promise.Progress>() {
         @Override
-        public void onProgress(Progress progress) {
-          if(Progress.PENDING.equals(progress)) {
+        public void onProgress(Promise.Progress progress) {
+          if(Promise.Progress.PENDING.equals(progress)) {
             loadingLikeProgressView.start();
             likeIconView.setEnabled(false);
-          } else if(Progress.PROCESSED.equals(progress)) {
+          } else if(Promise.Progress.PROCESSED.equals(progress)) {
             loadingLikeProgressView.stop();
             likeIconView.setEnabled(true);
           }
@@ -204,17 +260,12 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
       });
     }
 
-    private void changeFan(VideoView videoView) {
-      videoView.setFan(!videoView.isFan());
-      setFan(this, videoView);
-    }
-
     @OnClick(R.id.fan_icon)
     void onFanIconClick() {
       final VideoView videoView = getItem(getAdapterPosition());
       UserService userService = RemoteService.getInstance(getContext()).getUserService();
 
-      DefaultPromise<Void> promise = !videoView.isFan() ? userService.becomeFan(videoView.getVideo().getUser()) : userService.removeFan(videoView.getVideo().getUser());
+      Promise<Void> promise = !videoView.isFan() ? userService.becomeFan(videoView.getVideo().getUser()) : userService.removeFan(videoView.getVideo().getUser());
       changeFan(videoView);
       promise.then(new DoneCallback<Void>() {
         @Override
@@ -228,13 +279,13 @@ public class VideosAdapter extends BaseAdapter<VideoView, VideosAdapter.VideoVie
           UIUtils.alert(rootView, e, getContext().getString(R.string.alert_error_becoming_user_fan));
           changeFan(videoView);
         }
-      }).progress(new ProgressCallback<Progress>() {
+      }).progress(new ProgressCallback<Promise.Progress>() {
         @Override
-        public void onProgress(Progress progress) {
-          if(Progress.PENDING.equals(progress)) {
+        public void onProgress(Promise.Progress progress) {
+          if(Promise.Progress.PENDING.equals(progress)) {
             loadingFanProgressView.start();
             fanIconView.setEnabled(false);
-          } else if(Progress.PROCESSED.equals(progress)) {
+          } else if(Promise.Progress.PROCESSED.equals(progress)) {
             loadingFanProgressView.stop();
             fanIconView.setEnabled(true);
           }

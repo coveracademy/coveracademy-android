@@ -1,6 +1,5 @@
 package com.coveracademy.app.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,14 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.coveracademy.api.promise.Progress;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.app.R;
-import com.coveracademy.app.activity.ContestActivity;
-import com.coveracademy.app.activity.UserActivity;
 import com.coveracademy.app.adapter.ContestsAdapter;
 import com.coveracademy.api.exception.APIException;
-import com.coveracademy.api.model.Contest;
-import com.coveracademy.api.model.User;
 import com.coveracademy.api.model.view.ContestsItemView;
 import com.coveracademy.api.service.RemoteService;
 import com.coveracademy.app.util.UIUtils;
@@ -31,7 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ContestsFragment extends StatefulFragment implements ContestsAdapter.OnContestClickListener {
+public class ContestsFragment extends StatefulFragment {
 
   private static final String TAG = ContestsFragment.class.getSimpleName();
 
@@ -68,7 +63,6 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
 
   private void setupContestsAdapter() {
     contestsAdapter = new ContestsAdapter(getContext());
-    contestsAdapter.setOnContestClickListener(this);
     contestsView.setLayoutManager(new LinearLayoutManager(getContext()));
     contestsView.setAdapter(contestsAdapter);
   }
@@ -85,10 +79,10 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
         Log.e(TAG, "Error loading contests view", e);
         UIUtils.alert(rootView, e, getString(R.string.activity_main_alert_error_loading_contests));
       }
-    }).progress(new ProgressCallback<Progress>() {
+    }).progress(new ProgressCallback<Promise.Progress>() {
       @Override
-      public void onProgress(Progress progress) {
-        if(progress.equals(Progress.PENDING)) {
+      public void onProgress(Promise.Progress progress) {
+        if(progress.equals(Promise.Progress.PENDING)) {
           UIUtils.showProgressBar(getCreatedView());
         } else {
           UIUtils.hideProgressBar(getCreatedView());
@@ -96,19 +90,5 @@ public class ContestsFragment extends StatefulFragment implements ContestsAdapte
         }
       }
     });
-  }
-
-  @Override
-  public void onContestClick(Contest contest) {
-    Intent intent = new Intent(getContext(), ContestActivity.class);
-    intent.putExtra(ContestActivity.CONTEST_ID, contest.getId());
-    startActivity(intent);
-  }
-
-  @Override
-  public void onWinnerClick(User user) {
-    Intent intent = new Intent(getContext(), UserActivity.class);
-    intent.putExtra(UserActivity.USER_ID, user.getId());
-    startActivity(intent);
   }
 }

@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.coveracademy.api.exception.APIException;
 import com.coveracademy.api.model.User;
-import com.coveracademy.api.model.Video;
-import com.coveracademy.api.promise.DefaultPromise;
+import com.coveracademy.api.promise.Promise;
 import com.coveracademy.api.promise.RequestPromise;
 import com.coveracademy.api.service.rest.Request;
 import com.coveracademy.api.service.rest.json.Types;
@@ -24,8 +23,8 @@ public class UserService extends RestService {
     this.context = context;
   }
 
-  public DefaultPromise<User> authenticate(String accessToken) {
-    final DefaultPromise<User> promise = new DefaultPromise<>();
+  public Promise<User> authenticate(String accessToken) {
+    final Promise<User> promise = new Promise<>();
     Request<Map<String, String>> request = getRequestFactory().get(Types.mapOfStrings());
     request.concatPath("auth");
     request.concatPath("facebook");
@@ -52,8 +51,8 @@ public class UserService extends RestService {
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<Void> logout() {
-    final DefaultPromise<Void> promise = new DefaultPromise<>();
+  public Promise<Void> logout() {
+    final Promise<Void> promise = new Promise<>();
     Request<Void> request = getRequestFactory().post(null);
     request.concatPath("auth");
     request.concatPath("logout");
@@ -72,14 +71,14 @@ public class UserService extends RestService {
     return promise;
   }
 
-  public DefaultPromise<Void> becomeFan(User user) {
+  public Promise<Void> becomeFan(User user) {
     Request<Void> request = getRequestFactory().post();
     request.concatPath(user.getId());
     request.concatPath("fans");
     return new RequestPromise<>(request);
   }
 
-  public DefaultPromise<Void> removeFan(User user) {
+  public Promise<Void> removeFan(User user) {
     Request<Void> request = getRequestFactory().delete();
     request.concatPath(user.getId());
     request.concatPath("fans");
