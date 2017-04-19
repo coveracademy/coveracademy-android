@@ -255,9 +255,4 @@ public class EnterContestActivity extends CoverAcademyActivity {
       }
     });
   }
-
-  @OnClick({R.id.close, R.id.finish})
-  void onCloseClick() {
-    finish();
-  }
 }

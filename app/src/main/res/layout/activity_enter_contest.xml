@@ -39,16 +39,6 @@
                 android:text="@string/activity_enter_contest_no_contests_available"
                 android:textSize="@dimen/text_mega_large"/>
 
-            <Button
-                style="@style/Button"
-                android:theme="@style/PrimaryButtonTheme"
-                android:id="@+id/finish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_margin_double"
-                android:text="@string/activity_enter_contest_close"
-                android:textAllCaps="true"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -166,16 +156,6 @@
                 android:gravity="center"
                 android:text="@string/activity_enter_contest_video_being_uploaded"
                 android:textSize="@dimen/text_mega_large"/>
-
-            <Button
-                style="@style/Button"
-                android:theme="@style/PrimaryButtonTheme"
-                android:id="@+id/close"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_margin_double"
-                android:text="@string/activity_enter_contest_close"
-                android:textAllCaps="true"/>
 
         </LinearLayout>
 
